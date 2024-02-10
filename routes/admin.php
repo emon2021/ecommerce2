@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/admin/home',[AdminController::class,'index'])->name('admin.home')->middleware(['auth']);
 
 //___category route___/
-Route::middleware(['auth'])->prefix('/dashboard/categories')->group(function(){
+Route::middleware(['auth','is_admin'])->prefix('/dashboard/categories')->group(function(){
     //___category index route___/
     Route::get('/view/category',[CategoryController::class,'index'])->name('category.index');
 });
