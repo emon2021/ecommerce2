@@ -41,12 +41,14 @@
 
   @auth
       @include('layouts.admin-partial.topbar')
-      @include('layouts.admin-partial.sidebar')
-      @yield('admin-content')
-      @include('layouts.admin-partial.footer')
+      @include('layouts.admin-partial.sidebar')  
   @endauth
 
-  
+   @yield('admin-content')
+
+  @auth
+    @include('layouts.admin-partial.footer')
+  @endauth
 
  
 
