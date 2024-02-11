@@ -26,6 +26,10 @@
   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/summernote/summernote-bs4.min.css">
+   <!-------sweetalert2.css------->
+   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/sweetalert2/sweetalert2.min.css">
+   <!-------toastr.css------->
+   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/toastr/toastr.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -89,6 +93,10 @@
 <script src="{{asset('public/backend')}}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
 <script src="{{asset('public/backend')}}/plugins/summernote/summernote-bs4.min.js"></script>
+<!-------toaster.js------->
+<script src="{{asset('public/backend')}}/plugins/toastr/toastr.min.js"></script>
+<!-------sweetalert2.js------->
+<script src="{{asset('public/backend')}}/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('public/backend')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
@@ -131,7 +139,103 @@
     });
   });
 </script>
-<!---------bootstrap modal js---------->
+<!------------For Delete alert notification sweetalert2------------->
+<script>
+  $(document).ready(function() {
+      $(document).on('click', '#delete', function(e) {
+          e.preventDefault();
+
+          let link = $(this).attr('href');
+          Swal.fire({
+                      title: "Are you want to delete?",
+                      text: "",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#23D160",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "OK"
+                  }).then((result) => {
+                      if (result.isDismissed) {
+                          Swal.fire({
+                              title: "Safe Data!",
+                              text: "",
+                              icon: "warning"
+                          });
+                      }else if(result.isConfirmed){
+                        window.location.href = link;
+                      }
+                  });
+      });
+  });
+</script>
+<!------------For Logout alert notification sweetalert2------------->
+<script>
+  $(document).ready(function() {
+      $(document).on('click', '#logout', function(e) {
+          e.preventDefault();
+
+          let link = $(this).attr('href');
+          Swal.fire({
+                      title: "Are you want to logout?",
+                      text: "",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#23D160",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "OK"
+                  }).then((result) => {
+                      if (result.isDismissed) {
+                          Swal.fire({
+                              title: "Safe Data!",
+                              text: "",
+                              icon: "warning"
+                          });
+                      }else if(result.isConfirmed){
+                        window.location.href = link;
+                      }
+                  });
+      });
+  });
+</script>
+{{-- -----toaster alert message showing----- --}}
+<script>
+    @if (Session::has('message'))
+        var type = "{{ Session::get('alert-type', 'info') }}"
+        switch (type) {
+            case 'info':
+
+                toastr.options.timeOut = 10000;
+                toastr.info("{{ Session::get('message') }}");
+                var audio = new Audio('audio.mp3');
+                audio.play();
+                break;
+            case 'success':
+
+                toastr.options.timeOut = 10000;
+                toastr.success("{{ Session::get('message') }}");
+                var audio = new Audio('audio.mp3');
+                audio.play();
+
+                break;
+            case 'warning':
+
+                toastr.options.timeOut = 10000;
+                toastr.warning("{{ Session::get('message') }}");
+                var audio = new Audio('audio.mp3');
+                audio.play();
+
+                break;
+            case 'error':
+
+                toastr.options.timeOut = 10000;
+                toastr.error("{{ Session::get('message') }}");
+                var audio = new Audio('audio.mp3');
+                audio.play();
+
+                break;
+        }
+    @endif
+</script>
 
 
 </body>

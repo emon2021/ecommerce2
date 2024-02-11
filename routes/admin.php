@@ -28,4 +28,6 @@ Route::middleware(['auth', 'is_admin'])->prefix('/admin/dashboard')->group(funct
 Route::middleware(['auth', 'is_admin'])->prefix('/dashboard/categories')->group(function () {
     //___category index route___/
     Route::get('/view/category', [CategoryController::class, 'index'])->name('category.index');
+    //___category store route___/
+    Route::post('/store/category', [CategoryController::class, 'store'])->name('category.store');
 });

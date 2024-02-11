@@ -32,7 +32,7 @@
                                       <a href="#" class="h1"></a>
                                     </div>
                                     <div class="card-body">
-                                      <form action="" method="post">
+                                      <form action="{{route('category.store')}}" method="post">
                                           @csrf
                                           <label for="categoryName">Category Name</label>
                                         <div class="input-group mb-3">
@@ -108,8 +108,12 @@
                                                 <td>{{ $category->category_name }}</td>
                                                 <td>{{ $category->category_slug }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-primary">Edit</a>
-                                                    <a href="#" class="btn btn-danger">Delete</a>
+                                                    <a href="#" class="btn btn-primary">
+                                                      <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a href="#" id="delete" class="btn btn-danger">
+                                                      <i class="fas fa-trash"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
