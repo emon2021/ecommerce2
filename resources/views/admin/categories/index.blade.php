@@ -50,7 +50,7 @@
                                           <div class="col-8"></div>
                                           <!-- /.col -->
                                           <div class="col-4">
-                                            <button type="submit" class="btn btn-primary btn-block">Add</button>
+                                            <button type="submit" class="btn btn-primary btn-block">Update</button>
                                           </div>
                                           <!-- /.col -->
                                         </div>
@@ -108,7 +108,7 @@
                                                 <td>{{ $category->category_name }}</td>
                                                 <td>{{ $category->category_slug }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-primary">
+                                                    <a href="javascript:void(0)"  data-id="{{$category->id}}" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
                                                       <i class="fas fa-edit"></i>
                                                     </a>
                                                     {{-- <form action="{{route('category.destroy')}}" method="POST" >
@@ -140,4 +140,60 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+
+      {{------main modal------}}
+      <div class="modal fade" id="editModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="modal-title"> UPDATE CATEGORY</div>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="hold-transition login-page m-auto" style="width: 25rem; height: 15rem">
+                <div class="login-box">
+                    <!-- /.login-logo -->
+                    <div class="card card-outline card-primary">
+                      <div class="card-header text-center">
+                        <a href="#" class="h1"></a>
+                      </div>
+                      <div class="card-body">
+                        <form action="{{route('category.store')}}" method="post">
+                            @csrf
+                            <label for="categoryName">Category Name</label>
+                          <div class="input-group mb-3">
+                            <input type="text" id="cat_name" name="category_name" class="form-control @error('category_name') is-invalid @enderror" placeholder="Category Name">
+                            @error('category_name')
+                              <strong class="text text-danger">{{$message}}</strong>
+                            @enderror
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="fas fa-list"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <input type="hidden" id="hidden_id" name="id">
+                          <div class="row">
+                            <div class="col-8"></div>
+                            <!-- /.col -->
+                            <div class="col-4">
+                              <button type="submit" class="btn btn-primary btn-block">Add</button>
+                            </div>
+                            <!-- /.col -->
+                          </div>
+                        </form>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                  </div>
+                  <!-- /.login-box -->
+                </div>
+            </div>
+            
+      
+          </div>
+        </div>
+      </div>
+
 @endsection

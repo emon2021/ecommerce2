@@ -66,7 +66,9 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{asset('public/backend')}}/plugins/jquery/jquery.min.js"></script>
+{{-- <script src="{{asset('public/backend')}}/plugins/jquery/jquery.min.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <!-- jQuery UI 1.11.4 -->
 <script src="{{asset('public/backend')}}/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -236,7 +238,26 @@
         }
     @endif
 </script>
-
+{{-- category update with jquery, ajax --}}
+<script>
+  $(document).ready(function(){
+    //___get the clickable button__/
+    $('.edit').click(function(){
+      //____get the current id__/
+      let cat_id = $(this).data('id');
+      //____ajax get method___/
+      $.get(
+        //____URL to entering the controller__/
+        "edit/" + cat_id,
+        function (response) {
+          //___appends value to input field____/
+          $('#cat_name').val(response.category_name);
+          $('#hidden_id').val(response.id);
+        },
+      );
+    });
+  });
+</script>
 
 </body>
 </html>

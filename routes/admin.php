@@ -25,11 +25,13 @@ Route::middleware(['auth', 'is_admin'])->prefix('/admin/dashboard')->group(funct
         ->middleware(['auth', 'is_admin']);
 });
 //___category route___/
-Route::middleware(['auth', 'is_admin'])->prefix('/dashboard/categories')->group(function () {
+Route::middleware(['auth', 'is_admin'])->prefix('/category')->group(function () {
     //___category.index.route___/
-    Route::get('/index/category', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('/index', [CategoryController::class, 'index'])->name('category.index');
     //___category.store.route___/
-    Route::post('/store/category', [CategoryController::class, 'store'])->name('category.store');
+    Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
     //___category.destroy.route___/
-    Route::get('/destroy/category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/destroy/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+    //___category.edit.route___/
+    Route::get('/edit/{id}', [CategoryController::class, 'edit']);
 });

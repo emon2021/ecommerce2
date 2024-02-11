@@ -50,4 +50,12 @@ class CategoryController extends Controller
     return redirect()->back()->with($notification);
        
     }
+    //______category.edit______/
+    public function edit($id)
+    {
+        $category = Category::findOrfail($id);
+        return response()->json($category);
+    }
+
+
 }
