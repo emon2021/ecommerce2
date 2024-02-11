@@ -158,7 +158,7 @@
                         <a href="#" class="h1"></a>
                       </div>
                       <div class="card-body">
-                        <form action="{{route('category.store')}}" method="post">
+                        <form action="{{route('category.update')}}" method="post">
                             @csrf
                             <label for="categoryName">Category Name</label>
                           <div class="input-group mb-3">

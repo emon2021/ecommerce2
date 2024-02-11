@@ -238,7 +238,7 @@
         }
     @endif
 </script>
-{{-- category update with jquery, ajax --}}
+{{-- category data retrive for update category using jquery, ajax --}}
 <script>
   $(document).ready(function(){
     //___get the clickable button__/
