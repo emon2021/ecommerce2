@@ -111,7 +111,14 @@
                                                     <a href="#" class="btn btn-primary">
                                                       <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <a href="#" id="delete" class="btn btn-danger">
+                                                    {{-- <form action="{{route('category.destroy')}}" method="POST" >
+                                                      @csrf
+                                                      <input type="hidden" name="hidden" value="{{$category->id}}">
+                                                      <button id="delete" class="btn btn-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                      </button>
+                                                    </form> --}}
+                                                    <a href="{{route('category.destroy',$category->id)}}" id="delete" class="btn btn-danger">
                                                       <i class="fas fa-trash"></i>
                                                     </a>
                                                 </td>

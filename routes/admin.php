@@ -26,8 +26,10 @@ Route::middleware(['auth', 'is_admin'])->prefix('/admin/dashboard')->group(funct
 });
 //___category route___/
 Route::middleware(['auth', 'is_admin'])->prefix('/dashboard/categories')->group(function () {
-    //___category index route___/
-    Route::get('/view/category', [CategoryController::class, 'index'])->name('category.index');
-    //___category store route___/
+    //___category.index.route___/
+    Route::get('/index/category', [CategoryController::class, 'index'])->name('category.index');
+    //___category.store.route___/
     Route::post('/store/category', [CategoryController::class, 'store'])->name('category.store');
+    //___category.destroy.route___/
+    Route::get('/destroy/category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 });

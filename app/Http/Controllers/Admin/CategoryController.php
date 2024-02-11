@@ -23,6 +23,7 @@ class CategoryController extends Controller
         $request->validate([
             'category_name' => 'required|unique:categories',
         ]);
+        //_____data save to category table____/
         $cat = new Category();
         $cat->category_name = $request->category_name;
         $cat->category_slug = Str::of($request->category_name)->slug('-');
@@ -31,6 +32,20 @@ class CategoryController extends Controller
        $notification = array(
         'message' => 'Category Added Successfully!',
         'alert-type' => 'success'
+    );
+    return redirect()->back()->with($notification);
+       
+    }
+    //_____category.destroy____/
+    public function destroy($id)
+    {
+        // $id = $request->hidden;
+       $category = Category::find($id);
+       $category->delete();
+        //__toaster alert notification for the controller
+       $notification = array(
+        'message' => 'Category Deleted Successfully!',
+        'alert-type' => 'warning'
     );
     return redirect()->back()->with($notification);
        
