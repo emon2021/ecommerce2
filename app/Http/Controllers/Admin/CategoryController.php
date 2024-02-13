@@ -50,10 +50,11 @@ class CategoryController extends Controller
     return redirect()->back()->with($notification);
        
     }
+    
     //______category.edit______/
     public function edit($id)
     {
-        $category = Category::findOrfail($id);
+        $category = Category::findOrfail($id); //__always use findOrfail() method for ajax.
         return response()->json($category);
     }
 

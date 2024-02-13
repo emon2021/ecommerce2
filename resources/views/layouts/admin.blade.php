@@ -238,22 +238,23 @@
         }
     @endif
 </script>
-{{-- category data retrive for update category using jquery, ajax --}}
+{{-- category update with jquery, ajax --}}
 <script>
   $(document).ready(function(){
-    //___get the clickable button__/
+    //____catch the clickable button__
     $('.edit').click(function(){
-      //____get the current id__/
-      let cat_id = $(this).data('id');
-      //____ajax get method___/
+      //____get category id from the clickable button using data-id attr__
+      let category_id = $(this).data('id');
+      //____ajax start__
       $.get(
-        //____URL to entering the controller__/
-        "edit/" + cat_id,
-        function (response) {
-          //___appends value to input field____/
+        //___get the controller url__
+        'edit/' + category_id,
+        //___get the response result__
+        function(response){
+          //___append the valu to the intput field which is getting form the controller___
           $('#cat_name').val(response.category_name);
           $('#hidden_id').val(response.id);
-        },
+        }
       );
     });
   });
