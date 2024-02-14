@@ -30,6 +30,8 @@
    <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/sweetalert2/sweetalert2.min.css">
    <!-------toastr.css------->
    <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/toastr/toastr.min.css">
+   {{--------put external css link here---------}}
+   @stack('css')
   <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -279,6 +281,8 @@
     });
   });
 </script>
+{{--------put external js link here---------}}
+@stack('script')
 
 </body>
 </html>
