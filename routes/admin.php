@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\SubCategoryController;
+use App\Models\SubCategory;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,4 +38,17 @@ Route::middleware(['auth', 'is_admin'])->prefix('/category')->group(function () 
     Route::get('/edit/{id}', [CategoryController::class, 'edit']);
     //___category.update.route___/
     Route::post('/update', [CategoryController::class, 'update'])->name('category.update');
+});
+//___sub category route___/
+Route::middleware(['auth', 'is_admin'])->prefix('/sub-category')->group(function () {
+    //___category.index.route___/
+    Route::get('/index', [SubCategoryController::class, 'index'])->name('subcategory.index');
+    //___category.store.route___/
+    Route::post('/store', [SubCategoryController::class, 'store'])->name('subcategory.store');
+    // //___category.destroy.route___/
+    // Route::get('/destroy/{id}', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
+    // //___category.edit.route___/
+    // Route::get('/edit/{id}', [SubCategoryController::class, 'edit']);
+    // //___category.update.route___/
+    // Route::post('/update', [SubCategoryController::class, 'update'])->name('subcategory.update');
 });
