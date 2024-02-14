@@ -45,10 +45,10 @@ Route::middleware(['auth', 'is_admin'])->prefix('/sub-category')->group(function
     Route::get('/index', [SubCategoryController::class, 'index'])->name('subcategory.index');
     //___category.store.route___/
     Route::post('/store', [SubCategoryController::class, 'store'])->name('subcategory.store');
-    // //___category.destroy.route___/
-    // Route::get('/destroy/{id}', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
-    // //___category.edit.route___/
-    // Route::get('/edit/{id}', [SubCategoryController::class, 'edit']);
-    // //___category.update.route___/
-    // Route::post('/update', [SubCategoryController::class, 'update'])->name('subcategory.update');
+    //___category.destroy.route___/
+    Route::get('/destroy/{id}', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
+    //___category.edit.route___/
+    Route::get('/edit/{id}', [SubCategoryController::class, 'edit']);
+    //___category.update.route___/
+    Route::post('/update', [SubCategoryController::class, 'update'])->name('subcategory.update');
 });

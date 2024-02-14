@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function index()
     {
         $data['cat'] = Category::all();
-        return view('admin.categories.index',$data);
+        return view('admin.categories.index', $data);
     }
 
     //_____category.store ___/
@@ -29,28 +29,26 @@ class CategoryController extends Controller
         $cat->category_slug = Str::of($request->category_name)->slug('-');
         $cat->save();
         //__toaster alert notification for the controller
-       $notification = array(
-        'message' => 'Category Added Successfully!',
-        'alert-type' => 'success'
-    );
-    return redirect()->back()->with($notification);
-       
+        $notification = array(
+            'message' => 'Category Added Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
     //_____category.destroy____/
     public function destroy($id)
     {
         // $id = $request->hidden;
-       $category = Category::find($id);
-       $category->delete();
+        $category = Category::find($id);
+        $category->delete();
         //__toaster alert notification for the controller
-       $notification = array(
-        'message' => 'Category Deleted Successfully!',
-        'alert-type' => 'warning'
-    );
-    return redirect()->back()->with($notification);
-       
+        $notification = array(
+            'message' => 'Category Deleted Successfully!',
+            'alert-type' => 'warning'
+        );
+        return redirect()->back()->with($notification);
     }
-    
+
     //______category.edit______/
     public function edit($id)
     {
@@ -65,20 +63,17 @@ class CategoryController extends Controller
         $request->validate([
             'category_name' => 'required|unique:categories',
         ]);
-        //_____data save to category table____/
+        //_____data update to category table____/
         $id = $request->id;
-        $cat = Category::where('id',$id)->first();
+        $cat = Category::where('id', $id)->first();
         $cat->category_name = $request->category_name;
         $cat->category_slug = Str::of($request->category_name)->slug('-');
         $cat->update();
         //__toaster alert notification for the controller
-       $notification = array(
-        'message' => 'Category Updated Successfully!',
-        'alert-type' => 'success'
-    );
-    return redirect()->back()->with($notification);
-       
+        $notification = array(
+            'message' => 'Category Updated Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
-
-
 }

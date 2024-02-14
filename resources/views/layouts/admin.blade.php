@@ -259,6 +259,26 @@
     });
   });
 </script>
+{{-- sub category update with jquery, ajax --}}
+<script>
+  $(document).ready(function(){
+    //____catch the clickable button__
+    $('.edit').click(function(){
+      //____get category id from the clickable button using data-id attr__
+      let subcategory_id = $(this).data('id');
+      //____ajax start__
+      $.get(
+        //___get the controller url__
+        'edit/' + subcategory_id,
+        //___get the response result__
+        function(response){
+          //___append the valu to the intput field which is getting form the controller___
+          $('#modal_body').html(response);
+        }
+      );
+    });
+  });
+</script>
 
 </body>
 </html>
