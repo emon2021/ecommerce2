@@ -68,7 +68,7 @@
                                                         <i class="fas fa-trash"></i>
                                                       </button>
                                                     </form> --}}
-                                                    <a href="{{route('subcategory.destroy',$sub_cat->id)}}" id="delete" class="btn btn-danger">
+                                                    <a href="{{route('subcategory.destroy',$sub_cat->id)}}" id="delete" class="btn btn-danger ">
                                                       <i class="fas fa-trash"></i>
                                                     </a>
                                                 </td>
@@ -91,6 +91,10 @@
     </div>
     <!-- /.content-wrapper -->
 
+  {{-------delete data with form-------}}
+  {{-- <form action="" id="delete_form" method="delete">
+    @csrf @method('DELETE')
+  </form> --}}
 
     {{------main modal------}}
     {{------add sub category modal-------}}
@@ -178,5 +182,9 @@
           </div>
         </div>
       </div>
+
+@push('script')
+      
+@endpush
 
 @endsection

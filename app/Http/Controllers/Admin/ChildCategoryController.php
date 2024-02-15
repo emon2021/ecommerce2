@@ -22,7 +22,7 @@ class ChildCategoryController extends Controller
                     $actionbtn = '<a href="javascript:void(0)"  data-id="{{$row->id}}" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
                 <i class="fas fa-edit"></i>
               </a>
-              <a href="#" id="delete" class="btn btn-danger">
+              <a href="'.route('childcategory.destroy',$row->id).'" id="delete_data" class="btn btn-danger">
               <i class="fas fa-trash"></i>
             </a>';
                     return $actionbtn;
@@ -33,4 +33,11 @@ class ChildCategoryController extends Controller
         }
         return view ('admin.childcategories.index');
     }
+     //_____childcategory.destroy___/
+     public function destroy($id)
+     {
+         $child = ChildCategory::find($id)->first();
+         $child->delete();
+         return response()->json('Childcategory Deleted!');
+     }
 }

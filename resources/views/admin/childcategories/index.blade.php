@@ -12,7 +12,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>SUB CATEGORY</h1>
+                        <h1>CHILD CATEGORY</h1>
                     </div>
                     {{--modal popup button--}}
                    <div class="col-sm-6">
@@ -41,7 +41,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">All sub-category list here</h3>
+                                <h3 class="card-title">All child-category list here</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -163,6 +163,10 @@
         </div>
       </div>
 
+      <form action="" id="delete_form" method="delete">
+        @csrf @method('DELETE')
+      </form>
+
 
 @push('script')
 
@@ -173,7 +177,7 @@
 <script>
     $(document).ready(function(){
       $(function(){
-        let yTable = $('#yTable').DataTable({
+        yTable = $('#yTable').DataTable({
           columnDefs:[{
             'defaultContent':'-',
             'targets':'_all'
@@ -195,7 +199,58 @@
         });
       });
     });
-  </script>
+</script>
+
+  {{------------data delete with ajax and yajra datatables------------}}
+  <script>
+    $(document).ready(function(){
+        $(document).on('click','#delete_data',function(e){
+            e.preventDefault();
+            let get_route = $(this).attr('href');
+            let set_route = $('#delete_form').attr('action',get_route);
+            // SweetAlert confirmation
+            Swal.fire({
+                title: "Are you sure you want to delete?",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#23D160",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "OK"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If confirmed, submit the form
+                    $('#delete_form').submit();
+                } else {
+                    // Otherwise, show a message
+                    Swal.fire({
+                        title: "Your Data is Safe!",
+                        text: "",
+                        icon: "info"
+                    });
+                }
+            });
+        });
+        
+        // Handle form submission
+        $('#delete_form').submit(function(e){
+            e.preventDefault();
+            let get_action_route = $(this).attr('action');
+            let serialize_data = $(this).serialize();
+            $.ajax({
+                url: get_action_route,
+                type: 'post', 
+                async: false,
+                data: serialize_data,
+                success: function(response){
+                    $('#delete_form')[0].reset();
+                    yTable.ajax.reload();
+                } 
+            });
+        });
+    });
+</script>
+
   
 @endpush
    

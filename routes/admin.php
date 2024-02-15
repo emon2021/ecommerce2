@@ -42,27 +42,27 @@ Route::middleware(['auth', 'is_admin'])->prefix('/category')->group(function () 
 });
 //___sub category route___/
 Route::middleware(['auth', 'is_admin'])->prefix('/sub-category')->group(function () {
-    //___category.index.route___/
+    //___sub category.index.route___/
     Route::get('/index', [SubCategoryController::class, 'index'])->name('subcategory.index');
-    //___category.store.route___/
+    //___sub category.store.route___/
     Route::post('/store', [SubCategoryController::class, 'store'])->name('subcategory.store');
-    //___category.destroy.route___/
+    //___sub category.destroy.route___/
     Route::get('/destroy/{id}', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
-    //___category.edit.route___/
+    //___sub category.edit.route___/
     Route::get('/edit/{id}', [SubCategoryController::class, 'edit']);
-    //___category.update.route___/
+    //___sub category.update.route___/
     Route::post('/update', [SubCategoryController::class, 'update'])->name('subcategory.update');
 });
-//___sub category route___/
+//___child category route___/
 Route::middleware(['auth', 'is_admin'])->prefix('/child-category')->group(function () {
-    //___category.index.route___/
+    //___sub category.index.route___/
     Route::get('/index', [ChildCategoryController::class, 'index'])->name('childcategory.index');
-    //___category.store.route___/
+    //___sub category.store.route___/
     // Route::post('/store', [ChildCategoryController::class, 'store'])->name('childcategory.store');
-    // //___category.destroy.route___/
-    // Route::get('/destroy/{id}', [ChildCategoryController::class, 'destroy'])->name('childcategory.destroy');
-    // //___category.edit.route___/
+    //___sub category.destroy.route___/
+    Route::delete('/destroy/{id}', [ChildCategoryController::class, 'destroy'])->name('childcategory.destroy');
+    // //___sub category.edit.route___/
     // Route::get('/edit/{id}', [ChildCategoryController::class, 'edit']);
-    // //___category.update.route___/
+    // //___sub category.update.route___/
     // Route::post('/update', [ChildCategoryController::class, 'update'])->name('childcategory.update');
 });
