@@ -86,7 +86,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <div class="hold-transition login-page m-auto" style="width: 25rem; height: 23rem">
+              <div class="hold-transition login-page m-auto" id="div_body" style="width: 25rem; height: 19rem">
                 <div class="login-box">
                     <!-- /.login-logo -->
                     <div class="card card-outline card-primary">
@@ -210,22 +210,31 @@
           ],
         });
       });
-      
+      //  here end data pushing using yajra datatables
     });
 </script>
+{{----------------show subcategory after selecting category option------------------}}
 <script>
   $(document).ready(function(){
-    //  here end data pushing using yajra datatables
+    
     $(document).on('click','.selected',function(){
+      //  adding css to form body
+        $('#div_body').css({
+          'height':'23rem'
+        });
+        //  get category_id from category option
         let get_value = $(this).val();
+        //  ajax start
         $.ajax({
           url: "{{route('sub_show.child')}}",
           type: 'get',
+          //   passing category_id for fetching subcategory under this category
           data: {
             id: get_value,
           },
+          //  success response from ChildCategoryController from fetch_sub() method
           success:function(response){
-           // $('#sub_cat').removeClass('d-none');
+           // pushing response to html #sub_cat id
             $('#sub_cat').html(response);
           },
         });

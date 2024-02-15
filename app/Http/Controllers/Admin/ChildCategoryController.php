@@ -43,6 +43,7 @@ class ChildCategoryController extends Controller
         $sub = SubCategory::select('id', 'subcategory_name')
             ->where('category_id', $id)
             ->get();
+        //  return view in another file for displaying subcategory
         return view('admin.childcategories.subcategory',compact('sub'));
     }
 
