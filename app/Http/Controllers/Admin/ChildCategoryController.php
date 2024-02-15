@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\ChildCategory;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -18,11 +20,11 @@ class ChildCategoryController extends Controller
                 ->select('child_categories.*', 'categories.category_name', 'sub_categories.subcategory_name')
                 ->get();
             return DataTables::of($data)
-                ->addColumn('action', function($row) {
+                ->addColumn('action', function ($row) {
                     $actionbtn = '<a href="javascript:void(0)"  data-id="{{$row->id}}" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
                 <i class="fas fa-edit"></i>
               </a>
-              <a href="'.route('childcategory.destroy',$row->id).'" id="delete_data" class="btn btn-danger">
+              <a href="' . route('childcategory.destroy', $row->id) . '" id="delete_data" class="btn btn-danger">
               <i class="fas fa-trash"></i>
             </a>';
                     return $actionbtn;
@@ -31,13 +33,24 @@ class ChildCategoryController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view ('admin.childcategories.index');
+        $category = Category::all();
+        return view('admin.childcategories.index', compact('category'));
     }
-     //_____childcategory.destroy___/
-     public function destroy($id)
-     {
-         $child = ChildCategory::find($id)->first();
-         $child->delete();
-         return response()->json('Childcategory Deleted!');
-     }
+    //  fetching the subcategory using ajax
+    public function fetch_sub(Request $request)
+    {
+        $id = $request->id;
+        $sub = SubCategory::select('id', 'subcategory_name')
+            ->where('category_id', $id)
+            ->get();
+        return view('admin.childcategories.subcategory',compact('sub'));
+    }
+
+    //_____childcategory.destroy___/
+    public function destroy($id)
+    {
+        $child = ChildCategory::find($id)->first();
+        $child->delete();
+        return response()->json('Childcategory Deleted!');
+    }
 }

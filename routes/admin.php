@@ -65,4 +65,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('/child-category')->group(functi
     // Route::get('/edit/{id}', [ChildCategoryController::class, 'edit']);
     // //___sub category.update.route___/
     // Route::post('/update', [ChildCategoryController::class, 'update'])->name('childcategory.update');
+    // //   subcategory showing
+    Route::get('/sub-show',[ChildCategoryController::class,'fetch_sub'])->name('sub_show.child');
+
 });

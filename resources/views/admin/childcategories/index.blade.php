@@ -86,7 +86,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <div class="hold-transition login-page m-auto" style="width: 25rem; height: 19rem">
+              <div class="hold-transition login-page m-auto" style="width: 25rem; height: 23rem">
                 <div class="login-box">
                     <!-- /.login-logo -->
                     <div class="card card-outline card-primary">
@@ -101,23 +101,28 @@
                                 <div class="input-group">
                                     <select name="category_id" class="form-control" id="">
                                         <option value="">Select Category</option>
-                                        {{-- @foreach($category as $cat)
-                                            <option value="{{$cat->id}}">{{$cat->category_name}}</option>
+                                        @foreach($category as $cat)
+                                            <option class="selected" value="{{$cat->id}}">{{$cat->category_name}}</option>
+                                          
                                         @endforeach
-                                    </select> --}}
+                                    </select>
+                                   
                                 </div>
                             </div>
+                            <div id="sub_cat">
+
+                            </div>
                             <div>
-                                <label for="subcategoryName">Sub Category Name</label>
+                                <label for="subcategoryName">Child Category Name</label>
                           <div class="input-group mb-3">
-                            <input type="text" name="subcategory_name" class="form-control @error('subcategory_name') is-invalid @enderror" placeholder="Sub Category Name">
+                            <input type="text" name="childcategory_name" class="form-control @error('childcategory_name') is-invalid @enderror" placeholder="Child Category Name">
                             
                             <div class="input-group-append">
                               <div class="input-group-text">
                                 <span class="fas fa-list"></span>
                               </div>
                             </div>
-                            @error('subcategory_name')
+                            @error('childcategory_name')
                               <strong class="text text-danger">{{$message}}</strong>
                             @enderror
                           </div>
@@ -139,8 +144,6 @@
                   <!-- /.login-box -->
                 </div>
             </div>
-            
-      
           </div>
         </div>
       </div>
@@ -176,29 +179,58 @@
     {{-- child category data showing with yajra DataTable  AJAX CODE --}}
 <script>
     $(document).ready(function(){
+      //  start ajax syntax with a function()
       $(function(){
+        //  getting the original table and replace it with yajra DataTable({json data});
         yTable = $('#yTable').DataTable({
+          //  default data for all columns
           columnDefs:[{
             'defaultContent':'-',
             'targets':'_all'
           }],
+          //  it's showing the processing message
           processing:true,
+          //  it's working on serverside
           serverSide:true,
+          //  getting the route using ajax and declare request type
           ajax:{
             url:"{{route('childcategory.index')}}",
             type:'GET',
           },
+          //  push data to all the table columns
           columns:[
+            //  this first column is defined the auto increment too column
             {data:'DT_RowIndex', name:'DT_RowIndex'},
             {data:'category_name', name:'category_name'},
             {data:'subcategory_name', name:'subcategory_name'},
             {data:'childcategory_name', name:'childcategory_name'},
             {data:'childcategory_slug', name:'childcategory_slug'},
+            //  here added orderable and searchable property to make table orderable and searchable
             {data:'action', name:'action',orderable:true,searchable:true},
           ],
         });
       });
+      
     });
+</script>
+<script>
+  $(document).ready(function(){
+    //  here end data pushing using yajra datatables
+    $(document).on('click','.selected',function(){
+        let get_value = $(this).val();
+        $.ajax({
+          url: "{{route('sub_show.child')}}",
+          type: 'get',
+          data: {
+            id: get_value,
+          },
+          success:function(response){
+           // $('#sub_cat').removeClass('d-none');
+            $('#sub_cat').html(response);
+          },
+        });
+      });
+  });
 </script>
 
   {{------------data delete with ajax and yajra datatables------------}}
