@@ -22,10 +22,10 @@ class ChildCategoryController extends Controller
                 ->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($row) {
-                    $actionbtn = '<a href="javascript:void(0)"  data-id="{{$row->id}}" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
+                    $actionbtn = '<a href="javascript:void(0)"  data-id="' . $row->id . '" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
                 <i class="fas fa-edit"></i>
               </a>
-              <a href="' . route('childcategory.destroy', $row->id) . '" id="delete_data" class="btn btn-danger">
+              <a href="' . route('childcategory.destroy',$row->id) . '" id="delete_data" class="btn btn-danger">
               <i class="fas fa-trash"></i>
             </a>';
                     return $actionbtn;
@@ -45,7 +45,7 @@ class ChildCategoryController extends Controller
             ->where('category_id', $id)
             ->get();
         //  return view in another file for displaying subcategory
-        return view('admin.childcategories.subcategory',compact('sub'));
+        return view('admin.childcategories.subcategory', compact('sub'));
     }
 
     //  childcategory.store
@@ -60,17 +60,16 @@ class ChildCategoryController extends Controller
         $child_cat->category_id = $request->category_id;
         $child_cat->subcategory_id = $request->subcategory_id;
         $child_cat->childcategory_name = $request->childcategory_name;
-        $child_cat->childcategory_slug = Str::slug($request->childcategory_name,'-');
+        $child_cat->childcategory_slug = Str::slug($request->childcategory_name, '-');
         $child_cat->save();
-        
-        return response()->json('Child Category Inserted!');
 
+        return response()->json('Child Category Inserted!');
     }
 
     //_____childcategory.destroy___/
     public function destroy($id)
     {
-        $child = ChildCategory::find($id)->first();
+        $child = ChildCategory::find($id);
         $child->delete();
         return response()->json('Childcategory Deleted!');
     }

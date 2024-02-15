@@ -217,8 +217,8 @@
             //  here added orderable and searchable property to make table orderable and searchable
             {data:'action', name:'action',orderable:true,searchable:true},
           ],
-          dom:'Bfrtip',
-          buttons:['csv','pdf'],
+          // dom:'Bfrtip',
+          // buttons:['csv','pdf'],
         });
       });
       //  here end data pushing using yajra datatables
