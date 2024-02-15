@@ -235,15 +235,22 @@
         // Handle form submission
         $('#delete_form').submit(function(e){
             e.preventDefault();
+            //  get route from action attribute
             let get_action_route = $(this).attr('action');
+            //  serialize data for delete
             let serialize_data = $(this).serialize();
+            //  ajax request giving for delete data without reload
             $.ajax({
                 url: get_action_route,
                 type: 'post', 
                 async: false,
                 data: serialize_data,
                 success: function(response){
+                  //  toastr notification showing without reload
+                  toastr.warning(response);
+                  //  data delete form reset here
                     $('#delete_form')[0].reset();
+                    // reload table using yajra datatable
                     yTable.ajax.reload();
                 } 
             });
