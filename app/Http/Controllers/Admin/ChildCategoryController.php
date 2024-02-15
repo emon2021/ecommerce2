@@ -8,6 +8,7 @@ use App\Models\ChildCategory;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
 class ChildCategoryController extends Controller
 {
@@ -45,6 +46,25 @@ class ChildCategoryController extends Controller
             ->get();
         //  return view in another file for displaying subcategory
         return view('admin.childcategories.subcategory',compact('sub'));
+    }
+
+    //  childcategory.store
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'category_id' => 'required',
+            'subcategory_id' => 'required',
+            'childcategory_name' => 'required|unique:child_categories',
+        ]);
+        $child_cat = new ChildCategory();
+        $child_cat->category_id = $request->category_id;
+        $child_cat->subcategory_id = $request->subcategory_id;
+        $child_cat->childcategory_name = $request->childcategory_name;
+        $child_cat->childcategory_slug = Str::slug($request->childcategory_name,'-');
+        $child_cat->save();
+        
+        return response()->json('Child Category Inserted!');
+
     }
 
     //_____childcategory.destroy___/

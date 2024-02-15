@@ -77,12 +77,12 @@
 
 
     {{------main modal------}}
-    {{------add sub category modal-------}}
+    {{------add Child category modal-------}}
     <div class="modal fade" id="categoryModal">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <div class="modal-title">ADD NEW SUB CATEGORY</div>
+              <div class="modal-title">ADD NEW Child CATEGORY</div>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -94,13 +94,13 @@
                         <a href="#" class="h1"></a>
                       </div>
                       <div class="card-body">
-                        <form action="" method="post">
+                        <form id="form_submit" action="{{route('childcategory.store')}}" method="post">
                             @csrf
                             <div>
                                 <label for="subCategory">Select Category</label>
                                 <div class="input-group">
                                     <select name="category_id" class="form-control" id="">
-                                        <option value="">Select Category</option>
+                                        <option id="select_cat" value="">Select Category</option>
                                         @foreach($category as $cat)
                                             <option class="selected" value="{{$cat->id}}">{{$cat->category_name}}</option>
                                           
@@ -127,11 +127,14 @@
                             @enderror
                           </div>
                             </div>
+                            <div id="errors" style="color: darkred">
+
+                            </div>
                           <div class="row">
                             <div class="col-8"></div>
                             <!-- /.col -->
                             <div class="col-4">
-                              <button type="submit" class="btn btn-primary btn-block">Add</button>
+                              <button type="submit" id="submit_btn" class="btn btn-primary btn-block">Add</button>
                             </div>
                             <!-- /.col -->
                           </div>
@@ -175,8 +178,14 @@
 
 {{--------Yajra DataTable js script link---------}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    {{-- child category data showing with yajra DataTable  AJAX CODE --}}
+<!-- Include DataTables JS -->
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<!-- Include DataTables Buttons JS -->
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    
+{{-- child category data showing with yajra DataTable  AJAX CODE --}}
 <script>
     $(document).ready(function(){
       //  start ajax syntax with a function()
@@ -208,6 +217,8 @@
             //  here added orderable and searchable property to make table orderable and searchable
             {data:'action', name:'action',orderable:true,searchable:true},
           ],
+          dom:'Bfrtip',
+          buttons:['csv','pdf'],
         });
       });
       //  here end data pushing using yajra datatables
@@ -222,6 +233,13 @@
         $('#div_body').css({
           'height':'23rem'
         });
+        //  select category
+        $('#select_cat').click(function(){
+          $('#sub_cat').addClass('d-none');
+            $('#div_body').css({
+            'height':'19rem'
+          });
+        });
         //  get category_id from category option
         let get_value = $(this).val();
         //  ajax start
@@ -234,6 +252,7 @@
           },
           //  success response from ChildCategoryController from fetch_sub() method
           success:function(response){
+            $('#sub_cat').removeClass('d-none')
            // pushing response to html #sub_cat id
             $('#sub_cat').html(response);
           },
@@ -242,8 +261,8 @@
   });
 </script>
 
-  {{------------data delete with ajax and yajra datatables------------}}
-  <script>
+{{------------data delete with ajax and yajra datatables------------}}
+<script>
     $(document).ready(function(){
         $(document).on('click','#delete_data',function(e){
             e.preventDefault();
@@ -298,8 +317,57 @@
         });
     });
 </script>
+{{----------------form submission without reload using ajax----------------}}
+<script>
+  $(document).ready(function(){
+    $(document).on('click','#submit_btn',function(){
+      // Handle form submission
+      $('#form_submit').submit(function(e){
+            e.preventDefault();
+            //  get route from action attribute
+            let get_action_route = $(this).attr('action');
+            //  serialize data for delete
+            let serialize_data = $(this).serialize();
+            //  ajax request giving for delete data without reload
+            $.ajax({
+                url: get_action_route,
+                type: 'post', 
+                async: false,
+                data: serialize_data,
+                success: function(response){
+                  //  toastr notification showing without reload
+                  toastr.success(response);
+                  //  data delete form reset here
+                    $('#form_submit')[0].reset();
+                    // reload table using yajra datatable
+                    yTable.ajax.reload();
+                    $('#select_cat').trigger('click');
+                    $('.btn-close').trigger('click');
+                },
+                error:function(xhr,status,error){
+                  var errors = xhr.responseJSON.errors;
+                $.each(errors, function(key, value) {
+                    // Display error message next to input field
+                    $('#errors').text(value[0]);
+                });
+                },
+            });
+        });
+    });
+  });
+</script>
 
   
+
+
+
+
+
+
+
+
+
+
 @endpush
    
 

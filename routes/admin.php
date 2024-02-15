@@ -58,7 +58,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('/child-category')->group(functi
     //___sub category.index.route___/
     Route::get('/index', [ChildCategoryController::class, 'index'])->name('childcategory.index');
     //___sub category.store.route___/
-    // Route::post('/store', [ChildCategoryController::class, 'store'])->name('childcategory.store');
+    Route::post('/store', [ChildCategoryController::class, 'store'])->name('childcategory.store');
     //___sub category.destroy.route___/
     Route::delete('/destroy/{id}', [ChildCategoryController::class, 'destroy'])->name('childcategory.destroy');
     // //___sub category.edit.route___/
