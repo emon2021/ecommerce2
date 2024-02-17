@@ -81,4 +81,23 @@ class ChildCategoryController extends Controller
         $data['category'] = Category::select('id','category_name')->get();
         return view('admin.childcategories.edit',$data);
     }
+    //  childcategory.update
+    public function update(Request $request)
+    {
+        
+        $validated = $request->validate([
+            'update_category_id' => 'required',
+            //'subcategory_id' => 'required',
+            'update_childcategory_name' => 'required',
+        ]);
+        $id = $request->hidden_id;
+        $child_cat = ChildCategory::findOrfail($id);
+        $child_cat->category_id = $request->update_category_id;
+        $child_cat->subcategory_id = $request->update_subcategory_id;
+        $child_cat->childcategory_name = $request->update_childcategory_name;
+        $child_cat->childcategory_slug = Str::slug($request->update_childcategory_name, '-');
+        $child_cat->update();
+
+        return response()->json('Child Category updated!');
+    }
 }

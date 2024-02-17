@@ -372,6 +372,44 @@
     });
   });
 </script>
+{{----------------form updated without reload using ajax----------------}}
+<script>
+  $(document).ready(function(){
+    $(document).on('click','#update_btn',function(){
+      // Handle form submission
+      $('#update_form').submit(function(e){
+            e.preventDefault();
+            //  get route from action attribute
+            let get_action_route = $(this).attr('action');
+            //  serialize data for delete
+            let serialize_data = $(this).serialize();
+            //  ajax request giving for delete data without reload
+            $.ajax({
+                url: get_action_route,
+                type: 'post', 
+                async: false,
+                data: serialize_data,
+                success: function(response){
+                  //  toastr notification showing without reload
+                  toastr.success(response);
+                  //  data delete form reset here
+                    $('#update_form')[0].reset();
+                    // reload table using yajra datatable
+                    yTable.ajax.reload();
+                    $('.btn-close').trigger('click');
+                },
+                error:function(xhr,status,error){
+                  var errors = xhr.responseJSON.errors;
+                $.each(errors, function(key, value) {
+                    // Display error message next to input field
+                    $('#errors_up').text(value[0]);
+                });
+                },
+            });
+        });
+    });
+  });
+</script>
   
 
 
