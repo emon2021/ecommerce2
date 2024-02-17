@@ -163,6 +163,8 @@ return [
          //____yajra dataTables___
         Yajra\DataTables\DataTablesServiceProvider::class,
         Yajra\DataTables\ButtonsServiceProvider::class,
+        //  laravel debugbar
+        Barryvdh\Debugbar\ServiceProvider::class,
 
 
         
@@ -190,6 +192,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'Datatables' => yajra\Datatables\Datatables::class,
+        //  laravel debugbar aliasses
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
     ])->toArray(),
 
 ];
