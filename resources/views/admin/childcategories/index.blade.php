@@ -96,7 +96,7 @@
                       <div class="card-body">
                         <form id="form_submit" action="{{route('childcategory.store')}}" method="post">
                             @csrf
-                            <div>
+                            <div class="">
                                 <label for="subCategory">Select Category</label>
                                 <div class="input-group">
                                     <select name="category_id" class="form-control" id="">
@@ -109,7 +109,7 @@
                                    
                                 </div>
                             </div>
-                            <div id="sub_cat">
+                            <div id="sub_cat" class="">
 
                             </div>
                             <div>
@@ -356,7 +356,22 @@
     });
   });
 </script>
-
+{{----------------retrieve data for edit using ajax----------------}}
+<script>
+  $(document).ready(function(){
+    $(document).on('click','.edit',function(){
+      $('#div_body').css({'height':'25rem'});
+      let get_id = $(this).data('id');
+      $.ajax({
+        url: 'edit/' + get_id,
+        type: 'get',
+        success: function(response){
+          $('#modal_body').html(response);
+        },
+      });
+    });
+  });
+</script>
   
 
 

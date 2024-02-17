@@ -53,7 +53,7 @@ class ChildCategoryController extends Controller
     {
         $validated = $request->validate([
             'category_id' => 'required',
-            'subcategory_id' => 'required',
+            //'subcategory_id' => 'required',
             'childcategory_name' => 'required|unique:child_categories',
         ]);
         $child_cat = new ChildCategory();
@@ -72,5 +72,13 @@ class ChildCategoryController extends Controller
         $child = ChildCategory::find($id);
         $child->delete();
         return response()->json('Childcategory Deleted!');
+    }
+    //_____childcategory.edit_____/
+    public function edit($id)
+    {
+        $data['child'] = ChildCategory::find($id);
+        $data['subcategory'] = SubCategory::select('id','subcategory_name')->get();
+        $data['category'] = Category::select('id','category_name')->get();
+        return view('admin.childcategories.edit',$data);
     }
 }

@@ -61,8 +61,8 @@ Route::middleware(['auth', 'is_admin'])->prefix('/child-category')->group(functi
     Route::post('/store', [ChildCategoryController::class, 'store'])->name('childcategory.store');
     //___sub category.destroy.route___/
     Route::delete('/destroy/{id}', [ChildCategoryController::class, 'destroy'])->name('childcategory.destroy');
-    // //___sub category.edit.route___/
-    // Route::get('/edit/{id}', [ChildCategoryController::class, 'edit']);
+    //___sub category.edit.route___/
+    Route::get('/edit/{id}', [ChildCategoryController::class, 'edit']);
     // //___sub category.update.route___/
     // Route::post('/update', [ChildCategoryController::class, 'update'])->name('childcategory.update');
     // //   subcategory showing

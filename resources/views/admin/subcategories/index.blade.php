@@ -130,7 +130,7 @@
                             <div>
                                 <label for="subcategoryName">Sub Category Name</label>
                           <div class="input-group mb-3">
-                            <input type="text" name="subcategory_name" class="form-control @error('subcategory_name') is-invalid @enderror" placeholder="Sub Category Name">
+                            <input type="text" name="subcategory_name" required class="form-control @error('subcategory_name') is-invalid @enderror" placeholder="Sub Category Name">
                             
                             <div class="input-group-append">
                               <div class="input-group-text">
