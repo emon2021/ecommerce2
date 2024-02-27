@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -67,5 +68,20 @@ Route::middleware(['auth', 'is_admin'])->prefix('/child-category')->group(functi
     Route::post('/update', [ChildCategoryController::class, 'update'])->name('childcategory.update');
     // //   subcategory showing
     Route::get('/sub-show',[ChildCategoryController::class,'fetch_sub'])->name('sub_show.child');
+
+});
+//___brands route___/
+Route::middleware(['auth', 'is_admin'])->prefix('/brand')->group(function () {
+    //___brand.index.route___/
+    Route::get('/index', [BrandController::class, 'index'])->name('brand.index');
+    //___brand.store.route___/
+    // Route::post('/store', [ChildCategoryController::class, 'store'])->name('brand.store');
+    // //___brand.destroy.route___/
+    // Route::delete('/destroy/{id}', [ChildCategoryController::class, 'destroy'])->name('brand.destroy');
+    // //___brand.edit.route___/
+    // Route::get('/edit/{id}', [ChildCategoryController::class, 'edit']);
+    // //___brand.update.route___/
+    // Route::post('/update', [ChildCategoryController::class, 'update'])->name('brand.update');
+    
 
 });

@@ -4,6 +4,16 @@
 @push('css')
 {{-----Yajra DataTable css link------}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{{-----------next and previous button custom css-----------}}
+<style>
+.paginate_button {
+  background: #0069d9;
+  color: white;
+  padding: 10px;
+  margin: 0.40rem;
+  border-radius: 0.25rem;
+}
+</style>
 @endpush
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
