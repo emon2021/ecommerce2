@@ -43,7 +43,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item @if(Request::url() == route('category.index') || Request::url() == route('subcategory.index') || Request::url() == route('childcategory.index')) menu-is-openning menu-open @endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
