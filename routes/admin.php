@@ -75,7 +75,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('/brand')->group(function () {
     //___brand.index.route___/
     Route::get('/index', [BrandController::class, 'index'])->name('brand.index');
     //___brand.store.route___/
-    // Route::post('/store', [ChildCategoryController::class, 'store'])->name('brand.store');
+    Route::post('/store', [BrandController::class, 'store'])->name('brand.store');
     // //___brand.destroy.route___/
     // Route::delete('/destroy/{id}', [ChildCategoryController::class, 'destroy'])->name('brand.destroy');
     // //___brand.edit.route___/

@@ -15,8 +15,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css"
             integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
-        {{-----dropify css cdn link-----}}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css" integrity="sha512-In/+MILhf6UMDJU4ZhDL0R0fEpsp4D3Le23m6+ujDWXwl3whwpucJG1PEmI3B07nyJx+875ccs+yX2CqQJUxUw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        {{-- ---dropify css cdn link--- --}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css"
+            integrity="sha512-In/+MILhf6UMDJU4ZhDL0R0fEpsp4D3Le23m6+ujDWXwl3whwpucJG1PEmI3B07nyJx+875ccs+yX2CqQJUxUw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
     @endpush
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -105,7 +107,8 @@
                                     <a href="#" class="h1"></a>
                                 </div>
                                 <div class="card-body">
-                                    <form id="form_submit" action="{{ route('childcategory.store') }}" method="post">
+                                    <form id="form_submit" action="{{ route('brand.store') }}" method="post"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <div>
                                             <label for="brandName">Brand Name</label>
@@ -128,9 +131,10 @@
                                             <label for="brandLogo">Brand Logo</label>
                                             <div class="input-group mb-3">
                                                 <input type="file" name="brand_logo"
-                                                    class="dropify @error('brand_logo') is-invalid @enderror" data-height="100">
+                                                    class="dropify @error('brand_logo') is-invalid @enderror"
+                                                    data-height="100">
 
-                                                
+
                                                 @error('brand_logo')
                                                     <strong class="text text-danger">{{ $message }}</strong>
                                                 @enderror
@@ -196,9 +200,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
         <!-----dropify js cdn link---->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
+            integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        {{-- child category data showing with yajra DataTable  AJAX CODE --}}
+        {{-- brand data showing with yajra DataTable  AJAX CODE --}}
         <script>
             $(document).ready(function() {
                 //  start ajax syntax with a function()
@@ -249,20 +255,52 @@
                 //  here end data pushing using yajra datatables
             });
         </script>
-    <!-----dropify script---->
-    <script>
-        $('.dropify').dropify({
-            messages:{
-                'default':'Click Here',
-                'replace':'Drag and Drop',
-                'remove':'Remove',
-                'error':'Ooops! something went wrong.',
-            }
-        });
-    </script>
+        <!-----dropify script---->
+        <script>
+            $('.dropify').dropify({
+                messages: {
+                    'default': 'Click Here',
+                    'replace': 'Drag and Drop',
+                    'remove': 'Remove',
+                    'error': 'Ooops! something went wrong.',
+                }
+            });
+        </script>
         <!-------------------custom script------------------->
         <script>
             //  form submission with ajax
+            $(document).ready(function() {
+                $(document).on('click', '#submit_btn', function() {
+                    //  handle form
+                    $(document).on('submit', '#form_submit', function(e) {
+
+                        let get_action_route = $(this).attr('action');
+                        let serialize_data = $(this).serialize();
+                        $.ajax({
+                            url: get_action_route,
+                            type: 'post',
+                            async: false,
+                            data: serialize_data,
+                            success: function(response) {
+                                //  toastr notification showing without reload
+                                toastr.success(response);
+                                //  data delete form reset here
+                                $('#form_submit')[0].reset();
+                                // reload table using yajra datatable
+                                yTable.ajax.reload();
+                                $('.btn-close').trigger('click');
+                            },
+                            error: function(xhr, status, failed) {
+                                var errors = xhr.responseJSON.errors;
+                                $.each(errors, function(key, value) {
+                                    // Display error message next to input field
+                                    $('#errors').text(value[0]);
+                                });
+                            }
+                        });
+                    });
+                });
+            });
         </script>
     @endpush
 @endsection
