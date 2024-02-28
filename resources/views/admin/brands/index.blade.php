@@ -281,16 +281,16 @@
                     $(document).on('submit', '#form_submit', function(e) {
                         e.preventDefault();
                         let get_action_route = $(this).attr('action');
+                        //  FormData is for image upload otherwise serialize work better
                         let get_data = new FormData($(this)[0]);
-                        console.log(get_data);
                         //get_data.append('_token',CSRF_TOKEN);
                         $.ajax({
                             url: get_action_route,
                             method: 'post',
                             async: false,
                             //cache: false,
-                            processData: false,
-                            contentType: false,
+                            processData: false, //  important for file upload
+                            contentType: false, //  important for file upload
                             data: get_data,
                             //dataType: 'json',
                             success: function(response) {
@@ -313,6 +313,8 @@
                     
                     });
                 });
+
+
             });
         </script>
     @endpush
