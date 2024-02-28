@@ -110,10 +110,11 @@
                                     <form id="form_submit" action="{{ route('brand.store') }}" method="post"
                                         enctype="multipart/form-data">
                                         @csrf
+                                        @method('POST')
                                         <div>
                                             <label for="brandName">Brand Name</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="brand_name"
+                                                <input type="text" id="brand_name" name="brand_name"
                                                     class="form-control @error('brand_name') is-invalid @enderror"
                                                     placeholder="Brand Name">
 
@@ -127,10 +128,11 @@
                                                 @enderror
                                             </div>
                                         </div>
+
                                         <div>
                                             <label for="brandLogo">Brand Logo</label>
                                             <div class="input-group mb-3">
-                                                <input type="file" name="brand_logo"
+                                                <input type="file" id="brand_logo" name="brand_logo"
                                                     class="dropify @error('brand_logo') is-invalid @enderror"
                                                     data-height="100">
 
@@ -140,6 +142,7 @@
                                                 @enderror
                                             </div>
                                         </div>
+
                                         <div id="errors" style="color: darkred">
 
                                         </div>
@@ -238,7 +241,10 @@
                             },
                             {
                                 data: 'brand_logo',
-                                name: 'brand_logo'
+                                name: 'brand_logo',
+                                render:function(data,type,full,meta){
+                                    return "<img src=\"" +data+"\" height=\"30\" />"
+                                }
                             },
                             //  here added orderable and searchable property to make table orderable and searchable
                             {
@@ -273,14 +279,20 @@
                 $(document).on('click', '#submit_btn', function() {
                     //  handle form
                     $(document).on('submit', '#form_submit', function(e) {
-
+                        e.preventDefault();
                         let get_action_route = $(this).attr('action');
-                        let serialize_data = $(this).serialize();
+                        let get_data = new FormData($(this)[0]);
+                        console.log(get_data);
+                        //get_data.append('_token',CSRF_TOKEN);
                         $.ajax({
                             url: get_action_route,
-                            type: 'post',
+                            method: 'post',
                             async: false,
-                            data: serialize_data,
+                            //cache: false,
+                            processData: false,
+                            contentType: false,
+                            data: get_data,
+                            //dataType: 'json',
                             success: function(response) {
                                 //  toastr notification showing without reload
                                 toastr.success(response);
@@ -298,6 +310,7 @@
                                 });
                             }
                         });
+                    
                     });
                 });
             });

@@ -36,21 +36,31 @@ class BrandController extends Controller
     }
 
     //  brand.store
-    public function store(BrandRequest $request)
+    public function store(Request $request)
     {
-        $request->validated();
+        
+        $request->validate([
+            'brand_name'=>'required|unique:brands',
+            'brand_logo'=>'required|image|max:800',
+        ]);
         
         $brand = new Brand();
         $brand->brand_name = $request->brand_name;
         $brand->brand_slug = Str::slug($request->brand_name,'-');
         //  file upload
-        $logo = $request->file('brand_logo');
-        $extension = $logo->getClientOriginalExtension();
-        $logo_name = 'public/backend/brand_logo/'.md5(uniqid()).'.'.$extension;
-        $path = 'public/backend/brand_logo/';
-        $logo->move($path,$logo_name);
-        $brand->brand_logo = $logo_name;
+        if(($request->file('brand_logo'))==true)
+        {
+            $logo = $request->file('brand_logo');
+            $extension = $logo->getClientOriginalExtension();
+            $logo_name = 'public/backend/brand_logo/'.md5(uniqid()).'.'.$extension;
+            $path = 'public/backend/brand_logo/';
+            $logo->move($path,$logo_name);
+            $brand->brand_logo = $logo_name;
+            
+        }else{
+            return response()->json('Please choose Logo!');
+        }
         $brand->save();
-        return response()->json('Brand Inserted!');
+        return response()->json('Brand Successfully Added!');
     }
 }

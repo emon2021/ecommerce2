@@ -71,7 +71,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('/child-category')->group(functi
 
 });
 //___brands route___/
-Route::middleware(['auth', 'is_admin'])->prefix('/brand')->group(function () {
+Route::middleware(['auth', 'is_admin'])->prefix('')->group(function () {
     //___brand.index.route___/
     Route::get('/index', [BrandController::class, 'index'])->name('brand.index');
     //___brand.store.route___/
