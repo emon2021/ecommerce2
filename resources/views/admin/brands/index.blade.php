@@ -242,8 +242,8 @@
                             {
                                 data: 'brand_logo',
                                 name: 'brand_logo',
-                                render:function(data,type,full,meta){
-                                    return "<img src=\"" +data+"\" height=\"30\" />"
+                                render: function(data, type, full, meta) {
+                                    return "<img src=\"" + data + "\" height=\"30\" />"
                                 }
                             },
                             //  here added orderable and searchable property to make table orderable and searchable
@@ -296,7 +296,7 @@
                             success: function(response) {
                                 //  toastr notification showing without reload
                                 toastr.success(response);
-                                //  data delete form reset here
+                                //  data added form reset here
                                 $('#form_submit')[0].reset();
                                 // reload table using yajra datatable
                                 yTable.ajax.reload();
@@ -310,10 +310,66 @@
                                 });
                             }
                         });
-                    
+
                     });
                 });
+                //  end of form submission with ajax
 
+
+                //  delete data with ajax
+                $('body').on('click', '#delete_data', function(e) {
+                    e.preventDefault();
+                    //  geting route from href attribute
+                    let get_route = $(this).attr('href');
+                    //  set route to action attribute
+                    let set_route = $('#delete_form').attr('action', get_route);
+                    // SweetAlert confirmation
+                    Swal.fire({
+                        title: "Are you sure you want to delete?",
+                        text: "",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#23D160",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // If confirmed, submit the form
+                            $('#delete_form').submit();
+                        } else {
+                            // Otherwise, show a message
+                            Swal.fire({
+                                title: "Your Data is Safe!",
+                                text: "",
+                                icon: "info"
+                            });
+                        }
+                    });
+                    // handle delete data form submission
+                    $('#delete_form').submit(function(e) {
+                        e.preventDefault();
+                        //  getting action route
+                        let get_action = $(this).attr('action');
+                        //  getting all data from the form
+                        let getData = new FormData($(this)[0]);
+                        $.ajax({
+                            url: get_action,
+                            type: 'post',
+                            async: false,
+                            processData: false,
+                            contentType: false,
+                            data: getData,
+                            success: function(response) {
+                                //  toastr notification showing without reload
+                                toastr.success(response);
+                                //  reset delete form
+                                $('#delete_form')[0].reset();
+                                //  reload data table
+                                yTable.ajax.reload();
+                            },
+                        });
+                    });
+                });
 
             });
         </script>

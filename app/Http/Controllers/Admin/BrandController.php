@@ -8,8 +8,7 @@ use App\Models\Brand;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\File;
 
 class BrandController extends Controller
 {
@@ -20,10 +19,10 @@ class BrandController extends Controller
             $brands = Brand::all();
             return DataTables::of($brands)
                 ->addColumn('action', function ($row) {
-                    $actionbtn = '<a href="javascript:void(0)"  data-id="" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
+                    $actionbtn = '<a href="javascript:void(0)"  data-id="'.$row->id.'" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
                 <i class="fas fa-edit"></i>
               </a>
-              <a href="" id="delete_data" class="btn btn-danger">
+              <a href="'.route('brand.destroy',$row->id).'" id="delete_data" class="btn btn-danger">
               <i class="fas fa-trash"></i>
             </a>';
                     return $actionbtn;
@@ -62,5 +61,16 @@ class BrandController extends Controller
         }
         $brand->save();
         return response()->json('Brand Successfully Added!');
+    }
+    //_____childcategory.destroy___/
+    public function destroy($id)
+    {
+        $brand = Brand::find($id);
+        $brand->delete();
+        //  delete image from folder
+        if(File::exists($brand->brand_logo)){
+            File::delete($brand->brand_logo);
+        }
+        return response()->json('Brand Deleted!');
     }
 }
