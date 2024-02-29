@@ -8,9 +8,9 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="index3.html" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="{{route('admin.logout')}}" id="logout" class="nav-link">Logout</a>
-      </li>
+      </li> --}}
     </ul>
 
     <!-- Right navbar links -->
