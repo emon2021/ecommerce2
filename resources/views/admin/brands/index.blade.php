@@ -170,7 +170,7 @@
 
     {{-- ----main modal---- --}}
     {{-- ---edit subcategory modal--- --}}
-    {{-- <div class="modal fade" id="editModal">
+    <div class="modal fade" id="editModal">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -184,8 +184,8 @@
       
           </div>
         </div>
-      </div> --}}
-
+      </div>
+{{------brand delete form--------}}
     <form action="" id="delete_form" method="delete">
         @csrf @method('DELETE')
     </form>
@@ -368,6 +368,22 @@
                                 yTable.ajax.reload();
                             },
                         });
+                    });
+                });
+                
+                //  edit button click event handler
+                $('body').on('click','.edit',function(e){
+                    e.preventDefault();
+                    let edit_id = $(this).data('id');
+                    $.ajax({
+                        url: 'edit/'+edit_id,
+                        type:'GET',
+                        success:function(response){
+                            $('#modal_body').html(response)
+                        },
+                        error:function(){
+                            alert('Processing Failed!');
+                        }
                     });
                 });
 

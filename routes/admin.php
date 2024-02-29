@@ -78,10 +78,10 @@ Route::middleware(['auth', 'is_admin'])->prefix('')->group(function () {
     Route::post('/store', [BrandController::class, 'store'])->name('brand.store');
     //___brand.destroy.route___/
     Route::delete('/destroy/{id}', [BrandController::class, 'destroy'])->name('brand.destroy');
-    // //___brand.edit.route___/
-    // Route::get('/edit/{id}', [BrandController::class, 'edit']);
-    // //___brand.update.route___/
-    // Route::post('/update', [BrandController::class, 'update'])->name('brand.update');
+    //___brand.edit.route___/
+    Route::get('/edit/{id}', [BrandController::class, 'edit']);
+    //___brand.update.route___/
+    Route::post('/update', [BrandController::class, 'update'])->name('brand.update');
     
 
 });

@@ -62,7 +62,8 @@ class BrandController extends Controller
         $brand->save();
         return response()->json('Brand Successfully Added!');
     }
-    //_____childcategory.destroy___/
+
+    //brand.destroy___/
     public function destroy($id)
     {
         $brand = Brand::find($id);
@@ -73,4 +74,14 @@ class BrandController extends Controller
         }
         return response()->json('Brand Deleted!');
     }
+
+    //  brand.edit
+    public function edit($id)
+    {
+        $brand = Brand::findOrfail($id);
+        return view('admin.brands.edit',compact('brand'));
+
+    }
+
+
 }
