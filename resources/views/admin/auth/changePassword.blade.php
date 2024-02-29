@@ -74,8 +74,10 @@
                         
                         if(response == 'Password Mismatched!'){
                             //  toastr notification showing without reload
-                            toastr.error(response);
+
+                            toastr.error(response); //  if password doesn't match show this notification
                         }else{
+                            //  redirecting admin.loginView route after logout
                             window.location.href = "{{route('admin.loginView')}}";
                         }
                         

@@ -43,22 +43,24 @@ class AdminController extends Controller
     //__password.changed__//
     public function change_pass(Request $request)
     {
+        //  validate user data for change passoword
         $request->validate([
             'old_pass' => 'required',
             'password' => 'required|min:8|confirmed'
         ]);
-        $old = Auth::user()->password;
-        $new = $request->old_pass;
-        if(Hash::check($new, $old))
+        $old = Auth::user()->password;  //  get old admin user password from database
+        $new = $request->old_pass;  //  get old password from the change password form
+        if(Hash::check($new, $old)) //  checking passoword matched or not
         {
-            $id = $request->hidden_id;
-            $user = User::findOrfail($id);
-            $user->password = Hash::make($request->password);
-            $user->update();
-            Auth::logout();
+
+            $id = $request->hidden_id;  //  hidden id from request form
+            $user = User::findOrfail($id);  //  find current user from database
+            $user->password = Hash::make($request->password);   //  update password
+            $user->update();    //  updated done
+            Auth::logout(); //  logout user
             return redirect()->route('admin.loginView');
         }else{
-            return response()->json('Password Mismatched!');
+            return response()->json('Password Mismatched!');    //  if password doesn't matched
         }
     }
 
