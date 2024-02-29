@@ -22,11 +22,16 @@ Route::post('/admin/login', [LoginController::class, 'login'])
 Route::middleware(['auth', 'is_admin'])->prefix('/admin/dashboard')->group(function () {
     //___if auth and is_admin is right then enter___/
     Route::get('/admin/home', [AdminController::class, 'index'])
-        ->name('admin.home')
-        ->middleware(['auth', 'is_admin']);
+        ->name('admin.home');
+    //  admin.logout
     Route::get('/admin/logout', [AdminController::class, 'logout'])
-        ->name('admin.logout')
-        ->middleware(['auth', 'is_admin']);
+        ->name('admin.logout');
+    //  admin.change.password.view
+    Route::get('/password/change/index',[AdminController::class,'changeView'])
+        ->name('admin.changeView');
+    //  admin.password.changed
+    Route::post('/password/changed',[AdminController::class,'change_pass'])
+        ->name('admin.pass_changed');
 });
 //___category route___/
 Route::middleware(['auth', 'is_admin'])->prefix('/category')->group(function () {
