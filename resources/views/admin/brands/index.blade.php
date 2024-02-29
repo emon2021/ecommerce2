@@ -172,20 +172,20 @@
     {{-- ---edit subcategory modal--- --}}
     <div class="modal fade" id="editModal">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="modal-title"> UPDATE CATEGORY</div>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title"> UPDATE CATEGORY</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modal_body">
+
+                </div>
+
+
             </div>
-            <div id="modal_body">
-                
-            </div>
-            
-      
-          </div>
         </div>
-      </div>
-{{------brand delete form--------}}
+    </div>
+    {{-- ----brand delete form------ --}}
     <form action="" id="delete_form" method="delete">
         @csrf @method('DELETE')
     </form>
@@ -370,19 +370,44 @@
                         });
                     });
                 });
-                
-                //  edit button click event handler
-                $('body').on('click','.edit',function(e){
+
+                //  fatching data for editing
+                $('body').on('click', '.edit', function(e) {
                     e.preventDefault();
                     let edit_id = $(this).data('id');
                     $.ajax({
-                        url: 'edit/'+edit_id,
-                        type:'GET',
-                        success:function(response){
+                        url: 'edit/' + edit_id,
+                        type: 'GET',
+                        success: function(response) {
                             $('#modal_body').html(response)
                         },
-                        error:function(){
+                        error: function() {
                             alert('Processing Failed!');
+                        }
+                    });
+                });
+                //  update brand data using ajax request
+                $('body').on('submit', '#update_form', function(e) {
+                    e.preventDefault();
+                    //  getting currento route for submitting form
+                    let get_update_route = $(this).attr('action');
+                    //  serialize brand data using 'new FormData()'...
+                    let updateForm = new FormData($(this)[0]);
+                    $.ajax({
+                        url: get_update_route,
+                        method: 'post',
+                        async: false,
+                        processData: false,
+                        contentType: false,
+                        data: updateForm,
+                        success: function(response) {
+                            //  toastr notification showing without reload
+                            toastr.success(response);
+                            //  data added form reset here
+                            $('#update_form')[0].reset();
+                            // reload table using yajra datatable
+                            yTable.ajax.reload();
+                            $('.btn-close').trigger('click');
                         }
                     });
                 });

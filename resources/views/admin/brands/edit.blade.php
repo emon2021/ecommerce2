@@ -22,14 +22,14 @@
                   <div>
                       <label for="brandName">Brand Name</label>
                 <div class="input-group mb-3">
-                  <input type="text" name="update_brand" value="{{$brand->brand_name}}" class="form-control @error('update_brand') is-invalid @enderror" placeholder="Child Category Name">
+                  <input type="text" name="brand_name" value="{{$brand->brand_name}}" class="form-control @error('brand_name') is-invalid @enderror" placeholder="Child Category Name">
                   
                   <div class="input-group-append">
                     <div class="input-group-text">
                       <span class="fas fa-list"></span>
                     </div>
                   </div>
-                  @error('update_brand')
+                  @error('brand_name')
                     <strong class="text text-danger">{{$message}}</strong>
                   @enderror
                 </div>

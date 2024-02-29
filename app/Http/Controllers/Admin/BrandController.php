@@ -83,5 +83,55 @@ class BrandController extends Controller
 
     }
 
+    //  brand.update
+    public function update(Request $request)
+    {
+        $request->validate([
+            'brand_name' => 'required',
+            'brand_logo' => 'required|max:800',
+        ]);
+
+        //  current brand id
+        $id = $request->hidden_id;
+        //  find current editable row
+        $brand = Brand::findOrfail($id);
+        $brand->brand_name = $request->brand_name;
+        $brand->brand_slug = Str::slug($request->update_brand,'-');
+        //  file upload
+        if(($request->file('brand_logo'))==true)
+        {
+            if(File::exists($brand->brand_logo))
+            {
+                //  delete exist image at first
+                File::delete($brand->brand_logo);
+
+                //  then insert with new image
+                $logo = $request->file('brand_logo');
+                //  getting image original extension
+                $extension = $logo->getClientOriginalExtension();
+                //  make image name
+                $logo_name = 'public/backend/brand_logo/'.md5(uniqid()).'.'.$extension;
+                //  image uploading path
+                $path = 'public/backend/brand_logo/';
+                //   image upload here
+                $logo->move($path,$logo_name);
+                $brand->brand_logo = $logo_name;
+            }else{
+                //  if image doesn't exist
+                $logo = $request->file('brand_logo');
+                $extension = $logo->getClientOriginalExtension();
+                $logo_name = 'public/backend/brand_logo/'.md5(uniqid()).'.'.$extension;
+                $path = 'public/backend/brand_logo/';
+                $logo->move($path,$logo_name);
+                $brand->brand_logo = $logo_name;
+            }
+            
+        }else{
+            return response()->json('Please choose Logo!');
+        }
+        $brand->update();
+        return response()->json('Brand Successfully updated!');
+    }
+
 
 }
