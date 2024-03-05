@@ -96,6 +96,6 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
         //___seo.index.route___/
         Route::get('/index', [SettingsController::class, 'seo'])->name('seo.index');
         //___seo.update.route___/
-        Route::post('/update', [BrandController::class, 'update'])->name('seo.update');
+        Route::post('/update/{id}', [SettingsController::class, 'update'])->name('seo.update');
     });
 });

@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <form action="{{route('seo.update')}}" method="post">
+                <form action="{{route('seo.update',$seo->id)}}" method="post">
                     @csrf
                     <div class="card">
                         <div class="card-header bg-info">
@@ -50,6 +50,8 @@
                                         {{$seo->meta_tag}}
                                     </textarea>
                                 </div>
+                                <small>Example:example1,example2,example3</small>
+                                    <div><br></div>
                             </div>
 
                             <div>
@@ -70,6 +72,7 @@
                                     
                                 </div>
                                     <small>Example:example1,example2,example3</small>
+                                    <div><br></div>
                             </div>
 
                             <div>

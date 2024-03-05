@@ -88,7 +88,7 @@
             </ul>
           </li>
           {{---------settings--------}}
-          <li class="nav-item "> 
+          <li class="nav-item @if(Request::url() == route('seo.index') ) menu-is-openning menu-open @endif"> 
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
@@ -99,7 +99,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('seo.index')}}" class="nav-link">
+                <a href="{{route('seo.index')}}" class="nav-link @if(Request::url() == route('seo.index')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>SEO Setting</p>
                 </a>
