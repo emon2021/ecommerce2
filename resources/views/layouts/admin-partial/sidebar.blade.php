@@ -44,7 +44,7 @@
             </a>
           </li>
           {{---------categories--------}}
-          <li class="nav-item @if(Request::url() == route('category.index') || Request::url() == route('subcategory.index') || Request::url() == route('childcategory.index')) menu-is-openning menu-open @endif">
+          <li class="nav-item @if(Request::url() == route('category.index') || Request::url() == route('subcategory.index') || Request::url() == route('childcategory.index') || Request::url() == route('brand.index')) menu-is-openning menu-open @endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
@@ -55,25 +55,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link">
+                <a href="{{route('category.index')}}" class="nav-link @if(Request::url() == route('category.index')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Category</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('subcategory.index')}}" class="nav-link">
+                <a href="{{route('subcategory.index')}}" class="nav-link @if(Request::url() == route('subcategory.index')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sub Category</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('childcategory.index')}}" class="nav-link">
+                <a href="{{route('childcategory.index')}}" class="nav-link @if(Request::url() == route('childcategory.index')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Child Category</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('brand.index')}}" class="nav-link">
+                <a href="{{route('brand.index')}}" class="nav-link  @if(Request::url() == route('brand.index')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Brand</p>
                 </a>
