@@ -88,7 +88,7 @@
             </ul>
           </li>
           {{---------settings--------}}
-          <li class="nav-item @if(Request::url() == route('seo.index') ) menu-is-openning menu-open @endif"> 
+          <li class="nav-item @if(Request::url() == route('seo.index') || Request::url() == route('smtp.index') ) menu-is-openning menu-open @endif"> 
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
@@ -117,7 +117,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('brand.index')}}" class="nav-link">
+                <a href="{{route('smtp.index')}}" class="nav-link @if(Request::url() == route('smtp.index')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>SMTP Setting</p>
                 </a>

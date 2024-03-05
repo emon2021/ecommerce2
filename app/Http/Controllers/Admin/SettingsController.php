@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seo;
+use App\Models\Smtp;
 
 class SettingsController extends Controller
 {
@@ -31,6 +32,31 @@ class SettingsController extends Controller
         //__toaster alert notification for the controller
         $notification = array(
             'message' => 'SEO Settings Updated Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    //___smtp settings show___/
+    public function smtp()
+    {
+        $smtp = Smtp::all()->first();
+        return view('admin.settings.smtp',compact( 'smtp'));
+    }
+    //___seo settings update___//
+    public function smtp_update(Request $request,$id)
+    {
+        $update = Smtp::findOrfail($id);
+        $update->mailer = $request->mailer;
+        $update->host = $request->host;
+        $update->port = $request->port;
+        $update->username = $request->username;
+        $update->password = $request->password;
+        $update->update();
+
+        //__toaster alert notification for the controller
+        $notification = array(
+            'message' => 'SMTP Settings Updated Successfully!',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);

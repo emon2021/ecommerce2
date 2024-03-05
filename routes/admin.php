@@ -98,4 +98,11 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
         //___seo.update.route___/
         Route::post('/update/{id}', [SettingsController::class, 'update'])->name('seo.update');
     });
+    //___smtp route___/
+    Route::prefix('smtp')->group(function(){
+        //___smtp.index.route___/
+        Route::get('/smtp', [SettingsController::class, 'smtp'])->name('smtp.index');
+        //___smtp.update.route___/
+        Route::post('/update/{id}', [SettingsController::class, 'smtp_update'])->name('smtp.update');
+    });
 });
