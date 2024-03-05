@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Route;
 
@@ -27,10 +28,10 @@ Route::middleware(['auth', 'is_admin'])->prefix('/admin/dashboard')->group(funct
     Route::get('/admin/logout', [AdminController::class, 'logout'])
         ->name('admin.logout');
     //  admin.change.password.view
-    Route::get('/password/change/index',[AdminController::class,'changeView'])
+    Route::get('/password/change/index', [AdminController::class, 'changeView'])
         ->name('admin.changeView');
     //  admin.password.changed
-    Route::post('/password/changed',[AdminController::class,'change_pass'])
+    Route::post('/password/changed', [AdminController::class, 'change_pass'])
         ->name('admin.pass_changed');
 });
 //___category route___/
@@ -72,8 +73,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('/child-category')->group(functi
     //___sub category.update.route___/
     Route::post('/update', [ChildCategoryController::class, 'update'])->name('childcategory.update');
     // //   subcategory showing
-    Route::get('/sub-show',[ChildCategoryController::class,'fetch_sub'])->name('sub_show.child');
-
+    Route::get('/sub-show', [ChildCategoryController::class, 'fetch_sub'])->name('sub_show.child');
 });
 //___brands route___/
 Route::middleware(['auth', 'is_admin'])->prefix('')->group(function () {
@@ -87,6 +87,15 @@ Route::middleware(['auth', 'is_admin'])->prefix('')->group(function () {
     Route::get('/edit/{id}', [BrandController::class, 'edit']);
     //___brand.update.route___/
     Route::post('/update', [BrandController::class, 'update'])->name('brand.update');
-    
+});
 
+//___settings route___/
+Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
+    //___seo route___/
+    Route::prefix('seo')->group(function () {
+        //___seo.index.route___/
+        Route::get('/index', [SettingsController::class, 'seo'])->name('seo.index');
+        //___seo.update.route___/
+        Route::post('/update', [BrandController::class, 'update'])->name('seo.update');
+    });
 });

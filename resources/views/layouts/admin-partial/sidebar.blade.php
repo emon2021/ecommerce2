@@ -43,6 +43,7 @@
               </p>
             </a>
           </li>
+          {{---------categories--------}}
           <li class="nav-item @if(Request::url() == route('category.index') || Request::url() == route('subcategory.index') || Request::url() == route('childcategory.index')) menu-is-openning menu-open @endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -82,6 +83,50 @@
                 <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Collapsed Sidebar</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          {{---------settings--------}}
+          <li class="nav-item "> 
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Settings
+                <i class="fas fa-angle-left right"></i>
+                {{-- <span class="badge badge-info right">6</span> --}}
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('seo.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SEO Setting</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('subcategory.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Website Setting</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('childcategory.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Page Manage Setting</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('brand.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SMTP Setting</p>
+                </a>
+              </li>
+             
+              <li class="nav-item">
+                <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Payment Gateway</p>
                 </a>
               </li>
             </ul>
