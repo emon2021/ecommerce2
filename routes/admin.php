@@ -113,8 +113,8 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
         Route::get('/index', [PageController::class, 'index'])->name('pages.index');
         //___pages.store.route___/
         Route::get('/create', [PageController::class, 'create'])->name('pages.create');
-        // //___pages.store.route___/
-        // Route::post('/store', [PageController::class, 'store'])->name('pages.store');
+        //___pages.store.route___/
+        Route::post('/store', [PageController::class, 'store'])->name('pages.store');
         // //___pages.destroy.route___/
         // Route::delete('/destroy/{id}', [PageController::class, 'destroy'])->name('pages.destroy');
         // //___pages.edit.route___/

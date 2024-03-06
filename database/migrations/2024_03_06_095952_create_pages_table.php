@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('page_name')->nullable();
             $table->string('page_slug')->nullable();
             $table->string('page_title')->nullable();
-            $table->text('page-description')->nullable();
+            $table->text('page_description')->nullable();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@
         <div class="row p-5">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <form action="" method="post">
+                <form action="{{route('pages.store')}}" method="post">
                     @csrf
                     
                     <div class="card">
@@ -15,7 +15,7 @@
                             <div class="">
                                 <label for="forPosition">Page Position:</label>
                                 <div class="input-group mb-3">
-                                    <select name="page_position" id="" class="form-control">
+                                    <select name="page_position" id="" class="form-control @error('page_position') is-invalid @enderror">
                                         <option selected>Select  a page position...</option>
                                         <option value="1">Line One</option>
                                         <option value="2">Line Two</option>
@@ -28,12 +28,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                @error('page_position')
+                                    <strong class="text-danger">{{ $message }}</strong>
+                                @enderror
                             </div>
 
                             <div class="">
                                 <label for="forPosition">Page Name:</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" name="page_name" placeholder="Write Page Name" class="form-control">
+                                    <input type="text" name="page_name" placeholder="Write Page Name" class="form-control @error('page_name') is-invalid @enderror">
 
                                     <div class="input-group-append">
                                         <div class="input-group-text">
@@ -41,12 +44,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                @error('page_name')
+                                    <strong class="text-danger">{{ $message }}</strong>
+                                @enderror
                             </div>
 
                             <div class="">
                                 <label for="forPosition">Page Title:</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" name="page_title" placeholder="Write Page Title" class="form-control">
+                                    <input type="text" name="page_title" placeholder="Write Page Title" class="form-control @error('page_title') is-invalid @enderror">
                                     
                                     <div class="input-group-append">
                                         <div class="input-group-text">
@@ -54,15 +60,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                @error('page_title')
+                                    <strong class="text-danger">{{ $message }}</strong>
+                                @enderror
                             </div>
 
                             <div class="">
                                 <label for="forPosition">Page Description:</label>
                                 <div class="input-group mb-3">
-                                   <textarea name="page-description" class="form-control textarea" placeholder="What's on your mind?">
+                                   <textarea name="page_description" class="form-control textarea @error('page_description') is-invalid @enderror" placeholder="What's on your mind?">
                                     Write something about your page!
                                    </textarea>
                                 </div>
+                                @error('page_description')
+                                    <strong class="text-danger">{{ $message }}</strong>
+                                @enderror
                             </div>
 
                             <div class="b">

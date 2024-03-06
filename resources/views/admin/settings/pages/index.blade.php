@@ -54,7 +54,9 @@
                                             <tr>
                                                 <td>{{ ++$key }}</td>
                                                 <td>{{ $page->page_name }}</td>
-                                                <td>{{ $page->category_slug }}</td>
+                                                <td>{{ $page->page_title }}</td>
+                                                <td>{{ $page->page_description }}</td>
+                                                <td>{{ $page->page_position }}</td>
                                                 <td>
                                                     <a href="javascript:void(0)"  data-id="{{$page->id}}" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
                                                       <i class="fas fa-edit"></i>
