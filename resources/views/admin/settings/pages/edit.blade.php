@@ -4,7 +4,7 @@
         <div class="row p-5">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <form action="{{route('pages.store')}}" method="post">
+                <form action="{{route('pages.update',$page->id)}}" method="post">
                     @csrf
                     
                     <div class="card">

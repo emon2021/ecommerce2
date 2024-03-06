@@ -85,6 +85,25 @@ class PageController extends Controller
         $page = Page::whereId($id)->first();
         return view("admin.settings.pages.edit", compact("page"));
     }
+    //____pages.update____
+    public function update(Request $request,$id)
+    {
+        $request->validate([
+            "page_name" => 'required',   
+            "page_title" => 'required',  
+        ]);
+        //  find a record by its id and create a view with this record
+        $input = $request->all();
+        $page = Page::findOrfail($id);
+        $page->page_slug = $request->slug;
+        $page->fill($input)->save();
+        //__toaster alert notification for the controller
+        $notification = array(
+            'message' => 'Page Updated Successfully!',
+            'alert-type' => 'info'
+        );
+        return redirect()->route('pages.index')->with($notification);
+    }
 
 
     

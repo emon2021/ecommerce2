@@ -120,6 +120,6 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
         //___pages.edit.route___/
         Route::get('/edit/{id}', [PageController::class, 'edit'])->name('pages.edit');
         //___pages.update.route___/
-        Route::post('/update', [PageController::class, 'update'])->name('pages.update');
+        Route::post('/update/{id}', [PageController::class, 'update'])->name('pages.update');
     });
 });
