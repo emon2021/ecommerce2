@@ -101,7 +101,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
     });
 
     //___smtp route___/
-    Route::prefix('smtp')->group(function(){
+    Route::prefix('smtp')->group(function () {
         //___smtp.index.route___/
         Route::get('/smtp', [SettingsController::class, 'smtp'])->name('smtp.index');
         //___smtp.update.route___/
@@ -109,13 +109,17 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
     });
 
     //___pages.index.route___/
-    Route::get('/index', [PageController::class, 'index'])->name('pages.index');
-    // //___pages.store.route___/
-    // Route::post('/store', [PageController::class, 'store'])->name('pages.store');
-    // //___pages.destroy.route___/
-    // Route::delete('/destroy/{id}', [PageController::class, 'destroy'])->name('pages.destroy');
-    // //___pages.edit.route___/
-    // Route::get('/edit/{id}', [PageController::class, 'edit']);
-    // //___pages.update.route___/
-    // Route::post('/update', [PageController::class, 'update'])->name('pages.update');
+    Route::prefix('pages')->group(function () {
+        Route::get('/index', [PageController::class, 'index'])->name('pages.index');
+        //___pages.store.route___/
+        Route::get('/create', [PageController::class, 'create'])->name('pages.create');
+        // //___pages.store.route___/
+        // Route::post('/store', [PageController::class, 'store'])->name('pages.store');
+        // //___pages.destroy.route___/
+        // Route::delete('/destroy/{id}', [PageController::class, 'destroy'])->name('pages.destroy');
+        // //___pages.edit.route___/
+        // Route::get('/edit/{id}', [PageController::class, 'edit']);
+        // //___pages.update.route___/
+        // Route::post('/update', [PageController::class, 'update'])->name('pages.update');
+    });
 });

@@ -20,4 +20,9 @@ class PageController extends Controller
         $pages = Page::select('id','page_position','page_name','page_title','page-description')->get();
         return view('admin.settings.pages.index',compact('pages'));
     }
+    //____pages.create___
+    public function create()
+    {
+        return view('admin.settings.pages.create');
+    }
 }

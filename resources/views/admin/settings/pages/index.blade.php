@@ -11,8 +11,8 @@
                     </div>
                     {{--modal popup button--}}
                    <div class="col-sm-6">
-                    <a href="#" class="btn btn-primary float-end" >
-                      + &nbsp;Add
+                    <a href="{{route('pages.create')}}" class="btn btn-primary float-end" >
+                      + &nbsp;Add New Page
                     </a>
                    </div>
 

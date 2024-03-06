@@ -7,7 +7,7 @@
                 <form action="{{route('seo.update',$seo->id)}}" method="post">
                     @csrf
                     <div class="card">
-                        <div class="card-header bg-info">
+                        <div class="card-header bg-primary">
                             <h2 class="" >SEO Settings</h2>
                         </div>
                         <div class="card-body">
@@ -129,7 +129,7 @@
                             <div>
                                 
                                 <div class="input-group mb-3">
-                                    <button class=" btn btn-info">
+                                    <button class=" btn btn-primary">
                                         Update
                                     </button>
                                 </div>
