@@ -56,9 +56,22 @@ class PageController extends Controller
 
         //__toaster alert notification for the controller
         $notification = array(
-            'message' => 'SEO Settings Updated Successfully!',
+            'message' => 'Page Added Successfully!',
             'alert-type' => 'success'
         );
         return redirect()->route('pages.index')->with($notification);
+    }
+    //____pages.destroy____
+    public function destroy($id){
+         //  finding a row from the table by its id
+        $page = Page::findOrFail($id);
+        //  deleting found row from the table
+        $page->delete();
+        //__toaster alert notification for the controller
+        $notification = array(
+            'message' => 'Page Deleted Successfully!',
+            'alert-type' => 'danger'
+        );
+        return redirect()->back()->with($notification);
     }
 }
