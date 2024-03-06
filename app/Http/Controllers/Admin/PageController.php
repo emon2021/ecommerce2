@@ -12,14 +12,14 @@ class PageController extends Controller
     //___security check using middleware
     public function __construct()
     {
-        $this->middleware(['auth','is_admin']);
+        $this->middleware(['auth', 'is_admin']);
     }
 
     //____pages.index___
     public function index()
     {
-        $pages = Page::select('id','page_position','page_name','page_title','page_description')->get();
-        return view('admin.settings.pages.index',compact('pages'));
+        $pages = Page::select('id', 'page_position', 'page_name', 'page_title', 'page_description')->get();
+        return view('admin.settings.pages.index', compact('pages'));
     }
     //____pages.create___
     public function create()
@@ -30,27 +30,29 @@ class PageController extends Controller
     public function store(Request $request)
     {
         //  validation
-        $validatedData = $request->validate([
-            'page_name' => 'required|unique:pages,page_name',
-            'page_title'=> 'required',
-            'page_position'=> 'required',
-            'page_description'=> 'nullable',
-        ],
-        //  custom validation error messages.
-        [],
-        //  ____customizing attribute names__________
-        [
-           'page_name'  => "Page Name",
-           'page_title'   => "Page Title",
-           'page_position'   => "Page Position"
-       ]);
+        $validatedData = $request->validate(
+            [
+                'page_name' => 'required|unique:pages,page_name',
+                'page_title' => 'required',
+                'page_position' => 'required',
+                'page_description' => 'nullable',
+            ],
+            //  custom validation error messages.
+            [],
+            //  ____customizing attribute names__________
+            [
+                'page_name'  => "Page Name",
+                'page_title'   => "Page Title",
+                'page_position'   => "Page Position"
+            ]
+        );
 
-       //   getting all inputs
+        //   getting all inputs
         $inputs = $request->all();
         //  make object or instance of the page model
         $page = new Page();
         //  set values to the fields by calling
-        $page->page_slug = Str::slug($request->page_name,'-');
+        $page->page_slug = Str::slug($request->page_name, '-');
         //    save data in database
         $page->fill($inputs)->save();
 
@@ -62,8 +64,9 @@ class PageController extends Controller
         return redirect()->route('pages.index')->with($notification);
     }
     //____pages.destroy____
-    public function destroy($id){
-         //  finding a row from the table by its id
+    public function destroy($id)
+    {
+        //  finding a row from the table by its id
         $page = Page::findOrFail($id);
         //  deleting found row from the table
         $page->delete();
@@ -74,4 +77,15 @@ class PageController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
+    //____pages.edit____
+    public function edit($id)
+    {
+        //  find a record by its id and create a view with this record
+        $page = Page::whereId($id)->first();
+        return view("admin.settings.pages.edit", compact("page"));
+    }
+
+
+    
 }

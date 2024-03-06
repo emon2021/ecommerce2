@@ -46,9 +46,7 @@
                                         <td>{{ $page->page_description }}</td>
                                         <td>{{ $page->page_position }}</td>
                                         <td>
-                                            <a href="javascript:void(0)" data-id="{{ $page->id }}"
-                                                class="btn btn-primary edit" data-bs-target="#editModal"
-                                                data-bs-toggle="modal">
+                                            <a href="{{route('pages.edit',$page->id)}}" class="btn btn-primary edit" >
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="{{route('pages.destroy',$page->id)}}" class="btn btn-danger delete">

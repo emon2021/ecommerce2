@@ -117,9 +117,9 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
         Route::post('/store', [PageController::class, 'store'])->name('pages.store');
         //___pages.destroy.route___/
         Route::delete('/destroy/{id}', [PageController::class, 'destroy'])->name('pages.destroy');
-        // //___pages.edit.route___/
-        // Route::get('/edit/{id}', [PageController::class, 'edit']);
-        // //___pages.update.route___/
-        // Route::post('/update', [PageController::class, 'update'])->name('pages.update');
+        //___pages.edit.route___/
+        Route::get('/edit/{id}', [PageController::class, 'edit'])->name('pages.edit');
+        //___pages.update.route___/
+        Route::post('/update', [PageController::class, 'update'])->name('pages.update');
     });
 });

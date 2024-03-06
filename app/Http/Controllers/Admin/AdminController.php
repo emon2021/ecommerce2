@@ -49,8 +49,8 @@ class AdminController extends Controller
             'password' => 'required|min:8|confirmed'
         ]);
         $old = Auth::user()->password;  //  get old admin user password from database
-        $new = $request->old_pass;  //  get old password from the change password form
-        if(Hash::check($new, $old)) //  checking passoword matched or not
+        $inputPwd = $request->old_pass;  //  get old password from the change password form
+        if(Hash::check($inputPwd, $old)) //  checking passoword matched or not
         {
 
             $id = $request->hidden_id;  //  hidden id from request form
