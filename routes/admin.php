@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Route;
@@ -98,6 +99,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
         //___seo.update.route___/
         Route::post('/update/{id}', [SettingsController::class, 'update'])->name('seo.update');
     });
+
     //___smtp route___/
     Route::prefix('smtp')->group(function(){
         //___smtp.index.route___/
@@ -105,4 +107,15 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
         //___smtp.update.route___/
         Route::post('/update/{id}', [SettingsController::class, 'smtp_update'])->name('smtp.update');
     });
+
+    //___pages.index.route___/
+    Route::get('/index', [PageController::class, 'index'])->name('pages.index');
+    // //___pages.store.route___/
+    // Route::post('/store', [PageController::class, 'store'])->name('pages.store');
+    // //___pages.destroy.route___/
+    // Route::delete('/destroy/{id}', [PageController::class, 'destroy'])->name('pages.destroy');
+    // //___pages.edit.route___/
+    // Route::get('/edit/{id}', [PageController::class, 'edit']);
+    // //___pages.update.route___/
+    // Route::post('/update', [PageController::class, 'update'])->name('pages.update');
 });
