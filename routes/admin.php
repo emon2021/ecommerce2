@@ -108,6 +108,14 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
         Route::post('/update/{id}', [SettingsController::class, 'smtp_update'])->name('smtp.update');
     });
 
+    //___website settings route___/
+    Route::prefix('website/setting')->group(function () {
+        //___website.settings.index.route___/
+        Route::get('/website', [SettingsController::class, 'website_setting'])->name('website.index');
+        //___website.settings.update.route___/
+        // Route::post('/update/{id}', [SettingsController::class, 'website_update'])->name('website.update');
+    });
+
     //___pages.index.route___/
     Route::prefix('pages')->group(function () {
         Route::get('/index', [PageController::class, 'index'])->name('pages.index');

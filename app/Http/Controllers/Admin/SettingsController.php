@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 use App\Models\Seo;
 use App\Models\Smtp;
@@ -43,7 +44,7 @@ class SettingsController extends Controller
         $smtp = Smtp::all()->first();
         return view('admin.settings.smtp',compact( 'smtp'));
     }
-    //___seo settings update___//
+    //___smtp settings update___//
     public function smtp_update(Request $request,$id)
     {
         $update = Smtp::findOrfail($id);
@@ -61,4 +62,29 @@ class SettingsController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
+    //___website settings show___/
+    public function website_setting()
+    {
+        $website = Currency::all()->first();
+        return view('admin.settings.website',compact( 'website'));
+    }
+    //___seo settings update___//
+    // public function website_update(Request $request,$id)
+    // {
+    //     $update = Smtp::findOrfail($id);
+    //     $update->mailer = $request->mailer;
+    //     $update->host = $request->host;
+    //     $update->port = $request->port;
+    //     $update->username = $request->username;
+    //     $update->password = $request->password;
+    //     $update->update();
+
+    //     //__toaster alert notification for the controller
+    //     $notification = array(
+    //         'message' => 'SMTP Settings Updated Successfully!',
+    //         'alert-type' => 'success'
+    //     );
+    //     return redirect()->back()->with($notification);
+    // }
 }
