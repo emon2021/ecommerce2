@@ -37,8 +37,8 @@ return new class extends Migration
             $table->integer('cash_on_delivery')->nullable();
             $table->integer('admin_id')->nullable();
             $table->timestamps();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete( 'CASCADE' );
-            $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete( 'cascade' );
+            $table->foreign('subcategory_id')->references('id')->on('sub_categories')->onDelete('cascade');
         });
     }
 
