@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <form action="" method="post">
+                <form action="{{route('website.update',$website->id)}}" enctype="multipart/form-data" method="post">
                     @csrf
                     <div class="card">
                         <div class="card-header bg-primary">
@@ -16,8 +16,8 @@
                                 <div class="input-group mb-3">
                                     <select name="currency" class="form-control">
                                         <option value="">Select Currency</option>
-                                        <option style="font-size: 1.2rem" value="1" @if($website->currency == '1') selected @endif >Taka (৳)</option>
-                                        <option style="font-size: 1.2rem" value="2" @if($website->currency == '2') selected @endif >Doller ($)</option>
+                                        <option style="font-size: 1.2rem" value="1" @if($website->currency == 1) selected @endif >Taka (৳)</option>
+                                        <option style="font-size: 1.2rem" value="2" @if($website->currency == 2) selected @endif >Doller ($)</option>
                                     </select>
         
                                     <div class="input-group-append">

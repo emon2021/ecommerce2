@@ -113,7 +113,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
         //___website.settings.index.route___/
         Route::get('/website', [SettingsController::class, 'website_setting'])->name('website.index');
         //___website.settings.update.route___/
-        // Route::post('/update/{id}', [SettingsController::class, 'website_update'])->name('website.update');
+        Route::post('/update/{id}', [SettingsController::class, 'website_update'])->name('website.update');
     });
 
     //___pages.index.route___/
