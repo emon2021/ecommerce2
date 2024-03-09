@@ -63,6 +63,14 @@ class WareHouseController extends Controller
 
         return response()->json("Warehouse Deleted Successfully!");
     }
+
+    //________warehouse.edit_______
+    public function edit($id)
+    {
+        $warehouse = WareHouse::findOrfail($id)->first();
+
+        return view('admin.warehouse.edit',compact('warehouse'));
+    }
        
 
 }

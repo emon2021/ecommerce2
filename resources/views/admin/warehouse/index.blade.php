@@ -311,7 +311,7 @@
                 });
                 //____-/end of form submitting part____
 
-                //_____warehouse data delete request____
+                //_____warehouse data deletion ajax request____
                 $('body').on('click', '#delete_data', function(e) {
                     e.preventDefault();
                     let get_route = $(this).attr('href');
@@ -356,6 +356,20 @@
                             // reload datatable after deleting data
                             yTable.ajax.reload();
                         },
+                    });
+                });
+                //______-/warehouse data deletion ajax request end__________
+
+                //______warehouse data edition ajax request__________
+                $('body').on('click','.edit',function(e){
+                    e.preventDefault();
+                    let get_id = $(this).data('id');
+                    $.ajax({
+                        url: 'edit/' + get_id,
+                        type: 'get',
+                        success: function(response) {
+                            $('#modal_body').html(response);
+                        }
                     });
                 });
             });
