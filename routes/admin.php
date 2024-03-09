@@ -143,7 +143,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('/warehouse')->group(function ()
     Route::delete('/destroy/{id}', [WareHouseController::class, 'destroy'])->name('warehouse.destroy');
     //___warehouse.edit.route___/
     Route::get('/edit/{id}', [WareHouseController::class, 'edit']);
-    // //___warehouse.update.route___/
-    // Route::post('/update', [WareHouseController::class, 'update'])->name('warehouse.update');
+    //___warehouse.update.route___/
+    Route::post('/update/{id}', [WareHouseController::class, 'update'])->name('warehouse.update');
     
 });

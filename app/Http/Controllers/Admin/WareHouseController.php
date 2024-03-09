@@ -71,6 +71,25 @@ class WareHouseController extends Controller
 
         return view('admin.warehouse.edit',compact('warehouse'));
     }
+
+    //________warehouse.update_______
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'update_warehouse_name'=>'required|string|max:255',
+            'update_warehouse_address'=>'required|string|max:255',
+            'update_warehouse_phone'=>'required|numeric'
+         ]);
+        $warehouse = WareHouse::find($id);
+        $warehouse->warehouse_name = $request->update_warehouse_name;
+        $warehouse->warehouse_address= $request->update_warehouse_address;
+        $warehouse->warehouse_phone = $request->update_warehouse_phone;
+        $warehouse->warehouse_slug = Str::slug( $request->warehouse_name , '-');
+        
+        $warehouse->update();
+
+        return response()->json('Warehouse  Updated Successfully!');
+    }
        
 
 }

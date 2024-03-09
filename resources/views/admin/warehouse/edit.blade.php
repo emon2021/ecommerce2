@@ -7,7 +7,7 @@
               <a href="#" class="h1"></a>
             </div>
             <div class="card-body">
-              <form id="update_form" action="" method="post">
+              <form id="update_form" action="{{route('warehouse.update',$warehouse->id)}}" method="post">
                   @csrf
 
             <div>
@@ -45,6 +45,7 @@
                     </div>
                   </div>
                 </div>
+                <div><small style="color: darkred">Warehouse phone must be maximum 11 digit!</small></div>
             </div>
                   <div id="errors_up" style="color: darkred">
 

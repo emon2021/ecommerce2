@@ -192,7 +192,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title"> UPDATE WAREHOUSE</div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" id="edit_close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div id="modal_body">
 
@@ -370,6 +370,35 @@
                         success: function(response) {
                             $('#modal_body').html(response);
                         }
+                    });
+                });
+                //________-/warehouse data retrive end_____
+                $('body').on('submit','#update_form',function(e){
+                    e.preventDefault();
+                    let get_update_route = $(this).attr('action');
+                    let updateForm = new  FormData($(this)[0]) ;
+                    $.ajax({
+                       method:'post',
+                       url:get_update_route ,
+                       data:updateForm ,
+                       processData:false,
+                       contentType:false,
+                       success: function(response) {
+                            //  toastr notification showing without reload
+                            toastr.success(response);
+                            //  data delete form reset here
+                            $('#update_form')[0].reset();
+                            $('#edit_close').trigger('click');
+                            // reload table using yajra datatable
+                            yTable.ajax.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            var errors = xhr.responseJSON.errors;
+                            $.each(errors, function(key, value) {
+                                // Display error message next to input field
+                                $('#errors_up').text(value[0]);
+                            });
+                        },
                     });
                 });
             });
