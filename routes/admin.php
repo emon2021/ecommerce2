@@ -139,8 +139,8 @@ Route::middleware(['auth', 'is_admin'])->prefix('/warehouse')->group(function ()
     Route::get('/index', [WareHouseController::class, 'index'])->name('warehouse.index');
     //___warehouse.store.route___/
     Route::post('/store', [WareHouseController::class, 'store'])->name('warehouse.store');
-    // //___warehouse.destroy.route___/
-    // Route::delete('/destroy/{id}', [WareHouseController::class, 'destroy'])->name('warehouse.destroy');
+    //___warehouse.destroy.route___/
+    Route::delete('/destroy/{id}', [WareHouseController::class, 'destroy'])->name('warehouse.destroy');
     // //___warehouse.edit.route___/
     // Route::get('/edit/{id}', [WareHouseController::class, 'edit']);
     // //___warehouse.update.route___/

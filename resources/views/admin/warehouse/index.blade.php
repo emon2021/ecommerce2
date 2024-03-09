@@ -94,7 +94,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title">ADD NEW WAREHOUSE</div>
-                    <button type="button" id="btn_close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" id="btn_close" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="hold-transition login-page m-auto" id="div_body" style="width: 25rem; height: 25rem">
@@ -202,7 +203,7 @@
         </div>
     </div>
 
-    <form action="" id="delete_form" method="delete">
+    <form action="" id="delete_form" method="POST">
         @csrf @method('DELETE')
     </form>
 
@@ -278,6 +279,7 @@
         {{-- -------warehouse crud operation's ajax script-------- --}}
         <script>
             $(document).ready(function() {
+                //  form submit using ajax request
                 $('body').on('submit', '#form_submit', function(e) {
                     e.preventDefault();
                     let get_route = $(this).attr('action'); //  get form action url
@@ -306,7 +308,55 @@
                             });
                         },
                     });
+                });
+                //____-/end of form submitting part____
 
+                //_____warehouse data delete request____
+                $('body').on('click', '#delete_data', function(e) {
+                    e.preventDefault();
+                    let get_route = $(this).attr('href');
+                    let set_route = $('#delete_form').attr('action', get_route);
+                    // SweetAlert confirmation
+                    Swal.fire({
+                        title: "Are you want to Delete?",
+                        text: "",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#23D160",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // If confirmed, submit the form
+                            $('#delete_form').submit();
+                        } else {
+                            // Otherwise, show a message
+                            Swal.fire({
+                                title: "Your Data is Safe!",
+                                text: "",
+                                icon: "info"
+                            });
+                        }
+                    });
+                });
+                //_____Handle form submission to delete data___
+                $('body').on('submit','#delete_form',function(e){
+                    e.preventDefault();
+                    let get_action = $(this).attr('action');
+                    let formData = new FormData($(this)[0]);
+                    $.ajax({
+                        url : get_action,
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success:function(response){
+                            //  toastr alert to delete data
+                            toastr.success(response);
+                            // reload datatable after deleting data
+                            yTable.ajax.reload();
+                        },
+                    });
                 });
             });
         </script>

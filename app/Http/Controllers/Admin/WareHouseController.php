@@ -26,7 +26,7 @@ class WareHouseController extends Controller
                     $actionbtn = '<a href="javascript:void(0)"  data-id="' . $row->id . '" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
                 <i class="fas fa-edit"></i>
               </a>
-              <a href="' . route('childcategory.destroy',$row->id) . '" id="delete_data" class="btn btn-danger">
+              <a href="' . route('warehouse.destroy',$row->id) . '" id="delete_data" class="btn btn-danger">
               <i class="fas fa-trash"></i>
             </a>';
                     return $actionbtn;
@@ -55,6 +55,14 @@ class WareHouseController extends Controller
         return response()->json('Warehouse  Added Successfully!');
     }
 
+    //________warehouse.destroy_________
+    public function destroy($id)
+    {
+        $warehouse = WareHouse::findOrfail($id);
+        $warehouse->delete();
+
+        return response()->json("Warehouse Deleted Successfully!");
+    }
        
 
 }
