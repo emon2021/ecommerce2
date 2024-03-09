@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
 class WareHouseController extends Controller
 {
@@ -36,5 +37,24 @@ class WareHouseController extends Controller
         }
         return view('admin.warehouse.index');
     }
+
+    //___________warehouse.store__________
+    public function store(Request $request){
+       $request->validate([
+           'warehouse_name'=>'required|string|max:255|unique:ware_houses,warehouse_name',
+           'warehouse_address'=>'required|string|max:255',
+           'warehouse_phone'=>'required|numeric'
+        ]);
+
+        $get_data = $request->all();
+        $warehouse = new WareHouse();
+        $warehouse->warehouse_slug = Str::slug($request->warehouse_name,'-');
+        $warehouse->fill($get_data);
+        $warehouse->save();
+
+        return response()->json('Warehouse  Added Successfully!');
+    }
+
+       
 
 }

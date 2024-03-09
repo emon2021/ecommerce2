@@ -94,7 +94,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title">ADD NEW WAREHOUSE</div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" id="btn_close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="hold-transition login-page m-auto" id="div_body" style="width: 25rem; height: 25rem">
@@ -105,7 +105,7 @@
                                     <a href="#" class="h1"></a>
                                 </div>
                                 <div class="card-body">
-                                    <form id="form_submit" action="" method="post">
+                                    <form id="form_submit" action="{{ route('warehouse.store') }}" method="post">
                                         @csrf
 
                                         <div>
@@ -272,6 +272,42 @@
                     });
                 });
                 //  here end data pushing using yajra datatables
+            });
+        </script>
+
+        {{-- -------warehouse crud operation's ajax script-------- --}}
+        <script>
+            $(document).ready(function() {
+                $('body').on('submit', '#form_submit', function(e) {
+                    e.preventDefault();
+                    let get_route = $(this).attr('action'); //  get form action url
+                    let get_input = new FormData($(this)[0]); // create a new fromData object and pass
+                    //  ajax request sending
+                    $.ajax({
+                        type: "POST",
+                        url: get_route, // set the file location path
+                        processData: false,
+                        contentType: false,
+                        data: get_input, // pass the filled form data list to ajax
+                        success: function(response) {
+                            //  toastr notification showing without reload
+                            toastr.success(response);
+                            //  data delete form reset here
+                            $('#form_submit')[0].reset();
+                            $('#btn_close').trigger('click');
+                            // reload table using yajra datatable
+                            yTable.ajax.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            var errors = xhr.responseJSON.errors;
+                            $.each(errors, function(key, value) {
+                                // Display error message next to input field
+                                $('#errors').text(value[0]);
+                            });
+                        },
+                    });
+
+                });
             });
         </script>
     @endpush
