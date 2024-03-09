@@ -93,11 +93,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-title">ADD NEW Warehouse</div>
+                    <div class="modal-title">ADD NEW WAREHOUSE</div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="hold-transition login-page m-auto" id="div_body" style="width: 25rem; height: 19rem">
+                    <div class="hold-transition login-page m-auto" id="div_body" style="width: 25rem; height: 25rem">
                         <div class="login-box">
                             <!-- /.login-logo -->
                             <div class="card card-outline card-primary">
@@ -111,16 +111,16 @@
                                         <div>
                                             <label for="warehouseName">Warehouse Name</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="childcategory_name"
-                                                    class="form-control @error('childcategory_name') is-invalid @enderror"
-                                                    placeholder="Child Category Name">
+                                                <input type="text" name="warehouse_name"
+                                                    class="form-control @error('warehouse_name') is-invalid @enderror"
+                                                    placeholder="warehouse name">
 
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
                                                         <span class="fas fa-list"></span>
                                                     </div>
                                                 </div>
-                                                @error('childcategory_name')
+                                                @error('warehouse_name')
                                                     <strong class="text text-danger">{{ $message }}</strong>
                                                 @enderror
                                             </div>
@@ -128,16 +128,16 @@
                                         <div>
                                             <label for="warehouseName">Warehouse Address</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="childcategory_name"
-                                                    class="form-control @error('childcategory_name') is-invalid @enderror"
-                                                    placeholder="Child Category Name">
+                                                <input type="text" name="warehouse_address"
+                                                    class="form-control @error('warehouse_address') is-invalid @enderror"
+                                                    placeholder="warehouse address">
 
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
                                                         <span class="fas fa-list"></span>
                                                     </div>
                                                 </div>
-                                                @error('childcategory_name')
+                                                @error('warehouse_address')
                                                     <strong class="text text-danger">{{ $message }}</strong>
                                                 @enderror
                                             </div>
@@ -145,16 +145,16 @@
                                         <div>
                                             <label for="warehouseName">Warehouse Phone</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="childcategory_name"
-                                                    class="form-control @error('childcategory_name') is-invalid @enderror"
-                                                    placeholder="Child Category Name">
+                                                <input type="number" name="warehouse_phone"
+                                                    class="form-control @error('warehouse_phone') is-invalid @enderror"
+                                                    placeholder="warehouse phone">
 
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
                                                         <span class="fas fa-list"></span>
                                                     </div>
                                                 </div>
-                                                @error('childcategory_name')
+                                                @error('warehouse_phone')
                                                     <strong class="text text-danger">{{ $message }}</strong>
                                                 @enderror
                                             </div>

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('warehouse_name');
             $table->string('warehouse_address');
-            $table->string('warehouse_phone');
+            $table->integer('warehouse_phone');
             $table->string('warehouse_slug')->nullable();
             $table->timestamps();
         });
