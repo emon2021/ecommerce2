@@ -3,9 +3,9 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\SubCategoryController;
-use App\Http\Controllers\Admin\WareHouseController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\WareHouseController;
@@ -65,17 +65,17 @@ Route::middleware(['auth', 'is_admin'])->prefix('/sub-category')->group(function
 //___child category route___/
 Route::middleware(['auth', 'is_admin'])->prefix('/child-category')->group(function () {
     //____child.category.index.route___/
-    Route::get('/index', [WareHouseController::class, 'index'])->name('warehouse.index');
+    Route::get('/index', [ChildCategoryController::class, 'index'])->name('childcategory.index');
     //____child.category.store.route___/
-    Route::post('/store', [WareHouseController::class, 'store'])->name('warehouse.store');
+    Route::post('/store', [ChildCategoryController::class, 'store'])->name('childcategory.store');
     //____child.category.destroy.route___/
-    Route::delete('/destroy/{id}', [WareHouseController::class, 'destroy'])->name('warehouse.destroy');
+    Route::delete('/destroy/{id}', [ChildCategoryController::class, 'destroy'])->name('childcategory.destroy');
     //____child.category.edit.route___/
-    Route::get('/edit/{id}', [WareHouseController::class, 'edit']);
+    Route::get('/edit/{id}', [ChildCategoryController::class, 'edit']);
     //____child.category.update.route___/
-    Route::post('/update', [WareHouseController::class, 'update'])->name('warehouse.update');
+    Route::post('/update', [ChildCategoryController::class, 'update'])->name('childcategory.update');
     // //   subcategory showing
-    Route::get('/sub-show', [WareHouseController::class, 'fetch_sub'])->name('sub_show.child');
+    Route::get('/sub-show', [ChildCategoryController::class, 'fetch_sub'])->name('sub_show.child');
 });
 //___brands route___/
 Route::middleware(['auth', 'is_admin'])->prefix('')->group(function () {
