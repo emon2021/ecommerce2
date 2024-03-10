@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('coupon_type');
             $table->integer('coupon_amount');
             $table->string('coupon_valid_date')->nullable();
-            $table->integer('coupon_status')->nullable(false)->default(0); // 0:
+            $table->integer('coupon_status')->nullable()->default(0); // 0:
             $table->timestamps();
         });
     }

@@ -36,4 +36,26 @@ class CouponController extends Controller
         }
         return view('admin.offers.coupon.index');
     }
+    //______store data in database________________
+    public function store(Request $request)
+    {
+        //  request  and rule validation
+        $request->validate([
+            'coupon_code' => 'required|unique:coupons,coupon_code',
+            'coupon_type' => 'required',
+            'coupon_amount' => 'required',
+            'coupon_valid_date' => 'required',
+        ]);
+
+        // ________insert data into the table__________
+        $coupon = new Coupon();
+        $coupon->coupon_code = $request->coupon_code;
+        $coupon->coupon_type = $request->coupon_type;
+        $coupon->coupon_amount = $request->coupon_amount;
+        $coupon->coupon_valid_date = $request->coupon_valid_date;
+        $coupon->coupon_status = $request->coupon_status;
+        $coupon->save();
+
+        return response()->json('Coupon has been added successfully!');
+    }
 }
