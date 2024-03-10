@@ -347,54 +347,54 @@
                 });
                 //____-/end of form submitting part____
 
-                // //_____coupon data deletion ajax request____
-                // $('body').on('click', '#delete_data', function(e) {
-                //     e.preventDefault();
-                //     let get_route = $(this).attr('href');
-                //     let set_route = $('#delete_form').attr('action', get_route);
-                //     // SweetAlert confirmation
-                //     Swal.fire({
-                //         title: "Are you want to Delete?",
-                //         text: "",
-                //         icon: "warning",
-                //         showCancelButton: true,
-                //         confirmButtonColor: "#23D160",
-                //         cancelButtonColor: "#d33",
-                //         confirmButtonText: "OK"
-                //     }).then((result) => {
-                //         if (result.isConfirmed) {
-                //             // If confirmed, submit the form
-                //             $('#delete_form').submit();
-                //         } else {
-                //             // Otherwise, show a message
-                //             Swal.fire({
-                //                 title: "Your Data is Safe!",
-                //                 text: "",
-                //                 icon: "info"
-                //             });
-                //         }
-                //     });
-                // });
-                // //_____Handle form submission to delete data___
-                // $('body').on('submit','#delete_form',function(e){
-                //     e.preventDefault();
-                //     let get_action = $(this).attr('action');
-                //     let formData = new FormData($(this)[0]);
-                //     $.ajax({
-                //         url : get_action,
-                //         type: 'POST',
-                //         data: formData,
-                //         contentType: false,
-                //         processData: false,
-                //         success:function(response){
-                //             //  toastr alert to delete data
-                //             toastr.success(response);
-                //             // reload datatable after deleting data
-                //             yTable.ajax.reload();
-                //         },
-                //     });
-                // });
-                // //______-/coupon data deletion ajax request end__________
+                //_____coupon data deletion ajax request____
+                $('body').on('click', '#delete_data', function(e) {
+                    e.preventDefault();
+                    let get_route = $(this).attr('href');
+                    let set_route = $('#delete_form').attr('action', get_route);
+                    // SweetAlert confirmation
+                    Swal.fire({
+                        title: "Are you want to Delete?",
+                        text: "",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#23D160",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // If confirmed, submit the form
+                            $('#delete_form').submit();
+                        } else {
+                            // Otherwise, show a message
+                            Swal.fire({
+                                title: "Your Data is Safe!",
+                                text: "",
+                                icon: "info"
+                            });
+                        }
+                    });
+                });
+                //_____Handle form submission to delete data___
+                $('body').on('submit','#delete_form',function(e){
+                    e.preventDefault();
+                    let get_action = $(this).attr('action');
+                    let formData = new FormData($(this)[0]);
+                    $.ajax({
+                        url : get_action,
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success:function(response){
+                            //  toastr alert to delete data
+                            toastr.success(response);
+                            // reload datatable after deleting data
+                            yTable.ajax.reload();
+                        },
+                    });
+                });
+                //______-/coupon data deletion ajax request end__________
 
                 // //______coupon data edition ajax request__________
                 // $('body').on('click','.edit',function(e){

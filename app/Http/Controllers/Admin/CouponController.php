@@ -25,7 +25,7 @@ class CouponController extends Controller
                     $actionbtn = '<a href="javascript:void(0)"  data-id="' . $row->id . '" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
                 <i class="fas fa-edit"></i>
               </a>
-              <a href="' . route('warehouse.destroy',$row->id) . '" id="delete_data" class="btn btn-danger">
+              <a href="' . route('coupon.destroy',$row->id) . '" id="delete_data" class="btn btn-danger">
               <i class="fas fa-trash"></i>
             </a>';
                     return $actionbtn;
@@ -57,5 +57,14 @@ class CouponController extends Controller
         $coupon->save();
 
         return response()->json('Coupon has been added successfully!');
+    }
+
+    //_______coupon.desctroy_________
+    public function destroy($id)
+    {
+        $coupon = Coupon::findOrfail($id);
+        $coupon->delete();
+
+        return response()->json('Coupon has been deleted successfully!');
     }
 }
