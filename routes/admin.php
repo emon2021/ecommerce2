@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\WareHouseController;
+use App\Http\Controllers\Admin\PickupPointController;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Route;
 
@@ -50,17 +51,17 @@ Route::middleware(['auth', 'is_admin'])->prefix('/category')->group(function () 
     //___category.update.route___/
     Route::post('/update', [CategoryController::class, 'update'])->name('category.update');
 });
-//___warehouse route___/
+//___subcategory route___/
 Route::middleware(['auth', 'is_admin'])->prefix('/sub-category')->group(function () {
-    //___warehouse.index.route___/
+    //____subcategory.index.route___/
     Route::get('/index', [SubCategoryController::class, 'index'])->name('subcategory.index');
-    //___warehouse.store.route___/
+    //____subcategory.store.route___/
     Route::post('/store', [SubCategoryController::class, 'store'])->name('subcategory.store');
-    //___warehouse.destroy.route___/
+    //____subcategory.destroy.route___/
     Route::get('/destroy/{id}', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
-    //___warehouse.edit.route___/
+    //____subcategory.edit.route___/
     Route::get('/edit/{id}', [SubCategoryController::class, 'edit']);
-    //___warehouse.update.route___/
+    //____subcategory.update.route___/
     Route::post('/update', [SubCategoryController::class, 'update'])->name('subcategory.update');
 });
 //___child category route___/
@@ -91,6 +92,38 @@ Route::middleware(['auth', 'is_admin'])->prefix('')->group(function () {
     //___brand.update.route___/
     Route::post('/update', [BrandController::class, 'update'])->name('brand.update');
 });
+//___warehouse.route___/
+Route::middleware(['auth', 'is_admin'])->prefix('/warehouse')->group(function () {
+    //___warehouse.index.route___/
+    Route::get('/index', [WareHouseController::class, 'index'])->name('warehouse.index');
+    //___warehouse.store.route___/
+    Route::post('/store', [WareHouseController::class, 'store'])->name('warehouse.store');
+    //___warehouse.destroy.route___/
+    Route::delete('/destroy/{id}', [WareHouseController::class, 'destroy'])->name('warehouse.destroy');
+    //___warehouse.edit.route___/
+    Route::get('/edit/{id}', [WareHouseController::class, 'edit']);
+    //___warehouse.update.route___/
+    Route::post('/update/{id}', [WareHouseController::class, 'update'])->name('warehouse.update');
+});
+//____pickup.point.route___/
+Route::middleware(['auth', 'is_admin'])->prefix('/pickup-point')->group(function () {
+    //____pickup.point.index.route___/
+    Route::get('/index', [PickupPointController::class, 'index'])->name('pickup.point.index');
+    //____pickup.point.store.route___/
+    Route::post('/store', [PickupPointController::class, 'store'])->name('pickup.point.store');
+    //____pickup.point.destroy.route___/
+    Route::delete('/destroy/{id}', [PickupPointController::class, 'destroy'])->name('pickup.point.destroy');
+    //____pickup.point.edit.route___/
+    Route::get('/edit/{id}', [PickupPointController::class, 'edit']);
+    //____pickup.point.update.route___/
+    Route::post('/update/{id}', [PickupPointController::class, 'update'])->name('pickup.point.update');
+});
+
+
+//=======================================end of category li's route======================================================
+
+//=======================================start of settings li's route====================================================
+
 
 //___settings route___/
 Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
@@ -120,6 +153,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
 
     //___pages.index.route___/
     Route::prefix('pages')->group(function () {
+        //_____pages.index.route___/
         Route::get('/index', [PageController::class, 'index'])->name('pages.index');
         //___pages.store.route___/
         Route::get('/create', [PageController::class, 'create'])->name('pages.create');
@@ -132,21 +166,11 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
         //___pages.update.route___/
         Route::post('/update/{id}', [PageController::class, 'update'])->name('pages.update');
     });
+
 });
 
-//___warehouse.route___/
-Route::middleware(['auth', 'is_admin'])->prefix('/warehouse')->group(function () {
-    //___warehouse.index.route___/
-    Route::get('/index', [WareHouseController::class, 'index'])->name('warehouse.index');
-    //___warehouse.store.route___/
-    Route::post('/store', [WareHouseController::class, 'store'])->name('warehouse.store');
-    //___warehouse.destroy.route___/
-    Route::delete('/destroy/{id}', [WareHouseController::class, 'destroy'])->name('warehouse.destroy');
-    //___warehouse.edit.route___/
-    Route::get('/edit/{id}', [WareHouseController::class, 'edit']);
-    //___warehouse.update.route___/
-    Route::post('/update/{id}', [WareHouseController::class, 'update'])->name('warehouse.update');
-});
+
+
 //___offers.route___/
 Route::middleware(['auth', 'is_admin'])->prefix('/offers')->group(function () {
     //___coupon.route___/
