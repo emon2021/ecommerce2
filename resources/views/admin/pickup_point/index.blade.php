@@ -64,7 +64,7 @@
                                             <th>Pickup Point Name</th>
                                             <th>Pickup Point Address</th>
                                             <th>Pickup Point Phone</th>
-                                            <th>Pickup Point Another Phone</th>
+                                            <th>Another Phone</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -99,7 +99,7 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="hold-transition login-page m-auto" id="div_body" style="width: 25rem; height: 34rem">
+                    <div class="hold-transition login-page m-auto" id="div_body" style="width: 25rem; height: 31rem">
                         <div class="login-box">
                             <!-- /.login-logo -->
                             <div class="card card-outline card-primary">
@@ -115,7 +115,7 @@
                                             <div class="input-group mb-3">
                                                 <input type="text" name="pickup_point_name"
                                                     class="form-control"
-                                                    placeholder="Coupon Code">
+                                                    placeholder="Name:">
 
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
@@ -127,7 +127,7 @@
                                         <div>
                                             <label for="couponName">Pickup Point Address</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" name="pickup_point_address" class="form-control" placeholder="PP Address">
+                                                <input type="text" name="pickup_point_address" class="form-control" placeholder="Address:">
 
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
@@ -141,7 +141,7 @@
                                             <div class="input-group mb-3">
                                                 <input type="number" name="pickup_point_phone"
                                                     class="form-control "
-                                                    placeholder="Phone">
+                                                    placeholder="Phone:">
 
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
@@ -154,7 +154,7 @@
                                             <label for="couponName">Another Phone</label>
                                             <div class="input-group mb-3">
                                                 <input type="number" name="another_phone"
-                                                    class="form-control " placeholder="another phone">
+                                                    class="form-control " placeholder="Another Phone:">
 
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
@@ -261,7 +261,12 @@
                             },
                             {
                                 data: 'pickup_point_phone',
-                                name: 'pickup_point_phone'
+                                name: 'pickup_point_phone',
+                                render: function(data){
+                                    if(data != null){
+                                        return "0"+data;
+                                    }
+                                }
                             },
                             {
                                 data: 'another_phone',

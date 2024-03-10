@@ -15,7 +15,7 @@ class PickupPointController extends Controller
         $this->middleware(['auth','is_admin']);
     }
 
-    //_______warehouse.index___________
+    //____pickup.point.index___________
     public function  index(Request $request)
     {
         if ($request->ajax()) {
@@ -35,5 +35,23 @@ class PickupPointController extends Controller
                 ->make(true);
         }
         return view('admin.pickup_point.index');
+    }
+
+    //____pickup.point.store_______
+    public function store(Request $request)
+    {
+        $request->validate([
+            'pickup_point_name' => 'required|unique:pickup_points,pickup_point_name',
+            'pickup_point_address' => 'required',
+            'pickup_point_phone' => 'required|max:11',
+            'another_phone' => 'max:11',
+        ]);
+
+        $pickup = new PickupPoint();
+        $inputs = $request->all();
+        $pickup->fill($inputs);
+        $pickup->save();
+
+        return response()->json('Pickup Point has been added successfully!');
     }
 }
