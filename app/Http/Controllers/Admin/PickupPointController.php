@@ -43,8 +43,8 @@ class PickupPointController extends Controller
         $request->validate([
             'pickup_point_name' => 'required|unique:pickup_points,pickup_point_name',
             'pickup_point_address' => 'required',
-            'pickup_point_phone' => 'required|max:11|numeric',
-            'another_phone' => 'max:11|numeric',
+            'pickup_point_phone' => 'required|numeric',
+            'another_phone' => 'nullable',
         ]);
 
         $pickup = new PickupPoint();
@@ -70,5 +70,24 @@ class PickupPointController extends Controller
         $pickup = PickupPoint::findOrfail($id);
 
         return view('admin.pickup_point.edit',compact('pickup'));
+    }
+
+    //____pickup.point.update_______
+    public function update(Request $request,$id)
+    {
+        $request->validate([
+            'update_pickup_point_name' => 'required',
+            'update_pickup_point_address' => 'required',
+            'update_pickup_point_phone' => 'required|numeric',
+        ]);
+        
+        $pickup = PickupPoint::findOrfail($id);
+        $pickup->pickup_point_name = $request->update_pickup_point_name;
+        $pickup->pickup_point_address = $request->update_pickup_point_address;
+        $pickup->pickup_point_phone = $request->update_pickup_point_phone;
+        $pickup->another_phone = $request->update_another_phone;
+        $pickup->update();
+
+        return response()->json('Pickup Point has been updated successfully!');
     }
 }
