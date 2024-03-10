@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\PageController;
@@ -145,5 +146,20 @@ Route::middleware(['auth', 'is_admin'])->prefix('/warehouse')->group(function ()
     Route::get('/edit/{id}', [WareHouseController::class, 'edit']);
     //___warehouse.update.route___/
     Route::post('/update/{id}', [WareHouseController::class, 'update'])->name('warehouse.update');
-    
+});
+//___offers.route___/
+Route::middleware(['auth', 'is_admin'])->prefix('/offers')->group(function () {
+    //___coupon.route___/
+    Route::prefix('/coupon')->group(function () {
+        //____coupon.index.route___/
+        Route::get('/index', [CouponController::class, 'index'])->name('coupon.index');
+        //____coupon.store.route___/
+        Route::post('/store', [CouponController::class, 'store'])->name('coupon.store');
+        //____coupon.destroy.route___/
+        Route::delete('/destroy/{id}', [CouponController::class, 'destroy'])->name('coupon.destroy');
+        //____coupon.edit.route___/
+        Route::get('/edit/{id}', [CouponController::class, 'edit']);
+        //____coupon.update.route___/
+        Route::post('/update/{id}', [CouponController::class, 'update'])->name('coupon.update');
+    });
 });

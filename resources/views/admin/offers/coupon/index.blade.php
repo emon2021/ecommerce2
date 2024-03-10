@@ -23,7 +23,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>WAREHOUSE</h1>
+                        <h1>COUPON'S TABLE</h1>
                     </div>
                     {{-- modal popup button --}}
                     <div class="col-sm-6">
@@ -53,7 +53,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">All Warehouse list here</h3>
+                                <h3 class="card-title">All Coupon list here</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -61,9 +61,11 @@
                                     <thead>
                                         <tr>
                                             <th>SL</th>
-                                            <th>Warehouse Name</th>
-                                            <th>Warehouse Phone</th>
-                                            <th>Warehouse Address</th>
+                                            <th>Coupon Code</th>
+                                            <th>Coupon Amount</th>
+                                            <th>Coupon Type</th>
+                                            <th>Coupon Duration</th>
+                                            <th>Coupon Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -238,7 +240,7 @@
                         serverSide: true,
                         //  getting the route using ajax and declare request type
                         ajax: {
-                            url: "{{ route('warehouse.index') }}",
+                            url: "{{ route('coupon.index') }}",
                             type: 'GET',
                         },
                         //  push data to all the table columns
@@ -249,16 +251,24 @@
                                 name: 'DT_RowIndex'
                             },
                             {
-                                data: 'warehouse_name',
-                                name: 'warehouse_name'
+                                data: 'coupon_code',
+                                name: 'coupon_code'
                             },
                             {
-                                data: 'warehouse_phone',
-                                name: 'warehouse_phone'
+                                data: 'coupon_amount',
+                                name: 'coupon_amount'
                             },
                             {
-                                data: 'warehouse_address',
-                                name: 'warehouse_address'
+                                data: 'coupon_type',
+                                name: 'coupon_type'
+                            },
+                            {
+                                data: 'coupon_valid_date',
+                                name: 'coupon_valid_date'
+                            },
+                            {
+                                data: 'coupon_status',
+                                name: 'coupon_status'
                             },
                             //  here added orderable and searchable property to make table orderable and searchable
                             {
@@ -277,7 +287,7 @@
         </script>
 
         {{-- -------warehouse crud operation's ajax script-------- --}}
-        <script>
+        {{-- <script>
             $(document).ready(function() {
                 //  form submit using ajax request
                 $('body').on('submit', '#form_submit', function(e) {
@@ -402,6 +412,6 @@
                     });
                 });
             });
-        </script>
+        </script> --}}
     @endpush
 @endsection

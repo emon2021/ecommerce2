@@ -87,6 +87,31 @@
               </li>
             </ul>
           </li>
+          {{---------offers--------}}
+          <li class="nav-item @if(Request::url() == route('coupon.index')) menu-is-openning menu-open @endif">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-percent"></i>
+              <p>
+                Offers
+                <i class="fas fa-angle-left right"></i>
+                {{-- <span class="badge badge-info right">6</span> --}}
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('coupon.index')}}" class="nav-link @if(Request::url() == route('coupon.index')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Coupon</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>E-Campaign</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           {{---------settings--------}}
           <li class="nav-item @if(Request::url() == route('seo.index') || Request::url() == route('smtp.index') || Request::url() == route('pages.index') || Request::url() == route('pages.create') || Request::url() == route('website.index') ) menu-is-openning menu-open @endif"> 
             <a href="#" class="nav-link">

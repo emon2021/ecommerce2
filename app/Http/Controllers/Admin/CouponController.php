@@ -19,7 +19,7 @@ class CouponController extends Controller
     public function  index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Coupon::select('id','warehouse_name','warehouse_address','warehouse_phone')->get();
+            $data = Coupon::select('id','coupon_code','coupon_type','coupon_amount','coupon_valid_date','coupon_status')->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($row) {
                     $actionbtn = '<a href="javascript:void(0)"  data-id="' . $row->id . '" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
