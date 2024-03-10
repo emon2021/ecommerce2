@@ -19,7 +19,7 @@ class PickupPointController extends Controller
     public function  index(Request $request)
     {
         if ($request->ajax()) {
-            $data = PickupPoint::select('id','coupon_code','coupon_type','coupon_amount','coupon_valid_date','coupon_status')->get();
+            $data = PickupPoint::select('id','pickup_point_name','pickup_point_address','pickup_point_phone','another_phone')->get();
             return DataTables::of($data)
                 ->addColumn('action', function ($row) {
                     $actionbtn = '<a href="javascript:void(0)"  data-id="' . $row->id . '" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >

@@ -44,7 +44,7 @@
             </a>
           </li>
           {{---------categories--------}}
-          <li class="nav-item @if(Request::url() == route('category.index') || Request::url() == route('subcategory.index') || Request::url() == route('childcategory.index') || Request::url() == route('brand.index')) menu-is-openning menu-open @endif">
+          <li class="nav-item @if(Request::url() == route('category.index') || Request::url() == route('subcategory.index') || Request::url() == route('childcategory.index') || Request::url() == route('brand.index') || Request::url() == route('warehouse.index') || Request::url() == route('pickup.point.index')) menu-is-openning menu-open @endif">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
@@ -80,9 +80,16 @@
               </li>
              
               <li class="nav-item">
-                <a href="{{route('warehouse.index')}}" class="nav-link">
+                <a href="{{route('warehouse.index')}}" class="nav-link @if(Request::url() == route('warehouse.index')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Warehouse</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{route('pickup.point.index')}}" class="nav-link @if(Request::url() == route('pickup.point.index')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pickup Point</p>
                 </a>
               </li>
             </ul>

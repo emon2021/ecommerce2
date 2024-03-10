@@ -241,7 +241,7 @@
                         serverSide: true,
                         //  getting the route using ajax and declare request type
                         ajax: {
-                            url: "{{ route('pickup.pointpickup_point_name.index') }}",
+                            url: "{{ route('pickup.point.index') }}",
                             type: 'GET',
                         },
                         //  push data to all the table columns
