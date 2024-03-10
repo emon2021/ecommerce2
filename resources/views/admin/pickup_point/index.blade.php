@@ -270,7 +270,12 @@
                             },
                             {
                                 data: 'another_phone',
-                                name: 'another_phone'
+                                name: 'another_phone',
+                                render: function(data){
+                                    if(data != null){
+                                        return "0"+data;
+                                    }
+                                }
                             },
                             //  here added orderable and searchable property to make table orderable and searchable
                             {

@@ -54,4 +54,13 @@ class PickupPointController extends Controller
 
         return response()->json('Pickup Point has been added successfully!');
     }
+
+    //____pickup.point.destroy_______
+    public function destroy($id)
+    {
+        $pickup = PickupPoint::findOrfail($id);
+        $pickup->delete();
+
+        return response()->json('Pickup Point has been deleted successfully!');
+    }
 }
