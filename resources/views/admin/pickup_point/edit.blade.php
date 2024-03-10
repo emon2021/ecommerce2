@@ -1,5 +1,5 @@
 <div class="modal-body">
-    <div class="hold-transition login-page m-auto" id="div_body" style="width: 25rem; height: 34rem">
+    <div class="hold-transition login-page m-auto" id="div_body" style="width: 25rem; height: 31rem">
       <div class="login-box">
           <!-- /.login-logo -->
           <div class="card card-outline card-primary">
@@ -7,13 +7,13 @@
               <a href="#" class="h1"></a>
             </div>
             <div class="card-body">
-              <form id="update_form" action="{{route('coupon.update',$coupon->id)}}" method="post">
+              <form id="update_form" action="{{route('pickup.point.update',$pickup->id)}}" method="post">
                   @csrf
 
             <div>
-                      <label for="subcategoryName">Coupon Code</label>
+                      <label for="subcategoryName">Pickup Point Name</label>
                 <div class="input-group mb-3">
-                  <input type="text" name="update_coupon_code" value="{{$coupon->coupon_code}}" class="form-control">
+                  <input type="text" name="update_pickup_point_name" value="{{$pickup->pickup_point_name}}" class="form-control">
                   
                   <div class="input-group-append">
                     <div class="input-group-text">
@@ -23,19 +23,15 @@
                 </div>
             </div>
             <div>
-                      <label for="subcategoryName">Coupon Type</label>
+                      <label for="subcategoryName">Pickup Point Address</label>
                 <div class="input-group mb-3">
-                  <select name="update_coupon_type" class="form-control">
-                    <option value="">Select Coupn type</option>
-                    <option value="1" @if($coupon->coupon_type == '1') selected @endif >Fixed</option>
-                    <option value="2" @if($coupon->coupon_type == '2') selected @endif >Percentage</option>
-                  </select>
+                  <input type="text" class="form-control" name="update_pickup_point_address" value="{{$pickup->pickup_point_address}}">
                 </div>
             </div>
             <div>
-                      <label for="subcategoryName">Coupn Amount</label>
+                      <label for="subcategoryName">Pickup Point Phone</label>
                 <div class="input-group mb-3">
-                  <input type="number" name="update_coupon_amount" value="{{$coupon->coupon_amount}}" class="form-control">
+                  <input type="number" name="update_pickup_point_phone" value="{{$pickup->pickup_point_phone}}" class="form-control">
                   
                   <div class="input-group-append">
                     <div class="input-group-text">
@@ -46,18 +42,10 @@
                 
             </div>
             <div>
-                      <label for="subcategoryName">Coupn Duration</label>
+                      <label for="subcategoryName">Another Phone</label>
                 <div class="input-group mb-3">
-                  <input type="date" name="update_coupon_valid_date" value="{{$coupon->coupon_valid_date}}" class="form-control">
+                  <input type="number" name="update_another_phone" value="{{$pickup->another_phone}}" class="form-control">
                   
-                </div>
-                
-            </div>
-            <div>
-                 
-                <div class="input-group mb-3">
-                    <input type="checkbox"   name="update_coupon_status" value= "1" @if($coupon->coupon_status == '1') checked @endif >
-                    <span style="margin-left: 10px">Active Coupon</span>
                 </div>
                 
             </div>

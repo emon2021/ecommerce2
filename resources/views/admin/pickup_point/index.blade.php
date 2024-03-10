@@ -194,7 +194,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-title"> UPDATE COUPON</div>
+                    <div class="modal-title"> UPDATE PICKUP POINT</div>
                     <button type="button" id="edit_close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div id="modal_body">
@@ -223,7 +223,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
 
-        {{-- coupon data showing with yajra DataTable  AJAX CODE --}}
+        {{-- pickup point data showing with yajra DataTable  AJAX CODE --}}
         <script>
             $(document).ready(function() {
                 //  start ajax syntax with a function()
@@ -293,7 +293,7 @@
             });
         </script>
 
-        {{-- -------coupon crud operation's ajax script-------- --}}
+        {{-- -------pickup point crud operation's ajax script-------- --}}
         <script>
             $(document).ready(function() {
                 //  form submit using ajax request
@@ -328,7 +328,7 @@
                 });
                 //____-/end of form submitting part____
 
-                //_____coupon data deletion ajax request____
+                //_____pickup point data deletion ajax request____
                 $('body').on('click', '#delete_data', function(e) {
                     e.preventDefault();
                     let get_route = $(this).attr('href');
@@ -375,9 +375,9 @@
                         },
                     });
                 });
-                //______-/coupon data deletion ajax request end__________
+                //______-/pickup point data deletion ajax request end__________
 
-                //______coupon data edition ajax request__________
+                //______pickup point retrieve data for edition ajax request__________
                 $('body').on('click','.edit',function(e){
                     e.preventDefault();
                     let get_id = $(this).data('id');
@@ -389,9 +389,9 @@
                         }
                     });
                 });
-                //________-/coupon data retrive end_____
+                //________-/pickup point data retrive end_____
 
-                //_________coupon update form submit_____
+                //_________pickup point update form submit_____
                 $('body').on('submit','#update_form',function(e){
                     e.preventDefault();
                     let get_update_route = $(this).attr('action');

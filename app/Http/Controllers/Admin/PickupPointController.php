@@ -43,8 +43,8 @@ class PickupPointController extends Controller
         $request->validate([
             'pickup_point_name' => 'required|unique:pickup_points,pickup_point_name',
             'pickup_point_address' => 'required',
-            'pickup_point_phone' => 'required|max:11',
-            'another_phone' => 'max:11',
+            'pickup_point_phone' => 'required|max:11|numeric',
+            'another_phone' => 'max:11|numeric',
         ]);
 
         $pickup = new PickupPoint();
@@ -62,5 +62,13 @@ class PickupPointController extends Controller
         $pickup->delete();
 
         return response()->json('Pickup Point has been deleted successfully!');
+    }
+
+    //____pickup.point.edit_______
+    public function edit($id)
+    {
+        $pickup = PickupPoint::findOrfail($id);
+
+        return view('admin.pickup_point.edit',compact('pickup'));
     }
 }
