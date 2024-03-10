@@ -67,7 +67,7 @@ class WareHouseController extends Controller
     //________warehouse.edit_______
     public function edit($id)
     {
-        $warehouse = WareHouse::findOrfail($id)->first();
+        $warehouse = WareHouse::findOrfail($id);
 
         return view('admin.warehouse.edit',compact('warehouse'));
     }

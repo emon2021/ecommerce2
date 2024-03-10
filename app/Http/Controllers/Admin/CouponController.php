@@ -59,12 +59,44 @@ class CouponController extends Controller
         return response()->json('Coupon has been added successfully!');
     }
 
-    //_______coupon.desctroy_________
+    //_______coupon.destroy_________
     public function destroy($id)
     {
         $coupon = Coupon::findOrfail($id);
         $coupon->delete();
 
         return response()->json('Coupon has been deleted successfully!');
+    }
+
+    //_______coupon.edit_________
+    public function edit($id)
+    {
+        $coupon = Coupon::findOrfail($id);
+        
+        return view('admin.offers.coupon.edit',compact('coupon'));
+    }
+
+    //_______coupon.update_________
+    public function update(Request $request,$id)
+    {
+        //  request  and rule validation
+        $request->validate([
+            'update_coupon_code' => 'required',
+            'update_coupon_type' => 'required',
+            'update_coupon_amount' => 'required',
+            'update_coupon_valid_date' => 'required',
+        ]);
+
+        // ________insert data into the table__________
+        $coupon = Coupon::findOrfail($id);
+        $coupon->coupon_code = $request->update_coupon_code;
+        $coupon->coupon_type = $request->update_coupon_type;
+        $coupon->coupon_amount = $request->update_coupon_amount;
+        $coupon->coupon_valid_date = $request->update_coupon_valid_date;
+        $coupon->coupon_status = $request->update_coupon_status;
+        $coupon->update();
+
+        return response()->json('Coupon has been updated successfully!');
+
     }
 }
