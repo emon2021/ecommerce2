@@ -143,7 +143,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('pages.index')}}" class="nav-link @if(Request::url() == route('pages.index') || Request::url() == route('pages.create')) active @endif"">
+                <a href="{{route('pages.index')}}" class="nav-link @if(Request::url() == route('pages.index') || Request::url() == route('pages.create')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Page Management</p>
                 </a>
