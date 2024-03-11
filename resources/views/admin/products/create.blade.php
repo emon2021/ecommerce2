@@ -35,10 +35,10 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Category <span style="color: red">*</span></label>
                                             <select name="category" class="form-control" id="">
-                                                <option value="">Select Category</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
+                                                <option id="select" value="">Select Category</option>
+                                                @foreach ($category as $cat)
+                                                    <option class="category" value="{{$cat->id}}">{{$cat->category_name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -52,6 +52,11 @@
                                                 <option value="">Category</option>
                                             </select>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="first_column ">
+                                    <div class="col-md-12 float-start" id="subcat">
+                                        
                                     </div>
                                 </div>
                                 <div class="first_column">
@@ -214,4 +219,30 @@
             </div>
         </div>
     </section>
+
+
+@push('script')
+    <script>
+        $(document).ready(function(){
+            $('#select').click(function(){
+                $('#subcat').addClass('d-none');
+            });
+            $('.category').click(function(){
+                $('#subcat').removeClass('d-none');
+                let cat_id = $(this).val();
+                $.ajax({
+                    url:"{{route('product.subcategory')}}",
+                    type: 'GET',
+                    data: {id:cat_id},
+                    success:function(response){
+                        $('#subcat').html(response);
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
+
+
+
 @endsection

@@ -203,6 +203,8 @@ Route::middleware(['auth', 'is_admin'])->prefix('/products')->group(function () 
         Route::get('/edit/{id}', [ProductController::class, 'edit']);
         //____product.update.route___/
         Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update');
+        //____subcategory.fetch.route___/
+        Route::get('/subcategory', [ProductController::class, 'subcategory'])->name('product.subcategory');
     });
 });
 

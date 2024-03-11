@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,8 +16,17 @@ class ProductController extends Controller
     }
 
     //_______product.create________
-    public function create()
+    public function subcategory(Request $request)
     {
-        return view( "admin.products.create");
+        $id = $request->id;
+        $sub = SubCategory::select('id','subcategory_name')->where('category_id',$id)->get();
+        return view( "admin.products.subcategory",compact('sub'));
+    }
+
+    //_______product.create________
+    public function create(Request $request)
+    {  
+        $data['category'] = Category::all();
+        return view( "admin.products.create",$data);
     }
 }
