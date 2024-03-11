@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedBigInteger('subcategory_id');
             $table->integer('childcategory_id')->nullable();
             $table->integer('brand_id')->nullable();
-            $table->integer('pickup_point_id')->nullable();
             $table->string('name');
             $table->string('code');
             $table->string('unit')->nullable();
@@ -27,7 +26,7 @@ return new class extends Migration
             $table->string('discount_price')->nullable();
             $table->string('stock_quantity')->nullable();
             $table->string('warehouse')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('images')->nullable();
             $table->string('video')->nullable();
@@ -36,8 +35,11 @@ return new class extends Migration
             $table->integer('flash_deal_id')->nullable();
             $table->integer('status')->nullable();
             $table->integer('cash_on_delivery')->nullable();
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
             $table->integer('admin_id')->nullable();
             $table->timestamps();
+            $table->integer('pickup_point_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete( 'cascade' );
             $table->foreign('subcategory_id')->references('id')->on('sub_categories')->onDelete('cascade');
         });
