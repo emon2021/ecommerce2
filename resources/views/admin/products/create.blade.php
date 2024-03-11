@@ -1,111 +1,5 @@
 @extends('layouts.admin')
 @section('admin-content')
-@push('css')
-<style>
-    .checkbox-wrapper-34 {
-      --blue: #0D7EFF;
-      --g08: #E1E5EB;
-      --g04: #848ea1;
-    }
-  
-    .checkbox-wrapper-34 .tgl {
-      display: none;
-    }
-    .checkbox-wrapper-34 .tgl,
-    .checkbox-wrapper-34 .tgl:after,
-    .checkbox-wrapper-34 .tgl:before,
-    .checkbox-wrapper-34 .tgl *,
-    .checkbox-wrapper-34 .tgl *:after,
-    .checkbox-wrapper-34 .tgl *:before,
-    .checkbox-wrapper-34 .tgl + .tgl-btn {
-      box-sizing: border-box;
-    }
-    .checkbox-wrapper-34 .tgl::selection,
-    .checkbox-wrapper-34 .tgl:after::selection,
-    .checkbox-wrapper-34 .tgl:before::selection,
-    .checkbox-wrapper-34 .tgl *::selection,
-    .checkbox-wrapper-34 .tgl *:after::selection,
-    .checkbox-wrapper-34 .tgl *:before::selection,
-    .checkbox-wrapper-34 .tgl + .tgl-btn::selection {
-      background: none;
-    }
-    .checkbox-wrapper-34 .tgl + .tgl-btn {
-      outline: 0;
-      display: block;
-      width: 57px;
-      height: 27px;
-      position: relative;
-      cursor: pointer;
-      user-select: none;
-      font-size: 12px;
-      font-weight: 400;
-      color: #fff;
-    }
-    .checkbox-wrapper-34 .tgl + .tgl-btn:after,
-    .checkbox-wrapper-34 .tgl + .tgl-btn:before {
-      position: relative;
-      display: block;
-      content: "";
-      width: 44%;
-      height: 100%;
-    }
-    .checkbox-wrapper-34 .tgl + .tgl-btn:after {
-      left: 0;
-    }
-    .checkbox-wrapper-34 .tgl + .tgl-btn:before {
-      display: inline;
-      position: absolute;
-      top: 7px;
-    }
-    .checkbox-wrapper-34 .tgl:checked + .tgl-btn:after {
-      left: 56.5%;
-    }
-  
-    .checkbox-wrapper-34 .tgl-ios + .tgl-btn {
-      background: var(--g08);
-      border-radius: 20rem;
-      padding: 2px;
-      transition: all 0.4s ease;
-      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-    }
-    .checkbox-wrapper-34 .tgl-ios + .tgl-btn:after {
-      border-radius: 2em;
-      background: #fff;
-      transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-    }
-    .checkbox-wrapper-34 .tgl-ios + .tgl-btn:before {
-      content: "OFF";
-      top:4px;
-      left: 28px;
-      color: var(--g04);
-      font-weight: bold;
-      transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .checkbox-wrapper-34 .tgl-ios + .tgl-btn:active {
-      box-shadow: inset 0 0 0 30px rgba(0, 0, 0, 0.1);
-    }
-    .checkbox-wrapper-34 .tgl-ios + .tgl-btn:active:after {
-      padding-right: 0.4em;
-    }
-    .checkbox-wrapper-34 .tgl-ios:checked + .tgl-btn {
-      background: var(--blue);
-    }
-    .checkbox-wrapper-34 .tgl-ios:checked + .tgl-btn:active {
-      box-shadow: inset 0 0 0 30px rgba(0, 0, 0, 0.1);
-    }
-    .checkbox-wrapper-34 .tgl-ios:checked + .tgl-btn:active:after {
-      margin-left: -0.4em;
-    }
-    .checkbox-wrapper-34 .tgl-ios:checked + .tgl-btn:before {
-      content: "ON";
-      font-weight: bold;
-      top:4px;
-      left: 7px;
-      color: #fff;
-    }
-  </style>
-@endpush
     <section class="content">
         <div class="container-fluid m-auto">
             <div class="row">
@@ -258,7 +152,7 @@
                                     </div>
                                 </div>
                                 <div class="first_column">
-                                    <div class="col-md-12 ">
+                                    <div class=" ">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Product Description <span style="color: red">*</span></label>
                                             <textarea name="product_description" class="textarea form-control" cols="30" rows="3">
@@ -279,7 +173,7 @@
                         <!-- /.card -->
                     </div>
                     <div class="col-md-4" style="float: right;">
-                        <div class="card card-success">\
+                        <div class="card card-success">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="dropiFy">Main Thumbnail <span style="color: red">*</span></label>
@@ -291,15 +185,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="dropiFy">Featured Product </label>
-                                    <div class="checkbox-wrapper-34">
-                                        <input class='tgl tgl-ios' id='toggle-34' type='checkbox'>
-                                        <label class='tgl-btn' for='toggle-34'></label>
+                                    <div class="">
+                                        <input type='checkbox'>
+                                        
                                     </div>
                                 </div>
                                 <hr style="border-color:#0D7EFF">
                                 <div class="form-group">
                                     <label for="dropiFy">Today Deal </label>
-                                    <div class="checkbox-wrapper-34">
+                                    <div class="">
                                         <input  type='checkbox'>
                                         <label for="afterLabel">&nbsp; Active</label>
                                     </div>
@@ -307,7 +201,7 @@
                                 <hr style="border-color:#0D7EFF">
                                 <div class="form-group">
                                     <label for="dropiFy">Status</label>
-                                    <div class="checkbox-wrapper-34">
+                                    <div class="">
                                         <input class='' type='checkbox'>
                                         <label for="afterLabel">&nbsp; Active</label>
                                     </div>
