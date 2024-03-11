@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\WareHouseController;
 use App\Http\Controllers\Admin\PickupPointController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Route;
 
@@ -169,8 +170,6 @@ Route::middleware(['auth', 'is_admin'])->prefix('settings')->group(function () {
 
 });
 
-
-
 //___offers.route___/
 Route::middleware(['auth', 'is_admin'])->prefix('/offers')->group(function () {
     //___coupon.route___/
@@ -187,3 +186,24 @@ Route::middleware(['auth', 'is_admin'])->prefix('/offers')->group(function () {
         Route::post('/update/{id}', [CouponController::class, 'update'])->name('coupon.update');
     });
 });
+
+//____products.route___/
+Route::middleware(['auth', 'is_admin'])->prefix('/products')->group(function () {
+    //____product.route___/
+    Route::prefix('/show-products')->group(function () {
+        //____product.create.route___/
+        Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+        //____product.index.route___/
+        Route::get('/index', [ProductController::class, 'index'])->name('product.index');
+        //____product.store.route___/
+        Route::post('/store', [ProductController::class, 'store'])->name('product.store');
+        //____product.destroy.route___/
+        Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+        //____product.edit.route___/
+        Route::get('/edit/{id}', [ProductController::class, 'edit']);
+        //____product.update.route___/
+        Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update');
+    });
+});
+
+

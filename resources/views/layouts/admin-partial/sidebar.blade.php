@@ -94,6 +94,31 @@
               </li>
             </ul>
           </li>
+          {{---------products--------}}
+          <li class="nav-item @if(Request::url() == route('product.index') || Request::url() == route('product.create')) menu-is-openning menu-open @endif">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Products
+                <i class="fas fa-angle-left right"></i>
+                {{-- <span class="badge badge-info right">6</span> --}}
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('product.create')}}" class="nav-link @if(Request::url() == route('product.create')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Product</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('product.index')}}" class="nav-link @if(Request::url() == route('product.index')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Products</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           {{---------offers--------}}
           <li class="nav-item @if(Request::url() == route('coupon.index')) menu-is-openning menu-open @endif">
             <a href="#" class="nav-link">
