@@ -65,9 +65,9 @@
                                             <label for="exampleInputEmail1">Brand <span style="color: red">*</span></label>
                                             <select name="category" class="form-control" id="">
                                                 <option value="">Select Brand</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
+                                                @foreach($brands as $brand)
+                                                 <option value="{{$brand->id}}"> {{$brand->brand_name}}   </option>  
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

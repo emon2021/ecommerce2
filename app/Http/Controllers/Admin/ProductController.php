@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class ProductController extends Controller
         $this->middleware(['auth' , 'is_admin']);
     }
 
-    //_______product.create________
+    //_______product.fetch.subcategory________
     public function subcategory(Request $request)
     {
         $id = $request->id;
@@ -27,6 +28,7 @@ class ProductController extends Controller
     public function create(Request $request)
     {  
         $data['category'] = Category::all();
+        $data['brands'] = Brand::all();
         return view( "admin.products.create",$data);
     }
 }
