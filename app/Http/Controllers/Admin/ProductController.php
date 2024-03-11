@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\ChildCategory;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,7 @@ class ProductController extends Controller
     {  
         $data['category'] = Category::all();
         $data['brands'] = Brand::all();
+        $data['child']  = ChildCategory::all();
         return view( "admin.products.create",$data);
     }
 }

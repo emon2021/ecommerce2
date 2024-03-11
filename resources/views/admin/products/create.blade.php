@@ -47,9 +47,9 @@
                                             <label for="exampleInputEmail1">Child Category <span style="color: red">*</span></label>
                                             <select name="childcategory" class="form-control" id="">
                                                 <option value="">Select Child Category</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
+                                                @foreach($child as  $value)
+                                                <option value="{{$value->id}}"> {{$value->childcategory_name}} </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
