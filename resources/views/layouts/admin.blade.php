@@ -25,6 +25,10 @@
   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/daterangepicker/daterangepicker.css">
+  {{-- ---dropify css cdn link--- --}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css"
+  integrity="sha512-In/+MILhf6UMDJU4ZhDL0R0fEpsp4D3Le23m6+ujDWXwl3whwpucJG1PEmI3B07nyJx+875ccs+yX2CqQJUxUw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/summernote/summernote-bs4.min.css">
    <!-------sweetalert2.css------->
@@ -32,6 +36,7 @@
    <!-------toastr.css------->
    <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/toastr/toastr.min.css">
    {{--------put external css link here---------}}
+  
    @stack('css')
   <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -119,6 +124,10 @@
 <script src="{{asset('public/backend')}}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{asset('public/backend')}}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{asset('public/backend')}}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+ <!-----dropify js cdn link---->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
+ integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
+ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- AdminLTE for demo purposes -->
 {{-- <script src="{{asset('public/backend')}}/dist/js/demo.js"></script> --}}
@@ -280,6 +289,17 @@
         }
       );
     });
+  });
+</script>
+<!-----dropify script---->
+<script>
+  $('.dropify').dropify({
+      messages: {
+          'default': 'Click Here',
+          'replace': 'Drag and Drop',
+          'remove': 'Remove',
+          'error': 'Ooops! something went wrong.',
+      }
   });
 </script>
 {{--------put external js link here---------}}

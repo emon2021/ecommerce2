@@ -15,10 +15,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css"
             integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
-        {{-- ---dropify css cdn link--- --}}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css"
-            integrity="sha512-In/+MILhf6UMDJU4ZhDL0R0fEpsp4D3Le23m6+ujDWXwl3whwpucJG1PEmI3B07nyJx+875ccs+yX2CqQJUxUw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
+       
     @endpush
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -202,10 +199,7 @@
         <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
-        <!-----dropify js cdn link---->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
-            integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
 
         {{-- brand data showing with yajra DataTable  AJAX CODE --}}
         <script>
@@ -261,17 +255,7 @@
                 //  here end data pushing using yajra datatables
             });
         </script>
-        <!-----dropify script---->
-        <script>
-            $('.dropify').dropify({
-                messages: {
-                    'default': 'Click Here',
-                    'replace': 'Drag and Drop',
-                    'remove': 'Remove',
-                    'error': 'Ooops! something went wrong.',
-                }
-            });
-        </script>
+        
         <!-------------------custom script------------------->
         <script>
             //  form submission with ajax
