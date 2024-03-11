@@ -76,9 +76,9 @@
                                             <label for="exampleInputEmail1">Pickup Point <span style="color: red">*</span></label>
                                             <select name="childcategory" class="form-control" id="">
                                                 <option value="">Select Pickup Point</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
+                                                @foreach($pickup as $point)
+                                                <option value="{{$point->id}}">{{$point->pickup_point_name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
