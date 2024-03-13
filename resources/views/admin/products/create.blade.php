@@ -7,11 +7,9 @@
             .toggle.btn.btn-success {
                 width: 100px !important;
             }
-
             .toggle-handle.btn.btn-default {
                 width: 50%;
-            }
-
+            }            
             .btn.btn-success.toggle-on {
                 left: -40px;
             }
@@ -19,7 +17,6 @@
             .toggle.btn.btn-danger.off {
                 width: 100px !important;
             }
-
             .btn.btn-danger.active.toggle-off {
                 right: -37px;
             }
@@ -46,14 +43,14 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Product Name <span
                                                     style="color: red">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Product Name">
+                                            <input type="text" name="name" class="form-control" placeholder="Product Name">
                                         </div>
                                     </div>
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Product Code <span
                                                     style="color: red">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Product Code">
+                                            <input type="text" name="code" class="form-control" placeholder="Product Code">
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +59,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Category <span
                                                     style="color: red">*</span></label>
-                                            <select name="category" class="form-control" id="">
+                                            <select name="category_id" class="form-control" id="">
                                                 <option id="select" value="">Select Category</option>
                                                 @foreach ($category as $cat)
                                                     <option class="category" value="{{ $cat->id }}">
@@ -94,7 +91,7 @@
                                     <div class="col-md-6 float-start">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Brand <span style="color: red">*</span></label>
-                                            <select name="category" class="form-control" id="">
+                                            <select name="brand_id" class="form-control" id="">
                                                 <option value="">Select Brand</option>
                                                 @foreach ($brands as $brand)
                                                     <option value="{{ $brand->id }}"> {{ $brand->brand_name }} </option>
@@ -106,7 +103,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Pickup Point <span
                                                     style="color: red">*</span></label>
-                                            <select name="childcategory" class="form-control" id="">
+                                            <select name="pickup_point_id" class="form-control" id="">
                                                 <option value="">Select Pickup Point</option>
                                                 @foreach ($pickup as $point)
                                                     <option value="{{ $point->id }}">{{ $point->pickup_point_name }}
@@ -120,18 +117,13 @@
                                     <div class="col-md-6 float-start">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Unit <span style="color: red">*</span></label>
-                                            <select name="category" class="form-control" id="">
-                                                <option value="">Select Unit</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
-                                            </select>
+                                            <input type="text" name="unit" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Tags <span style="color: red">*</span></label>
-                                            <input type="text" multiple placeholder="Tags" class="form-control" name="tags">
+                                            <input type="text" name="tags" placeholder="Tags" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -180,7 +172,7 @@
                                             <label for="exampleInputEmail1">Stock <span
                                                     style="color: red">*</span></label>
                                             <input type="text" placeholder="Stock" class="form-control"
-                                                name="stock">
+                                                name="stock_quantity">
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +198,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Product Description <span
                                                     style="color: red">*</span></label>
-                                            <textarea name="product_description" class="textarea form-control" cols="30" rows="3">
+                                            <textarea name="description" class="textarea form-control" cols="30" rows="3">
                                                 What's on your mind?
                                             </textarea>
                                         </div>
@@ -228,17 +220,30 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="dropiFy">Main Thumbnail <span style="color: red">*</span></label>
-                                    <input type="file" name="main_thumbnail" class="dropify" id="">
+                                    <input type="file" name="thumbnail" class="dropify" id="">
                                 </div>
                                 <div class="form-group">
                                     <label for="dropiFy">More Images (Click to add more images) <span
                                             style="color: red">*</span></label>
-                                    <input type="file" name="more_images[]" multiple class="form-control" id="">
+                                    <input type="file" name="images[]" multiple class="form-control" id="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropiFy">Video Link: <span
+                                            style="color: red">*</span></label>
+                                    <input type="text" placeholder="https://example.com" name="video" multiple class="form-control" id="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropiFy">Cash On Delivery </label>
+                                    <div class="">
+                                        <input type='checkbox' name="cash_on_delivery" data-toggle="toggle" data-onstyle="success"
+                                            data-offstyle="danger" data-on="Yes" data-off="No">
+
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="dropiFy">Featured Product </label>
                                     <div class="">
-                                        <input type='checkbox' data-toggle="toggle" data-onstyle="success"
+                                        <input type='checkbox' name="featured" data-toggle="toggle" data-onstyle="success"
                                             data-offstyle="danger">
 
                                     </div>
@@ -247,7 +252,7 @@
                                 <div class="form-group">
                                     <label for="dropiFy">Today Deal </label>
                                     <div class="">
-                                        <input type='checkbox' data-toggle="toggle" data-onstyle="success"
+                                        <input type='checkbox' name="today_deal" data-toggle="toggle" data-onstyle="success"
                                             data-offstyle="danger">
                                     </div>
                                 </div>
@@ -255,7 +260,7 @@
                                 <div class="form-group">
                                     <label for="dropiFy">Status</label>
                                     <div class="">
-                                        <input type='checkbox' data-toggle="toggle" data-onstyle="success"
+                                        <input type='checkbox' name="status" data-toggle="toggle" data-onstyle="success"
                                         data-offstyle="danger">
                                     </div>
                                 </div>
