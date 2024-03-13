@@ -32,5 +32,8 @@ class Product extends Model
             'status',
             'cash_on_delivery',
             'admin_id',
+            'color',
+            'size',
+            'pickup_point_id',
         ];
 }

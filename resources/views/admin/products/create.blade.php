@@ -75,12 +75,12 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Child Category <span
                                                     style="color: red">*</span></label>
-                                            <select name="childcategory" class="form-control" id="">
+                                            <select name="childcategory_id" class="form-control" id="childcategory_id">
                                                 <option value="">Select Child Category</option>
-                                                @foreach ($child as $value)
+                                                {{-- @foreach ($child as $value)
                                                     <option value="{{ $value->id }}"> {{ $value->childcategory_name }}
                                                     </option>
-                                                @endforeach
+                                                @endforeach --}}
                                             </select>
                                         </div>
                                     </div>
@@ -131,7 +131,7 @@
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Tags <span style="color: red">*</span></label>
-                                            <input type="text" placeholder="Tags" class="form-control" name="tags">
+                                            <input type="text" multiple placeholder="Tags" class="form-control" name="tags">
                                         </div>
                                     </div>
                                 </div>
@@ -284,6 +284,7 @@
         <!-- custom.ajax request create -->
         <script>
             $(document).ready(function() {
+                //_______showing subcategory________
                 $('#select').click(function() {
                     $('#subcat').addClass('d-none');
                 });
@@ -298,6 +299,22 @@
                         },
                         success: function(response) {
                             $('#subcat').html(response);
+                        }
+                    });
+                });
+                //______child category showing______
+                $('body').on("change",'#subcategory_id',function(){
+                    let id =  $(this).val();
+                    $.ajax({
+                        url: "{{route('show.child')}}",
+                        type: 'GET',
+                        data: {
+                            id : id,
+                        },
+                        success: function(response){
+                            $.each(response, function (key, value) { 
+                                 $('#childcategory_id').append('<option value="'+value.id+'">'+value.childcategory_name+'</option>');
+                            });
                         }
                     });
                 });

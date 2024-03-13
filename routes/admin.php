@@ -186,7 +186,8 @@ Route::middleware(['auth', 'is_admin'])->prefix('/offers')->group(function () {
         Route::post('/update/{id}', [CouponController::class, 'update'])->name('coupon.update');
     });
 });
-
+//____global routes for showing child category________
+Route::get('/childcategory',[ProductController::class,'childView'])->name('show.child');
 //____products.route___/
 Route::middleware(['auth', 'is_admin'])->prefix('/products')->group(function () {
     //____product.route___/

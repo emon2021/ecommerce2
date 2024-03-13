@@ -27,12 +27,19 @@ class ProductController extends Controller
         return view( "admin.products.subcategory",compact('sub'));
     }
 
+    //_______child.view.on.product.page_______
+    public function childView(Request $request)
+    {
+        $child_cat = ChildCategory::select('id','childcategory_name')->where('subcategory_id',$request->id)->get();
+        return response()->json($child_cat);
+    }
+
     //_______product.create________
     public function create()
     {  
         $data['category'] = Category::all();
         $data['brands'] = Brand::all();
-        $data['child']  = ChildCategory::all();
+        //$data['child']  = ChildCategory::all();
         $data['pickup'] = PickupPoint::all();
         $data['warehouses'] = WareHouse::all();
         return view( "admin.products.create",$data);
