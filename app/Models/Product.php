@@ -47,4 +47,19 @@ class Product extends Model
     {
         return $this->belongsTo(SubCategory::class,'subcategory_id');
     }
+    //______relation with childcategory model_______
+    public function childcategory()
+    {
+        return $this->belongsTo(ChildCategory::class,'childcategory_id');
+    }
+    //______relation with brand model_______
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class,'brand_id');
+    }
+    //______relation with pickup point model_______
+    public function pickuppoint()
+    {
+        return $this->belongsTo(PickupPoint::class,'pickup_point_id');
+    }
 }
