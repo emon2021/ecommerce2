@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\ChildCategory;
 use App\Models\PickupPoint;
 use App\Models\SubCategory;
+use App\Models\WareHouse;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -27,12 +28,13 @@ class ProductController extends Controller
     }
 
     //_______product.create________
-    public function create(Request $request)
+    public function create()
     {  
         $data['category'] = Category::all();
         $data['brands'] = Brand::all();
         $data['child']  = ChildCategory::all();
         $data['pickup'] = PickupPoint::all();
+        $data['warehouses'] = WareHouse::all();
         return view( "admin.products.create",$data);
     }
 }

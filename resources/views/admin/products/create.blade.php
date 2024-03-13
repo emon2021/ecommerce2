@@ -169,9 +169,9 @@
                                                     style="color: red">*</span></label>
                                             <select name="warehouse" class="form-control" id="">
                                                 <option value="">Select Warehouse</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
-                                                <option value="">Category</option>
+                                                @foreach ($warehouses as $warehouse)
+                                                    <option value="{{$warehouse->id}}">{{$warehouse->warehouse_name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
