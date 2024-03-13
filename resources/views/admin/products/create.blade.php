@@ -1,5 +1,30 @@
 @extends('layouts.admin')
 @section('admin-content')
+    @push('css')
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+        <style>
+            .toggle.btn.btn-success {
+                width: 100px !important;
+            }
+
+            .toggle-handle.btn.btn-default {
+                width: 50%;
+            }
+
+            .btn.btn-success.toggle-on {
+                left: -40px;
+            }
+
+            .toggle.btn.btn-danger.off {
+                width: 100px !important;
+            }
+
+            .btn.btn-danger.active.toggle-off {
+                right: -37px;
+            }
+        </style>
+    @endpush
     <section class="content">
         <div class="container-fluid m-auto">
             <div class="row">
@@ -19,13 +44,15 @@
                                 <div class="first_column">
                                     <div class="col-md-6 float-start">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Product Name <span style="color: red">*</span></label>
+                                            <label for="exampleInputEmail1">Product Name <span
+                                                    style="color: red">*</span></label>
                                             <input type="text" class="form-control" placeholder="Product Name">
                                         </div>
                                     </div>
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Product Code <span style="color: red">*</span></label>
+                                            <label for="exampleInputEmail1">Product Code <span
+                                                    style="color: red">*</span></label>
                                             <input type="text" class="form-control" placeholder="Product Code">
                                         </div>
                                     </div>
@@ -33,22 +60,26 @@
                                 <div class="first_column">
                                     <div class="col-md-6 float-start">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Category <span style="color: red">*</span></label>
+                                            <label for="exampleInputEmail1">Category <span
+                                                    style="color: red">*</span></label>
                                             <select name="category" class="form-control" id="">
                                                 <option id="select" value="">Select Category</option>
                                                 @foreach ($category as $cat)
-                                                    <option class="category" value="{{$cat->id}}">{{$cat->category_name}}</option>
+                                                    <option class="category" value="{{ $cat->id }}">
+                                                        {{ $cat->category_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Child Category <span style="color: red">*</span></label>
+                                            <label for="exampleInputEmail1">Child Category <span
+                                                    style="color: red">*</span></label>
                                             <select name="childcategory" class="form-control" id="">
                                                 <option value="">Select Child Category</option>
-                                                @foreach($child as  $value)
-                                                <option value="{{$value->id}}"> {{$value->childcategory_name}} </option>
+                                                @foreach ($child as $value)
+                                                    <option value="{{ $value->id }}"> {{ $value->childcategory_name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -56,7 +87,7 @@
                                 </div>
                                 <div class="first_column ">
                                     <div class="col-md-12 float-start" id="subcat">
-                                        
+
                                     </div>
                                 </div>
                                 <div class="first_column">
@@ -65,19 +96,21 @@
                                             <label for="exampleInputEmail1">Brand <span style="color: red">*</span></label>
                                             <select name="category" class="form-control" id="">
                                                 <option value="">Select Brand</option>
-                                                @foreach($brands as $brand)
-                                                 <option value="{{$brand->id}}"> {{$brand->brand_name}}   </option>  
+                                                @foreach ($brands as $brand)
+                                                    <option value="{{ $brand->id }}"> {{ $brand->brand_name }} </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Pickup Point <span style="color: red">*</span></label>
+                                            <label for="exampleInputEmail1">Pickup Point <span
+                                                    style="color: red">*</span></label>
                                             <select name="childcategory" class="form-control" id="">
                                                 <option value="">Select Pickup Point</option>
-                                                @foreach($pickup as $point)
-                                                <option value="{{$point->id}}">{{$point->pickup_point_name}}</option>
+                                                @foreach ($pickup as $point)
+                                                    <option value="{{ $point->id }}">{{ $point->pickup_point_name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -105,20 +138,26 @@
                                 <div class="first_column">
                                     <div class="col-md-4 float-start">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Purchase Price <span style="color: red">*</span></label>
-                                            <input type="text" placeholder="Purchase Price" name="purchase_price" class="form-control">
+                                            <label for="exampleInputEmail1">Purchase Price <span
+                                                    style="color: red">*</span></label>
+                                            <input type="text" placeholder="Purchase Price" name="purchase_price"
+                                                class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4  float-start">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Selling Price <span style="color: red">*</span></label>
-                                            <input type="text" placeholder="Selling Price" name="selling_price" class="form-control">
+                                            <label for="exampleInputEmail1">Selling Price <span
+                                                    style="color: red">*</span></label>
+                                            <input type="text" placeholder="Selling Price" name="selling_price"
+                                                class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4 float-end">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Discount Price <span style="color: red">*</span></label>
-                                            <input type="text" placeholder="Discount Price" class="form-control" name="discount_price">
+                                            <label for="exampleInputEmail1">Discount Price <span
+                                                    style="color: red">*</span></label>
+                                            <input type="text" placeholder="Discount Price" class="form-control"
+                                                name="discount_price">
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +165,8 @@
                                 <div class="first_column">
                                     <div class="col-md-6 float-start">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Warehouse <span style="color: red">*</span></label>
+                                            <label for="exampleInputEmail1">Warehouse <span
+                                                    style="color: red">*</span></label>
                                             <select name="warehouse" class="form-control" id="">
                                                 <option value="">Select Warehouse</option>
                                                 <option value="">Category</option>
@@ -137,29 +177,35 @@
                                     </div>
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Stock <span style="color: red">*</span></label>
-                                            <input type="text" placeholder="Stock" class="form-control" name="stock">
+                                            <label for="exampleInputEmail1">Stock <span
+                                                    style="color: red">*</span></label>
+                                            <input type="text" placeholder="Stock" class="form-control"
+                                                name="stock">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="first_column">
                                     <div class="col-md-6 float-start">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Color <span style="color: red">*</span></label>
-                                            <input type="text" placeholder="Color" name="color" class="form-control">
+                                            <label for="exampleInputEmail1">Color <span
+                                                    style="color: red">*</span></label>
+                                            <input type="text" placeholder="Color" name="color"
+                                                class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Size <span style="color: red">*</span></label>
-                                            <input type="text" placeholder="Size" class="form-control" name="size">
+                                            <input type="text" placeholder="Size" class="form-control"
+                                                name="size">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="first_column">
                                     <div class=" ">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Product Description <span style="color: red">*</span></label>
+                                            <label for="exampleInputEmail1">Product Description <span
+                                                    style="color: red">*</span></label>
                                             <textarea name="product_description" class="textarea form-control" cols="30" rows="3">
                                                 What's on your mind?
                                             </textarea>
@@ -185,30 +231,32 @@
                                     <input type="file" name="main_thumbnail" class="dropify" id="">
                                 </div>
                                 <div class="form-group">
-                                    <label for="dropiFy">More Images (Click to add more images) <span style="color: red">*</span></label>
-                                    <input type="file" name="more_images" class="form-control" id="">
+                                    <label for="dropiFy">More Images (Click to add more images) <span
+                                            style="color: red">*</span></label>
+                                    <input type="file" name="more_images[]" multiple class="form-control" id="">
                                 </div>
                                 <div class="form-group">
                                     <label for="dropiFy">Featured Product </label>
                                     <div class="">
-                                        <input type='checkbox'>
-                                        
+                                        <input type='checkbox' data-toggle="toggle" data-onstyle="success"
+                                            data-offstyle="danger">
+
                                     </div>
                                 </div>
                                 <hr style="border-color:#0D7EFF">
                                 <div class="form-group">
                                     <label for="dropiFy">Today Deal </label>
                                     <div class="">
-                                        <input  type='checkbox'>
-                                        <label for="afterLabel">&nbsp; Active</label>
+                                        <input type='checkbox' data-toggle="toggle" data-onstyle="success"
+                                            data-offstyle="danger">
                                     </div>
                                 </div>
                                 <hr style="border-color:#0D7EFF">
                                 <div class="form-group">
                                     <label for="dropiFy">Status</label>
                                     <div class="">
-                                        <input class='' type='checkbox'>
-                                        <label for="afterLabel">&nbsp; Active</label>
+                                        <input type='checkbox' data-toggle="toggle" data-onstyle="success"
+                                        data-offstyle="danger">
                                     </div>
                                 </div>
                             </div>
@@ -221,28 +269,39 @@
     </section>
 
 
-@push('script')
-    <script>
-        $(document).ready(function(){
-            $('#select').click(function(){
-                $('#subcat').addClass('d-none');
-            });
-            $('.category').click(function(){
-                $('#subcat').removeClass('d-none');
-                let cat_id = $(this).val();
-                $.ajax({
-                    url:"{{route('product.subcategory')}}",
-                    type: 'GET',
-                    data: {id:cat_id},
-                    success:function(response){
-                        $('#subcat').html(response);
-                    }
+    @push('script')
+        <!----------bootstrap switch----------->
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <script>
+            //_______bootstrap.switch________
+            //     $(function() {
+            //     $('#toggle-two').bootstrapToggle({
+            //       on: 'Enabled',
+            //       off: 'Disabled'
+            //     });
+            //   })
+        </script>
+        <!-- custom.ajax request create -->
+        <script>
+            $(document).ready(function() {
+                $('#select').click(function() {
+                    $('#subcat').addClass('d-none');
+                });
+                $('.category').click(function() {
+                    $('#subcat').removeClass('d-none');
+                    let cat_id = $(this).val();
+                    $.ajax({
+                        url: "{{ route('product.subcategory') }}",
+                        type: 'GET',
+                        data: {
+                            id: cat_id
+                        },
+                        success: function(response) {
+                            $('#subcat').html(response);
+                        }
+                    });
                 });
             });
-        });
-    </script>
-@endpush
-
-
-
+        </script>
+    @endpush
 @endsection
