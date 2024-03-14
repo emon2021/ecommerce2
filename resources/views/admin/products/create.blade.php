@@ -2,6 +2,8 @@
 @section('admin-content')
     @push('css')
         <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        {{------bootstrap.input.tags.css-------}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css" integrity="sha512-uKwYJOyykD83YchxJbUxxbn8UcKAQBu+1hcLDRKZ9VtWfpMb1iYfJ74/UIjXQXWASwSzulZEC1SFGj+cslZh7Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <style>
             .toggle.btn.btn-success {
@@ -123,7 +125,7 @@
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Tags <span style="color: red">*</span></label>
-                                            <input type="text" name="tags" placeholder="Tags" class="form-control">
+                                            <input type="text" name="tags" id='tags' placeholder="Tags" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -277,14 +279,12 @@
     @push('script')
         <!----------bootstrap switch----------->
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        {{------bootstrap.input.tags.css-------}}\
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js" integrity="sha512-wTIaZJCW/mkalkyQnuSiBodnM5SRT8tXJ3LkIUA/3vBJ01vWe5Ene7Fynicupjt4xqxZKXA97VgNBHvIf5WTvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
-            //_______bootstrap.switch________
-            //     $(function() {
-            //     $('#toggle-two').bootstrapToggle({
-            //       on: 'Enabled',
-            //       off: 'Disabled'
-            //     });
-            //   })
+            $('document').ready(function(){
+                $('#tags').tagsInput();
+            });
         </script>
         <!-- custom.ajax request create -->
         <script>
