@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('code');
             $table->string('unit')->nullable();
             $table->string('tags')->nullable();
-            $table->string('purchase_price')->nullable();
-            $table->string('selling_price')->nullable();
-            $table->string('discount_price')->nullable();
+            $table->integer('purchase_price')->nullable();
+            $table->integer('selling_price')->nullable();
+            $table->integer('discount_price')->nullable();
             $table->string('stock_quantity')->nullable();
             $table->string('warehouse')->nullable();
             $table->text('description')->nullable();
