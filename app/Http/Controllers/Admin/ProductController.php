@@ -113,8 +113,6 @@ class ProductController extends Controller
                 array_push($muliple_image,$path.$img_name);
             }
             $product->images= json_encode($muliple_image);
-        }else{
-            return response()->json('Multiple image field is empty!');
         }
 
         $product->save();

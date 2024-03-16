@@ -62,7 +62,7 @@
                                 </div>
                             @endif
 
-                            <div id="errors" class="alert alert-warning d-none" style="color:darkred">
+                            <div id="errors" class="alert alert-danger d-none" >
 
                             </div>
                             <!-- /.card-header -->
@@ -74,7 +74,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Product Name <span
                                                     style="color: red">*</span></label>
-                                            <input type="text" name="name" value="{{ old('name') }}"
+                                            <input type="text" name="name"  value="{{ old('name') }}"
                                                 class="form-control" placeholder="Product Name">
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Product Code <span
                                                     style="color: red">*</span></label>
-                                            <input type="text" name="code" value="{{ old('code') }}"
+                                            <input type="text" name="code"  value="{{ old('code') }}"
                                                 class="form-control" placeholder="Product Code">
                                         </div>
                                     </div>
@@ -206,7 +206,7 @@
                                     </div>
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Stock <span
+                                            <label for="exampleInputEmail1">Stock Quantity <span
                                                     style="color: red">*</span></label>
                                             <input type="number" placeholder="Stock" class="form-control"
                                                 name="stock_quantity" value="{{ old('stock_quantity') }}">
@@ -383,10 +383,11 @@
                         },
                         error: function(xhr,status,error){
                             $('#errors').removeClass( "d-none" );
-                            let errors = xhr.responseJSON.errors;
-                            $.each(error,function(key,value){
+                            var errors = xhr.responseJSON.errors;
+                            $.each(errors, function(key, value) {
+                                // Display error message next to input field
                                 $('#errors').text(value[0]);
-                            })
+                            });
                         }
                     });
                 });
