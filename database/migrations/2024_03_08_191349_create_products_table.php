@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('childcategory_id')->nullable();
             $table->integer('brand_id')->nullable();
             $table->string('name');
+            $table->string('slug')->nullable();
             $table->string('code');
             $table->string('unit')->nullable();
             $table->string('tags')->nullable();
@@ -38,6 +39,8 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->string('size')->nullable();
             $table->integer('admin_id')->nullable();
+            $table->string('date')->nullable();
+            $table->string('month')->nullable();
             $table->timestamps();
             $table->integer('pickup_point_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete( 'cascade' );

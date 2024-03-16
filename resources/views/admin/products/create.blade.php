@@ -6,6 +6,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css" integrity="sha512-uKwYJOyykD83YchxJbUxxbn8UcKAQBu+1hcLDRKZ9VtWfpMb1iYfJ74/UIjXQXWASwSzulZEC1SFGj+cslZh7Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <style>
+            #color_tag,#size_tag,#tags_tag{width: 100% !important;}
+            #color_tagsinput{width:285px !important}
             .toggle.btn.btn-success {
                 width: 100px !important;
             }
@@ -29,7 +31,8 @@
             <div class="row">
                 <h1 class="form_header " style="margin-left: 16.3rem; padding: 10px;text-transform: uppercase;">Add New
                     Product</h1>
-                <form action="">
+                <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="col-md-8" style="float: left; width: 40.2rem; margin-left:15rem">
 
                         <div class="card card-primary" style="">
@@ -45,14 +48,14 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Product Name <span
                                                     style="color: red">*</span></label>
-                                            <input type="text" name="name" class="form-control" placeholder="Product Name">
+                                            <input type="text" name="name" required value="{{old('name')}}" class="form-control" placeholder="Product Name">
                                         </div>
                                     </div>
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Product Code <span
                                                     style="color: red">*</span></label>
-                                            <input type="text" name="code" class="form-control" placeholder="Product Code">
+                                            <input type="text" name="code" required value="{{old('code')}}" class="form-control" placeholder="Product Code">
                                         </div>
                                     </div>
                                 </div>
@@ -115,17 +118,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="first_column">
+                                <div class="first_column" style="display: inline-block">
                                     <div class="col-md-6 float-start">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Unit <span style="color: red">*</span></label>
-                                            <input type="text" name="unit" class="form-control">
+                                            <input type="text" name="unit" required  value="{{old('unit')}}" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Tags <span style="color: red">*</span></label>
-                                            <input type="text" name="tags" id='tags' placeholder="Tags" class="form-control">
+                                            <input type="text" name="tags"  required  value="{{old('tags')}}" id='tags' placeholder="Tags" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +137,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Purchase Price <span
                                                     style="color: red">*</span></label>
-                                            <input type="text" placeholder="Purchase Price" name="purchase_price"
+                                            <input type="text" placeholder="Purchase Price"  required  value="{{old('purchase_price')}}" name="purchase_price"
                                                 class="form-control">
                                         </div>
                                     </div>
@@ -143,7 +146,7 @@
                                             <label for="exampleInputEmail1">Selling Price <span
                                                     style="color: red">*</span></label>
                                             <input type="text" placeholder="Selling Price" name="selling_price"
-                                                class="form-control">
+                                                class="form-control" required  value="{{old('selling_price')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-4 float-end">
@@ -151,7 +154,7 @@
                                             <label for="exampleInputEmail1">Discount Price <span
                                                     style="color: red">*</span></label>
                                             <input type="text" placeholder="Discount Price" class="form-control"
-                                                name="discount_price">
+                                                name="discount_price"  required  value="{{old('discount_price')}}">
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +177,7 @@
                                             <label for="exampleInputEmail1">Stock <span
                                                     style="color: red">*</span></label>
                                             <input type="text" placeholder="Stock" class="form-control"
-                                                name="stock_quantity">
+                                                name="stock_quantity" required  value="{{old('stock_quantity')}}">
                                         </div>
                                     </div>
                                 </div>
@@ -183,15 +186,15 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Color <span
                                                     style="color: red">*</span></label>
-                                            <input type="text" placeholder="Color" name="color"
-                                                class="form-control">
+                                            <input type="text" width="100px" id="color"  placeholder="Color" name="color"
+                                                class="form-control" required  value="{{old('color')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 float-end">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Size <span style="color: red">*</span></label>
-                                            <input type="text" placeholder="Size" class="form-control"
-                                                name="size">
+                                            <input type="text" id="size" placeholder="Size" class="form-control"
+                                                name="size" required  value="{{old('size')}}">
                                         </div>
                                     </div>
                                 </div>
@@ -200,7 +203,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Product Description <span
                                                     style="color: red">*</span></label>
-                                            <textarea name="description" class="textarea form-control" cols="30" rows="3">
+                                            <textarea name="description" required  value="{{old('description')}}" class="textarea form-control" cols="30" rows="3">
                                                 What's on your mind?
                                             </textarea>
                                         </div>
@@ -222,7 +225,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="dropiFy">Main Thumbnail <span style="color: red">*</span></label>
-                                    <input type="file" name="thumbnail" class="dropify" id="">
+                                    <input type="file" required name="thumbnail" class="dropify" id="">
                                 </div>
                                 <div class="form-group">
                                     <label for="dropiFy">More Images (Click to add more images) <span
@@ -232,12 +235,12 @@
                                 <div class="form-group">
                                     <label for="dropiFy">Video Link: <span
                                             style="color: red">*</span></label>
-                                    <input type="text" placeholder="https://example.com" name="video" multiple class="form-control" id="">
+                                    <input type="text" placeholder="https://example.com" name="video" required  value="{{old('video')}}" class="form-control" id="">
                                 </div>
                                 <div class="form-group">
                                     <label for="dropiFy">Cash On Delivery </label>
                                     <div class="">
-                                        <input type='checkbox' name="cash_on_delivery" data-toggle="toggle" data-onstyle="success"
+                                        <input type='checkbox' value="1" name="cash_on_delivery" data-toggle="toggle" data-onstyle="success"
                                             data-offstyle="danger" data-on="Yes" data-off="No">
 
                                     </div>
@@ -245,7 +248,7 @@
                                 <div class="form-group">
                                     <label for="dropiFy">Featured Product </label>
                                     <div class="">
-                                        <input type='checkbox' name="featured" data-toggle="toggle" data-onstyle="success"
+                                        <input type='checkbox' value="1" name="featured" data-toggle="toggle" data-onstyle="success"
                                             data-offstyle="danger">
 
                                     </div>
@@ -254,7 +257,7 @@
                                 <div class="form-group">
                                     <label for="dropiFy">Today Deal </label>
                                     <div class="">
-                                        <input type='checkbox' name="today_deal" data-toggle="toggle" data-onstyle="success"
+                                        <input type='checkbox' value="1" name="today_deal" data-toggle="toggle" data-onstyle="success"
                                             data-offstyle="danger">
                                     </div>
                                 </div>
@@ -262,7 +265,7 @@
                                 <div class="form-group">
                                     <label for="dropiFy">Status</label>
                                     <div class="">
-                                        <input type='checkbox' name="status" data-toggle="toggle" data-onstyle="success"
+                                        <input type='checkbox' value="1" name="status" data-toggle="toggle" data-onstyle="success"
                                         data-offstyle="danger">
                                     </div>
                                 </div>
@@ -279,11 +282,14 @@
     @push('script')
         <!----------bootstrap switch----------->
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-        {{------bootstrap.input.tags.css-------}}\
+        {{------jquery.input.tags.css-------}}\
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js" integrity="sha512-wTIaZJCW/mkalkyQnuSiBodnM5SRT8tXJ3LkIUA/3vBJ01vWe5Ene7Fynicupjt4xqxZKXA97VgNBHvIf5WTvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
+            //______jquery.inputTags.plugin
             $('document').ready(function(){
-                $('#tags').tagsInput();
+                $('#tags,#color,#size').tagsInput({
+                    'defaultText':'Write here...',
+                });
             });
         </script>
         <!-- custom.ajax request create -->

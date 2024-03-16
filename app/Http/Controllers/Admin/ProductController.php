@@ -44,4 +44,13 @@ class ProductController extends Controller
         $data['warehouses'] = WareHouse::all();
         return view( "admin.products.create",$data);
     }
+
+    //_________product.store________
+    public function store(Request $request)
+    {
+        dd($request->all());
+    }
+
+
+
 }
