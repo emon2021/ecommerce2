@@ -288,16 +288,16 @@ class ProductController extends Controller
                 foreach ($imageArr as $img) {
                     @unlink($img); //   delete each image from folder
                 }
-
+                $url = 'public/backend/products/';
                 //____image name container in array___
                 $muliple_image = [];
                 foreach ($request->images as $image) {
 
                     $img_extension = $image->getClientOriginalExtension();
                     $img_name = time() . "_" . uniqid() . "." . $img_extension;
-                    $image->move($path, $img_name);
+                    $image->move($url, $img_name);
                     //___pushing image name in array___
-                    array_push($muliple_image, $path . $img_name);
+                    array_push($muliple_image, $url . $img_name);
                 }
                 $product->images = json_encode($muliple_image);
             }

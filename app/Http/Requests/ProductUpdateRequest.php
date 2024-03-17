@@ -25,8 +25,8 @@ class ProductUpdateRequest extends FormRequest
             //______product validation rules______
             'name' => 'required',
             'code' => 'required',
-            'category_id' => 'required',
-            'subcategory_id' => 'required',
+            'category_id' => 'nullable',
+            'subcategory_id' => 'nullable',
             'childcategory_id' =>  'nullable',
             'brand_id' => 'nullable',
             'pickup_point_id' => 'nullable',
