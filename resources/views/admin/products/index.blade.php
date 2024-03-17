@@ -290,8 +290,8 @@
                             cache: false,
                             processData: false,
                             success: function(response){
-                                toastr.success(response);
                                 yTable.ajax.reload();
+                                toastr.success(response);
                             },
                         });
                     });
