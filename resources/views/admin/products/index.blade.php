@@ -248,6 +248,58 @@
         </script>
         
         <!-------------------custom script------------------->
+        <script>
+            $(document).ready(function(){
+                $('body').on('click','#delete_data',function(e){
+                    e.preventDefault();
+                    let get_route = $(this).attr('href');
+                    let set_route = $('#delete_form').attr( "action", get_route );
+                    // SweetAlert confirmation
+                    Swal.fire({
+                        title: "Are you want to Delete?",
+                        text: "",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#23D160",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // If confirmed, submit the form
+                            $('#delete_form').submit();
+                        } else {
+                            // Otherwise, show a message
+                            Swal.fire({
+                                title: "Your Data is Safe!",
+                                text: "",
+                                icon: "info"
+                            });
+                        }
+                    });
+                    //____-end of sweetalert2------
+
+                    $('#delete_form').submit(function(e){
+                        e.preventDefault();
+                        $get_action = $(this).attr('action');
+                        $formData = new FormData($(this)[0]);
+                        $.ajax({
+                            url:$get_action,
+                            method:"POST",
+                            data: $formData,
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success: function(response){
+                                toastr.success(response);
+                                yTable.ajax.reload();
+                            },
+                        });
+                    });
+                });
+
+
+            });
+        </script>
         
     @endpush
 @endsection

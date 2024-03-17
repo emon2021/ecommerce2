@@ -14,7 +14,9 @@ use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Colors\Rgb\Channels\Red;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -141,7 +143,7 @@ class ProductController extends Controller
                     $actionbtn = '<a href="javascript:void(0)"  data-id="' . $row->id . '" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
                 <i class="fas fa-edit"></i>
               </a>
-              <a href="' . route('brand.destroy', $row->id) . '" id="delete_data" class="btn btn-danger">
+              <a href="' . route('product.destroy', $row->id) . '" id="delete_data" class="btn btn-danger">
               <i class="fas fa-trash"></i>
             </a>';
                     return $actionbtn;
@@ -175,5 +177,24 @@ class ProductController extends Controller
                 ->make(true);
         }
         return view("admin.products.index");
+    }
+
+
+    //_______product.destroy__________
+    public function destroy(Request $request, $id)
+    {
+        $product = Product::findOrfail($id);
+        if (File::exists($product->thumbnail)) {
+            $oldImage = $product->thumbnail;
+            @unlink($oldImage);
+            $imageArr = json_decode($product->images);
+            if (!empty($imageArr)) {
+                foreach ($imageArr as $img) {
+                    @unlink($img);
+                }
+            }
+        }
+        $product->delete();
+        return response()->json('Product has been deleted!');
     }
 }
