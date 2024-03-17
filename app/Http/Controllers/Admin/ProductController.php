@@ -40,6 +40,12 @@ class ProductController extends Controller
         $child_cat = ChildCategory::select('id', 'childcategory_name')->where('subcategory_id', $request->id)->get();
         return response()->json($child_cat);
     }
+    //______sub.view.on.product.page_______
+    public function subView(Request $request)
+    {
+        $sub = SubCategory::select('id', 'subcategory_name')->where('category_id', $request->id)->get();
+        return response()->json($sub);
+    }
 
     //_______product.create________
     public function create()
@@ -141,7 +147,7 @@ class ProductController extends Controller
                 //  declaring yajra data table and pushing data in that table
             return DataTables::of($product)
                 ->addColumn('action', function ($row) {
-                    $actionbtn = '<a href="javascript:void(0)"  data-id="' . $row->id . '" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
+                    $actionbtn = '<a href="'.route('product.edit',$row->id).'"   class="btn btn-primary edit" >
                 <i class="fas fa-edit"></i>
               </a>
               <a href="' . route('product.destroy', $row->id) . '" id="delete_data" class="btn btn-danger">
@@ -204,5 +210,18 @@ class ProductController extends Controller
         }
         $product->delete();
         return response()->json('Product has been deleted!');
+    }
+
+    //_______product.edit_______
+    public function edit($id)
+    {
+        $data['product'] = Product::find($id);
+        $data['category'] = Category::select('id', 'category_name')->get();
+        //$data['subcategory'] = SubCategory::select('id', 'subcategory_name')->where('id',$data['product']->subcategory_id)->get();
+       // $data['child'] = ChildCategory::select('id', 'childcategory_name')->where('id',$data['product']->childcategory_id)->get();
+        $data['brands'] = Brand::select('id', 'brand_name')->get();
+        $data['points'] = PickupPoint::select('id', 'pickup_point_name')->get();
+        $data['warehouses'] = WareHouse::select('id', 'warehouse_name')->get();
+        return view('admin.products.edit',$data);
     }
 }

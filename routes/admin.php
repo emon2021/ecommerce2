@@ -188,6 +188,8 @@ Route::middleware(['auth', 'is_admin'])->prefix('/offers')->group(function () {
 });
 //____global routes for showing child category________
 Route::get('/childcategory',[ProductController::class,'childView'])->name('show.child');
+//____global routes for showing child category________
+Route::get('/subcategory/view',[ProductController::class,'subView'])->name('show.sub');
 //____products.route___/
 Route::middleware(['auth', 'is_admin'])->prefix('/products')->group(function () {
     //____product.route___/
@@ -201,7 +203,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('/products')->group(function () 
         //____product.destroy.route___/
         Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
         //____product.edit.route___/
-        Route::get('/edit/{id}', [ProductController::class, 'edit']);
+        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
         //____product.update.route___/
         Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update');
         //____subcategory.fetch.route___/
