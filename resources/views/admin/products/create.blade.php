@@ -380,6 +380,7 @@
                         contentType: false,
                         success: function(response){
                             toastr.success(response);
+                            $('#submit')[0].reset();
                         },
                         error: function(xhr,status,error){
                             $('#errors').removeClass( "d-none" );

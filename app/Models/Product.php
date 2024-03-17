@@ -62,4 +62,9 @@ class Product extends Model
     {
         return $this->belongsTo(PickupPoint::class,'pickup_point_id');
     }
+    //______relation with warehouse model_______
+    public function warehouse()
+    {
+        return $this->belongsTo(WareHouse::class,'warehouse');
+    }
 }

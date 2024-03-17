@@ -26,7 +26,7 @@ return new class extends Migration
             $table->integer('selling_price')->nullable();
             $table->integer('discount_price')->nullable();
             $table->string('stock_quantity')->nullable();
-            $table->string('warehouse')->nullable();
+            $table->integer('warehouse')->nullable();
             $table->text('description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('images')->nullable();

@@ -14,39 +14,40 @@ use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
 {
     //_____auth check_____
-    public function __construct() 
+    public function __construct()
     {
-        $this->middleware(['auth' , 'is_admin']);
+        $this->middleware(['auth', 'is_admin']);
     }
 
     //_______product.fetch.subcategory________
     public function subcategory(Request $request)
     {
         $id = $request->id;
-        $sub = SubCategory::select('id','subcategory_name')->where('category_id',$id)->get();
-        return view( "admin.products.subcategory",compact('sub'));
+        $sub = SubCategory::select('id', 'subcategory_name')->where('category_id', $id)->get();
+        return view("admin.products.subcategory", compact('sub'));
     }
 
     //_______child.view.on.product.page_______
     public function childView(Request $request)
     {
-        $child_cat = ChildCategory::select('id','childcategory_name')->where('subcategory_id',$request->id)->get();
+        $child_cat = ChildCategory::select('id', 'childcategory_name')->where('subcategory_id', $request->id)->get();
         return response()->json($child_cat);
     }
 
     //_______product.create________
     public function create()
-    {  
+    {
         $data['category'] = Category::all();
         $data['brands'] = Brand::all();
         //$data['child']  = ChildCategory::all();
         $data['pickup'] = PickupPoint::all();
         $data['warehouses'] = WareHouse::all();
-        return view( "admin.products.create",$data);
+        return view("admin.products.create", $data);
     }
 
     //_________product.store________
@@ -56,7 +57,7 @@ class ProductController extends Controller
         //_____storing data___
         $product = new Product();
         $product->name = $request->name;
-        $product->slug = Str::slug($request->name,'-');
+        $product->slug = Str::slug($request->name, '-');
         $product->code = $request->code;
         $product->category_id = $request->category_id;
         $product->subcategory_id = $request->subcategory_id;
@@ -84,41 +85,95 @@ class ProductController extends Controller
         $product->date = date('d-m-y');
         $product->month = date('F');
         //_______thumnail upload_____
-        if ($request->file('thumbnail'))
-        {
+        if ($request->file('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
             $path = 'public/backend/products/';
             $thumb_extension = $thumbnail->getClientOriginalExtension();
-            $thumb_name = time().".".$thumb_extension;
-            $thumbnail->move($path, $thumb_name); 
+            $thumb_name = time() . "." . $thumb_extension;
+            $thumbnail->move($path, $thumb_name);
 
             //___insert name into database___
-            $product->thumbnail = $path.$thumb_name;
-        }else{
+            $product->thumbnail = $path . $thumb_name;
+        } else {
             return response()->json('Thumbnail field is empty!');
         }
 
         //_____multiple image upload for product_____
-        if ($request->hasFile('images'))
-        {
+        if ($request->hasFile('images')) {
             //____image name container in array___
             $muliple_image = [];
-            foreach( $request->images as $image)
-            {
-                
+            foreach ($request->images as $image) {
+
                 $img_extension = $image->getClientOriginalExtension();
-                $img_name = time()."_".uniqid(). "." . $img_extension;
+                $img_name = time() . "_" . uniqid() . "." . $img_extension;
                 $image->move($path, $img_name);
                 //___pushing image name in array___
-                array_push($muliple_image,$path.$img_name);
+                array_push($muliple_image, $path . $img_name);
             }
-            $product->images= json_encode($muliple_image);
+            $product->images = json_encode($muliple_image);
         }
 
         $product->save();
         return response()->json('Product added successfully!');
     }
 
+    //________product.index__________
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $path = 'public/backend/products/';
+            $product = Product::leftJoin('categories', 'categories.id', 'products.category_id')
+                ->leftJoin('sub_categories', 'sub_categories.id', 'products.subcategory_id')
+                ->leftJoin('brands', 'brands.id', 'products.brand_id')
+                ->leftJoin('pickup_points', 'pickup_points.id', 'products.pickup_point_id')
+                ->leftJoin('ware_houses', 'ware_houses.id', 'products.warehouse')
+                ->select([
+                    'products.*',
+                    'categories.category_name',
+                    'sub_categories.subcategory_name',
+                    'brands.brand_name',
+                    'pickup_points.pickup_point_name',
+                    'ware_houses.warehouse_name'
+                ])->orderBy('id', 'ASC')->get();
 
-
+            return DataTables::of($product)
+                ->addColumn('action', function ($row) {
+                    $actionbtn = '<a href="javascript:void(0)"  data-id="' . $row->id . '" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
+                <i class="fas fa-edit"></i>
+              </a>
+              <a href="' . route('brand.destroy', $row->id) . '" id="delete_data" class="btn btn-danger">
+              <i class="fas fa-trash"></i>
+            </a>';
+                    return $actionbtn;
+                })
+                ->addIndexColumn()
+                ->editColumn('thumbnail', function ($data) {
+                    return '<img src="' . asset($data->thumbnail) . '"  width="100px"/>';
+                })
+                ->editColumn('images', function ($data) {
+                    $image = '';
+                    $img_json = json_decode($data->images);
+                    // $img_exploade = explode("," , $img_json);
+                    foreach ($img_json as $img) {
+                        $image .= '<img src="' . asset($img) . '"  width="50px"/></br>';
+                    }
+                    return $image;
+                })
+                ->editColumn('subcategory_name', function ($data) {
+                    return $data->subcategory->subcategory_name;
+                })
+                ->editColumn('category_name', function ($data) {
+                    return $data->category->category_name;
+                })
+                ->editColumn('brand_name', function ($data) {
+                    return $data->brand->brand_name;
+                })
+                ->editColumn('pickup_point_name', function ($data) {
+                    return $data->pickuppoint->pickup_point_name;
+                })
+                ->rawColumns(['action', 'thumbnail', 'images', 'subcategory_name', 'category_name', 'brand_name', 'pickup_point_name', 'warehouse_name'])
+                ->make(true);
+        }
+        return view("admin.products.index");
+    }
 }
