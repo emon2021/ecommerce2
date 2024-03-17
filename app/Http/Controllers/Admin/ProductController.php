@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
@@ -144,10 +145,10 @@ class ProductController extends Controller
                     'ware_houses.warehouse_name'
                 ])->orderBy('id', 'ASC')->get();
 
-                //  declaring yajra data table and pushing data in that table
+            //  declaring yajra data table and pushing data in that table
             return DataTables::of($product)
                 ->addColumn('action', function ($row) {
-                    $actionbtn = '<a href="'.route('product.edit',$row->id).'"   class="btn btn-primary edit" >
+                    $actionbtn = '<a href="' . route('product.edit', $row->id) . '"   class="btn btn-primary edit" >
                 <i class="fas fa-edit"></i>
               </a>
               <a href="' . route('product.destroy', $row->id) . '" id="delete_data" class="btn btn-danger">
@@ -166,7 +167,7 @@ class ProductController extends Controller
                     //  get  image from images array
                     foreach ($img_json as $img) {
                         //   adding each image tag in $image variable with image url
-                        $image .= '<img src="' . asset($img) . '"  width="50px"/></br>'; 
+                        $image .= '<img src="' . asset($img) . '"  width="50px"/></br>';
                     }
                     return $image;  //    returning image
                 })
@@ -188,7 +189,7 @@ class ProductController extends Controller
         }
         return view("admin.products.index");
     }
-//____________-end of product.index__________________
+    //____________-end of product.index__________________
 
 
     //_______product.destroy__________
@@ -200,9 +201,9 @@ class ProductController extends Controller
             $oldImage = $product->thumbnail;    //   get old image path
             @unlink($oldImage); //   delete old image from folder
             $imageArr = json_decode($product->images);  //     get all images and convert in array
-            
+
             //     loop for each image and delete image from folder
-            if (!empty($imageArr)) {    
+            if (!empty($imageArr)) {
                 foreach ($imageArr as $img) {
                     @unlink($img); //   delete each image from folder
                 }
@@ -218,10 +219,96 @@ class ProductController extends Controller
         $data['product'] = Product::find($id);
         $data['category'] = Category::select('id', 'category_name')->get();
         //$data['subcategory'] = SubCategory::select('id', 'subcategory_name')->where('id',$data['product']->subcategory_id)->get();
-       // $data['child'] = ChildCategory::select('id', 'childcategory_name')->where('id',$data['product']->childcategory_id)->get();
+        // $data['child'] = ChildCategory::select('id', 'childcategory_name')->where('id',$data['product']->childcategory_id)->get();
         $data['brands'] = Brand::select('id', 'brand_name')->get();
         $data['points'] = PickupPoint::select('id', 'pickup_point_name')->get();
         $data['warehouses'] = WareHouse::select('id', 'warehouse_name')->get();
-        return view('admin.products.edit',$data);
+        return view('admin.products.edit', $data);
+    }
+
+    //_________product.update________
+    public function update(ProductUpdateRequest $request, $id)
+    {
+        $request->validated();
+        //_____updating data___
+        $product = Product::findOrfail($id);
+        $product->name = $request->name;
+        $product->slug = Str::slug($request->name, '-');
+        $product->code = $request->code;
+        $product->category_id = $request->category_id;
+        $product->subcategory_id = $request->subcategory_id;
+        $product->childcategory_id = $request->childcategory_id;
+        $product->brand_id = $request->brand_id;
+        $product->unit = $request->unit;
+        $product->tags = $request->tags;
+        $product->purchase_price = $request->purchase_price;
+        $product->selling_price = $request->selling_price;
+        $product->discount_price = $request->discount_price;
+        $product->stock_quantity = $request->stock_quantity;
+        $product->warehouse = $request->warehouse;
+        $product->description = $request->description;
+        $product->video = $request->video;
+        $product->cash_on_delivery = $request->cash_on_delivery;
+        $product->featured = $request->featured;
+        $product->today_deal = $request->today_deal;
+        $product->status = $request->status;
+        $product->color = $request->color;
+        $product->size = $request->size;
+        $product->date = $request->date;
+        $product->month = $request->month;
+        $product->admin_id = Auth::user()->id;
+        $product->pickup_point_id = $request->pickup_point_id;
+        $product->date = date('d-m-y');
+        $product->month = date('F');
+        //_______thumnail upload_____
+        if ($request->file('thumbnail')) {
+            if (File::exists($product->thumbnail)) {
+                $oldImage = $product->thumbnail;    //   get old image path
+                @unlink($oldImage); //   delete old image from folder
+
+
+                $thumbnail = $request->file('thumbnail');
+                $path = 'public/backend/products/';
+                $thumb_extension = $thumbnail->getClientOriginalExtension();
+                $thumb_name = time() . "." . $thumb_extension;
+                $thumbnail->move($path, $thumb_name);
+
+                //___insert name into database___
+                $product->thumbnail = $path . $thumb_name;
+            }
+        }
+
+        //_____multiple image upload for product_____
+        if ($request->hasFile('images')) {
+
+            $imageArr = json_decode($product->images);  //     get all images and convert in array
+
+            //     loop for each image and delete image from folder
+            if (!empty($imageArr)) {
+                foreach ($imageArr as $img) {
+                    @unlink($img); //   delete each image from folder
+                }
+
+                //____image name container in array___
+                $muliple_image = [];
+                foreach ($request->images as $image) {
+
+                    $img_extension = $image->getClientOriginalExtension();
+                    $img_name = time() . "_" . uniqid() . "." . $img_extension;
+                    $image->move($path, $img_name);
+                    //___pushing image name in array___
+                    array_push($muliple_image, $path . $img_name);
+                }
+                $product->images = json_encode($muliple_image);
+            }
+        }
+
+        $product->update();
+        //__toaster alert notification for the controller
+        $notification = array(
+            'message' => 'Product Updated Successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('product.index')->with($notification);
     }
 }

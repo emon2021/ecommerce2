@@ -44,7 +44,7 @@
             <div class="row">
                 <h1 class="form_header " style="margin-left: 16.3rem; padding: 10px;text-transform: uppercase;">Add New
                     Product</h1>
-                <form action="{{ route('product.store') }}" id="submit" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('product.update',$product->id) }}" id="submit" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="col-md-8" style="float: left; width: 40.2rem; margin-left:15rem">
 
@@ -392,32 +392,6 @@
                         }
                     });
                 });
-                //______products.store______
-                // $('body').on('submit','#submit',function(e){
-                //     e.preventDefault();
-                //     let action_route = $(this).attr('action');
-                //     let get_data = new FormData($(this)[0]);
-                //     $.ajax({
-                //         url: action_route,
-                //         type: 'POST',
-                //         data: get_data ,
-                //         async: false,
-                //         processData: false,
-                //         contentType: false,
-                //         success: function(response){
-                //             toastr.success(response);
-                //             $('#submit')[0].reset();
-                //         },
-                //         error: function(xhr,status,error){
-                //             $('#errors').removeClass( "d-none" );
-                //             var errors = xhr.responseJSON.errors;
-                //             $.each(errors, function(key, value) {
-                //                 // Display error message next to input field
-                //                 $('#errors').text(value[0]);
-                //             });
-                //         }
-                //     });
-                // });
             });
         </script>
     @endpush
