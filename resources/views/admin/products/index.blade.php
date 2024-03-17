@@ -252,8 +252,8 @@
             $(document).ready(function(){
                 $('body').on('click','#delete_data',function(e){
                     e.preventDefault();
-                    let get_route = $(this).attr('href');
-                    let set_route = $('#delete_form').attr( "action", get_route );
+                    let get_route = $(this).attr('href'); //    get route
+                    let set_route = $('#delete_form').attr( "action", get_route );  //set attr action to our form from href attribute of button
                     // SweetAlert confirmation
                     Swal.fire({
                         title: "Are you want to Delete?",
@@ -280,18 +280,17 @@
 
                     $('#delete_form').submit(function(e){
                         e.preventDefault();
-                        $get_action = $(this).attr('action');
-                        $formData = new FormData($(this)[0]);
+                        $get_action = $(this).attr('action'); //    get route from action attribute
+                        $formData = new FormData($(this)[0]);   //  get all data from the form
                         $.ajax({
                             url:$get_action,
                             method:"POST",
                             data: $formData,
                             contentType: false,
-                            cache: false,
                             processData: false,
                             success: function(response){
-                                yTable.ajax.reload();
-                                toastr.success(response);
+                                yTable.ajax.reload(); //     refresh table after deleting
+                                toastr.success(response);   //      show response in toster
                             },
                         });
                     });

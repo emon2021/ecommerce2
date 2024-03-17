@@ -123,7 +123,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $path = 'public/backend/products/';
+            //  joining  relational table to get the related data
             $product = Product::leftJoin('categories', 'categories.id', 'products.category_id')
                 ->leftJoin('sub_categories', 'sub_categories.id', 'products.subcategory_id')
                 ->leftJoin('brands', 'brands.id', 'products.brand_id')
@@ -138,6 +138,7 @@ class ProductController extends Controller
                     'ware_houses.warehouse_name'
                 ])->orderBy('id', 'ASC')->get();
 
+                //  declaring yajra data table and pushing data in that table
             return DataTables::of($product)
                 ->addColumn('action', function ($row) {
                     $actionbtn = '<a href="javascript:void(0)"  data-id="' . $row->id . '" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
@@ -148,18 +149,20 @@ class ProductController extends Controller
             </a>';
                     return $actionbtn;
                 })
-                ->addIndexColumn()
+                ->addIndexColumn() //   add  an index column
+                //  editColumn for editing  any column of a specific row
                 ->editColumn('thumbnail', function ($data) {
                     return '<img src="' . asset($data->thumbnail) . '"  width="100px"/>';
                 })
                 ->editColumn('images', function ($data) {
-                    $image = '';
-                    $img_json = json_decode($data->images);
-                    // $img_exploade = explode("," , $img_json);
+                    $image = '';    //    initializing image variable
+                    $img_json = json_decode($data->images); //  converting string into array
+                    //  get  image from images array
                     foreach ($img_json as $img) {
-                        $image .= '<img src="' . asset($img) . '"  width="50px"/></br>';
+                        //   adding each image tag in $image variable with image url
+                        $image .= '<img src="' . asset($img) . '"  width="50px"/></br>'; 
                     }
-                    return $image;
+                    return $image;  //    returning image
                 })
                 ->editColumn('subcategory_name', function ($data) {
                     return $data->subcategory->subcategory_name;
@@ -173,24 +176,29 @@ class ProductController extends Controller
                 ->editColumn('pickup_point_name', function ($data) {
                     return $data->pickuppoint->pickup_point_name;
                 })
+                //    rawColumn is used when you want to show the data in same format without applying any processing or    
                 ->rawColumns(['action', 'thumbnail', 'images', 'subcategory_name', 'category_name', 'brand_name', 'pickup_point_name', 'warehouse_name'])
                 ->make(true);
         }
         return view("admin.products.index");
     }
+//____________-end of product.index__________________
 
 
     //_______product.destroy__________
     public function destroy(Request $request, $id)
     {
         $product = Product::findOrfail($id);
+        //  check thumbnail exists or not
         if (File::exists($product->thumbnail)) {
-            $oldImage = $product->thumbnail;
-            @unlink($oldImage);
-            $imageArr = json_decode($product->images);
-            if (!empty($imageArr)) {
+            $oldImage = $product->thumbnail;    //   get old image path
+            @unlink($oldImage); //   delete old image from folder
+            $imageArr = json_decode($product->images);  //     get all images and convert in array
+            
+            //     loop for each image and delete image from folder
+            if (!empty($imageArr)) {    
                 foreach ($imageArr as $img) {
-                    @unlink($img);
+                    @unlink($img); //   delete each image from folder
                 }
             }
         }
