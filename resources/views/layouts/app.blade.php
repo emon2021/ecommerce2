@@ -1,80 +1,111 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="no-js" lang="zxx">    
+<!-- index-231:32-->
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Home Version Two || limupa - Digital Products Store ECommerce Bootstrap 4 Template</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="{{asset('public/frontend')}}/images/favicon.png">
+        <!-- Material Design Iconic Font-V2.2.0 -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/material-design-iconic-font.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/font-awesome.min.css">
+        <!-- Font Awesome Stars-->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/fontawesome-stars.css">
+        <!-- Meanmenu CSS -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/meanmenu.css">
+        <!-- owl carousel CSS -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/owl.carousel.min.css">
+        <!-- Slick Carousel CSS -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/slick.css">
+        <!-- Animate CSS -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/animate.css">
+        <!-- Jquery-ui CSS -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/jquery-ui.min.css">
+        <!-- Venobox CSS -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/venobox.css">
+        <!-- Nice Select CSS -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/nice-select.css">
+        <!-- Magnific Popup CSS -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/magnific-popup.css">
+        <!-- Bootstrap V4.1.3 Fremwork CSS -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/bootstrap.min.css">
+        <!-- Helper CSS -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/helper.css">
+        <!-- Main Style CSS -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/style.css">
+        <!-- Responsive CSS -->
+        <link rel="stylesheet" href="{{asset('public/frontend')}}/css/responsive.css">
+        <!-- Modernizr js -->
+        <script src="{{asset('public/frontend')}}/js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body>
+    <!--[if lt IE 8]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+        <!-- Begin Body Wrapper -->
+        <div class="body-wrapper">
+            <!----------topbar------------>
+            @include('layouts.front-partial.topbar')
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
+            <!----------sidebar------------>
+            @include('layouts.front-partial.sidebar')
+            
             @yield('content')
-        </main>
-    </div>
-</body>
+
+            <!-----------footer-------------->
+            @include('layouts.front-partial.footer')
+
+
+            
+        </div>
+        <!-- Body Wrapper End Here -->
+        <!-- jQuery-V1.12.4 -->
+        <script src="{{asset('public/frontend')}}/js/vendor/jquery-1.12.4.min.js"></script>
+        <!-- Popper js -->
+        <script src="{{asset('public/frontend')}}/js/vendor/popper.min.js"></script>
+        <!-- Bootstrap V4.1.3 Fremwork js -->
+        <script src="{{asset('public/frontend')}}/js/bootstrap.min.js"></script>
+        <!-- Ajax Mail js -->
+        <script src="{{asset('public/frontend')}}/js/ajax-mail.js"></script>
+        <!-- Meanmenu js -->
+        <script src="{{asset('public/frontend')}}/js/jquery.meanmenu.min.js"></script>
+        <!-- Wow.min js -->
+        <script src="{{asset('public/frontend')}}/js/wow.min.js"></script>
+        <!-- Slick Carousel js -->
+        <script src="{{asset('public/frontend')}}/js/slick.min.js"></script>
+        <!-- Owl Carousel-2 js -->
+        <script src="{{asset('public/frontend')}}/js/owl.carousel.min.js"></script>
+        <!-- Magnific popup js -->
+        <script src="{{asset('public/frontend')}}/js/jquery.magnific-popup.min.js"></script>
+        <!-- Isotope js -->
+        <script src="{{asset('public/frontend')}}/js/isotope.pkgd.min.js"></script>
+        <!-- Imagesloaded js -->
+        <script src="{{asset('public/frontend')}}/js/imagesloaded.pkgd.min.js"></script>
+        <!-- Mixitup js -->
+        <script src="{{asset('public/frontend')}}/js/jquery.mixitup.min.js"></script>
+        <!-- Countdown -->
+        <script src="{{asset('public/frontend')}}/js/jquery.countdown.min.js"></script>
+        <!-- Counterup -->
+        <script src="{{asset('public/frontend')}}/js/jquery.counterup.min.js"></script>
+        <!-- Waypoints -->
+        <script src="{{asset('public/frontend')}}/js/waypoints.min.js"></script>
+        <!-- Barrating -->
+        <script src="{{asset('public/frontend')}}/js/jquery.barrating.min.js"></script>
+        <!-- Jquery-ui -->
+        <script src="{{asset('public/frontend')}}/js/jquery-ui.min.js"></script>
+        <!-- Venobox -->
+        <script src="{{asset('public/frontend')}}/js/venobox.min.js"></script>
+        <!-- Nice Select js -->
+        <script src="{{asset('public/frontend')}}/js/jquery.nice-select.min.js"></script>
+        <!-- ScrollUp js -->
+        <script src="{{asset('public/frontend')}}/js/scrollUp.min.js"></script>
+        <!-- Main/Activator js -->
+        <script src="{{asset('public/frontend')}}/js/main.js"></script>
+    </body>
+
+<!-- index-231:38-->
 </html>
