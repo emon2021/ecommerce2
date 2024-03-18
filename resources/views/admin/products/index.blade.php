@@ -60,7 +60,6 @@
                                             <th>Category</th>
                                             <th>Brand</th>
                                             <th>Pickup Point</th>
-                                            <th>Warehouse</th>
                                             <th>Stock Quantity</th>
                                             <th>Color</th>
                                             <th>Thumbnail</th>
@@ -162,10 +161,6 @@
                             {
                                 data: 'pickup_point_name',
                                 name: 'pickup_point_name',
-                            },
-                            {
-                                data: 'warehouse',
-                                name: 'warehouse',
                             },
                             {
                                 data: 'stock_quantity',
