@@ -181,50 +181,18 @@
                             {
                                 data: 'status',
                                 name: 'status',
-                                render: function(data){
-                                    if(data == null)
-                                    {
-                                        return  '<span class="badge badge-danger">Inactive</span>';
-                                    }else{
-                                        return   '<span class="badge badge-success">Active</span>';
-                                    }
-                                }
                             },
                             {
                                 data: 'today_deal',
                                 name: 'today_deal',
-                                render: function(data){
-                                    if(data == null)
-                                    {
-                                        return  '<span class="badge badge-danger">Inactive</span>';
-                                    }else{
-                                        return   '<span class="badge badge-success">Active</span>';
-                                    }
-                                }
                             },
                             {
                                 data: 'featured',
                                 name: 'featured',
-                                render: function(data){
-                                    if(data == null)
-                                    {
-                                        return  '<span class="badge badge-danger">Inactive</span>';
-                                    }else{
-                                        return   '<span class="badge badge-success">Active</span>';
-                                    }
-                                }
                             },
                             {
                                 data: 'cash_on_delivery',
                                 name: 'cash_on_delivery',
-                                render: function(data){
-                                    if(data == null)
-                                    {
-                                        return  '<span class="badge badge-danger">Inactive</span>';
-                                    }else{
-                                        return   '<span class="badge badge-success">Active</span>';
-                                    }
-                                }
                             },
                             //  here added orderable and searchable property to make table orderable and searchable
                             {
@@ -288,6 +256,60 @@
                                 toastr.success(response);   //      show response in toster
                             },
                         });
+                    });
+                });
+                //________-end of delete button click event-----------
+
+                //________status.change________
+                $('body').on('click','.status',function(e){
+                    e.preventDefault();
+                    let status_id = $(this).data('id');
+                    $.ajax({
+                        type:'GET',
+                        url:'products/status/' + status_id,
+                        success:function(response){
+                            yTable.ajax.reload();
+                            toastr.success(response);
+                        }
+                    });
+                });
+                //________featured.change________
+                $('body').on('click','.featured',function(e){
+                    e.preventDefault();
+                    let freatured = $(this).data('id');
+                    $.ajax({
+                        type:'GET',
+                        url:'products/featured/' + freatured,
+                        success:function(response){
+                            yTable.ajax.reload();
+                            toastr.success(response);
+                        }
+                    });
+                });
+                //________today_deal.change________
+                $('body').on('click','.today_deal',function(e){
+                    e.preventDefault();
+                    let today_deal = $(this).data('id');
+                    $.ajax({
+                        type:'GET',
+                        url:'products/today-deal/' + today_deal,
+                        success:function(response){
+                            yTable.ajax.reload();
+                            toastr.success(response);
+                        }
+                    });
+                });
+                //________cash on delivery.change________
+                $('body').on('click','.cash_on_delivery',function(e){
+                    e.preventDefault();
+                    let cash_on = $(this).data('id');
+                    $.ajax({
+                        type:'GET',
+                        url:'products/cash-on-delivery/' + cash_on,
+                        success:function(response){
+                            yTable.ajax.reload();
+                            toastr.success(response);
+                        }
                     });
                 });
 

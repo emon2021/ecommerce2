@@ -183,8 +183,36 @@ class ProductController extends Controller
                 ->editColumn('pickup_point_name', function ($data) {
                     return $data->pickuppoint->pickup_point_name;
                 })
+                ->editColumn('status', function ($data) {
+                    if ($data->status == null || $data->status == 0) {
+                        return  '<a class="badge badge-danger status" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
+                    } else {
+                        return   '<a class="badge badge-success status" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
+                    }
+                })
+                ->editColumn('featured', function ($data) {
+                    if ($data->featured == null || $data->featured == 0) {
+                        return  '<a class="badge badge-danger cash_on_delivery" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
+                    } else {
+                        return   '<a class="badge badge-success featured" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
+                    }
+                })
+                ->editColumn('today_deal', function ($data) {
+                    if ($data->today_deal == null || $data->today_deal == 0) {
+                        return  '<a class="badge badge-danger today_deal" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
+                    } else {
+                        return   '<a class="badge badge-success today_deal" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
+                    }
+                })
+                ->editColumn('cash_on_delivery', function ($data) {
+                    if ($data->cash_on_delivery == null || $data->cash_on_delivery == 0) {
+                        return  '<a class="badge badge-danger cash_on_delivery" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
+                    } else {
+                        return   '<a class="badge badge-success cash_on_delivery" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
+                    }
+                })
                 //    rawColumn is used when you want to show the data in same format without applying any processing or    
-                ->rawColumns(['action', 'thumbnail', 'images', 'subcategory_name', 'category_name', 'brand_name', 'pickup_point_name', 'warehouse_name'])
+                ->rawColumns(['action', 'thumbnail', 'images', 'subcategory_name', 'category_name', 'brand_name', 'pickup_point_name', 'status','featured','today_deal','cash_on_delivery'])
                 ->make(true);
         }
         return view("admin.products.index");
@@ -236,13 +264,13 @@ class ProductController extends Controller
         $product->slug = Str::slug($request->name, '-');
         $product->code = $request->code;
         $product->category_id = $request->category_id;
-        if(isset($request->subcategory_id)){
+        if (isset($request->subcategory_id)) {
             $product->subcategory_id = $request->subcategory_id;
         }
-        if(isset($request->subcategory_id)){
+        if (isset($request->subcategory_id)) {
             $product->childcategory_id = $request->childcategory_id;
         }
-        
+
         $product->brand_id = $request->brand_id;
         $product->unit = $request->unit;
         $product->tags = $request->tags;
@@ -315,5 +343,62 @@ class ProductController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('product.index')->with($notification);
+    }
+
+    //________status.change__________________
+    public function status($id)
+    {
+        $product = Product::findOrfail($id);
+        if ($product->status == 1) {
+            $product->status = 0;
+            $product->update();
+            return response()->json('Status Inactive Success!');
+        } else {
+            $product->status = 1;
+            $product->update();
+            return response()->json('Status Active Success!');
+        }
+    }
+    //________cash_on_delivery.change__________________
+    public function cash_on_delivery($id)
+    {
+        $product = Product::findOrfail($id);
+        if ($product->cash_on_delivery == 1) {
+            $product->cash_on_delivery = 0;
+            $product->update();
+            return response()->json('Cash on delivery Inactive Success!');
+        } else {
+            $product->cash_on_delivery = 1;
+            $product->update();
+            return response()->json('Cash on delivery Active Success!');
+        }
+    }
+    //________featured.change__________________
+    public function featured($id)
+    {
+        $product = Product::findOrfail($id);
+        if ($product->featured == 1) {
+            $product->featured = 0;
+            $product->update();
+            return response()->json('Featured Inactive Success!');
+        } else {
+            $product->featured = 1;
+            $product->update();
+            return response()->json('Featured Active Success!');
+        }
+    }
+    //________today_deal.change__________________
+    public function today_deal($id)
+    {
+        $product = Product::findOrfail($id);
+        if ($product->today_deal == 1) {
+            $product->today_deal = 0;
+            $product->update();
+            return response()->json('Today Deal Inactive Success!');
+        } else {
+            $product->today_deal = 1;
+            $product->update();
+            return response()->json('Today Deal Active Success!');
+        }
     }
 }

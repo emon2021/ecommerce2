@@ -208,6 +208,15 @@ Route::middleware(['auth', 'is_admin'])->prefix('/products')->group(function () 
         Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update');
         //____subcategory.fetch.route___/
         Route::get('/subcategory', [ProductController::class, 'subcategory'])->name('product.subcategory');
+
+        //_____status.change____
+        Route::get('/products/status/{id}',[ProductController::class,'status']);
+        //_____featured.change____
+        Route::get('/products/featured/{id}',[ProductController::class,'featured']);
+        //_____today_deal.change____
+        Route::get('/products/today-deal/{id}',[ProductController::class,'today_deal']);
+        //_____cash_on_delivery.change____
+        Route::get('/products/cash-on-delivery/{id}',[ProductController::class,'cash_on_delivery']);
     });
 });
 
