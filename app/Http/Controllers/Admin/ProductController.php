@@ -131,19 +131,37 @@ class ProductController extends Controller
     {
         if ($request->ajax()) {
             //  joining  relational table to get the related data
-            $product = Product::leftJoin('categories', 'categories.id', 'products.category_id')
+            $product = "";
+            $query = Product::leftJoin('categories', 'categories.id', 'products.category_id')
                 ->leftJoin('sub_categories', 'sub_categories.id', 'products.subcategory_id')
                 ->leftJoin('brands', 'brands.id', 'products.brand_id')
                 ->leftJoin('pickup_points', 'pickup_points.id', 'products.pickup_point_id')
-                ->leftJoin('ware_houses', 'ware_houses.id', 'products.warehouse')
-                ->select([
+                ->leftJoin('ware_houses', 'ware_houses.id', 'products.warehouse');
+                    if($request->category_id)
+                    {
+                        $query->where('products.category_id',$request->category_id);
+                    }
+                    if($request->brand_id)
+                    {
+                        $query->where('products.brand_id',$request->brand_id);
+                    }
+                    if($request->warehouse_id)
+                    {
+                        $query->where('products.warehouse',$request->warehouse_id);
+                    }
+                    if($request->status)
+                    {
+                        $query->where('products.status',$request->status);
+                    }
+
+                $product = $query->select([
                     'products.*',
                     'categories.category_name',
                     'sub_categories.subcategory_name',
                     'brands.brand_name',
                     'pickup_points.pickup_point_name',
                     'ware_houses.warehouse_name'
-                ])->orderBy('id', 'ASC')->get();
+                ])->get();
 
             //  declaring yajra data table and pushing data in that table
             return DataTables::of($product)
@@ -173,28 +191,28 @@ class ProductController extends Controller
                 })
                 
                 ->editColumn('status', function ($data) {
-                    if ($data->status == null || $data->status == 0) {
+                    if ($data->status == null || $data->status == 2) {
                         return  '<a class="badge badge-danger status" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
                     } else {
                         return   '<a class="badge badge-success status" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
                     }
                 })
                 ->editColumn('featured', function ($data) {
-                    if ($data->featured == null || $data->featured == 0) {
+                    if ($data->featured == null || $data->featured == 2) {
                         return  '<a class="badge badge-danger cash_on_delivery" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
                     } else {
                         return   '<a class="badge badge-success featured" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
                     }
                 })
                 ->editColumn('today_deal', function ($data) {
-                    if ($data->today_deal == null || $data->today_deal == 0) {
+                    if ($data->today_deal == null || $data->today_deal == 2) {
                         return  '<a class="badge badge-danger today_deal" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
                     } else {
                         return   '<a class="badge badge-success today_deal" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
                     }
                 })
                 ->editColumn('cash_on_delivery', function ($data) {
-                    if ($data->cash_on_delivery == null || $data->cash_on_delivery == 0) {
+                    if ($data->cash_on_delivery == null || $data->cash_on_delivery == 2) {
                         return  '<a class="badge badge-danger cash_on_delivery" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
                     } else {
                         return   '<a class="badge badge-success cash_on_delivery" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
@@ -205,7 +223,7 @@ class ProductController extends Controller
                 ->make(true);
         }
         $items['category'] = Category::all();
-        $items['subcategories'] = SubCategory::all();
+        $items['warehouses'] = WareHouse::all();
         $items['brands'] = Brand::all();
         return view("admin.products.index",$items);
     }
@@ -342,7 +360,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrfail($id);
         if ($product->status == 1) {
-            $product->status = 0;
+            $product->status = 2;
             $product->update();
             return response()->json('Status Inactive Success!');
         } else {
@@ -356,7 +374,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrfail($id);
         if ($product->cash_on_delivery == 1) {
-            $product->cash_on_delivery = 0;
+            $product->cash_on_delivery = 2;
             $product->update();
             return response()->json('Cash on delivery Inactive Success!');
         } else {
@@ -370,7 +388,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrfail($id);
         if ($product->featured == 1) {
-            $product->featured = 0;
+            $product->featured = 2;
             $product->update();
             return response()->json('Featured Inactive Success!');
         } else {
@@ -384,7 +402,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrfail($id);
         if ($product->today_deal == 1) {
-            $product->today_deal = 0;
+            $product->today_deal = 2;
             $product->update();
             return response()->json('Today Deal Inactive Success!');
         } else {

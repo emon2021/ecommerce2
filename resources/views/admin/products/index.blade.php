@@ -56,36 +56,37 @@
                                         <div class="col-md-3">
                                             <label for="category">Category</label>
                                             <select name="category_id" class="form-control realtime_filter" id="category_id">
-                                                <option>All</option>
+                                                <option value="" >All</option>
                                                 @foreach ($category as $cat)
                                                     <option value="{{$cat->id}}"> {{$cat->category_name}} </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-3">
-                                            <label for="category">Sub Category</label>
-                                            <select name="brand_id" class="form-control realtime_filter" id="category_id">
-                                                <option>All</option>
-                                                @foreach($subcategories as $subcategory)
-                                                   <option value="{{$subcategory->id}}">{{$subcategory->subcategory_name}}</option>
-                                               @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
                                             <label for="category">Brand</label>
-                                            <select name="brand_id" class="form-control realtime_filter" id="category_id">
-                                                <option>All</option>
+                                            <select name="brand_id" class="form-control realtime_filter" id="brand_id">
+                                                <option value="">All</option>
                                                 @foreach($brands as $brand)
                                                    <option value="{{$brand->id}}">{{$brand->brand_name}}</option>
                                                @endforeach
                                             </select>
                                         </div>
+                                        
+                                        <div class="col-md-3">
+                                            <label for="category">Warehouse</label>
+                                            <select name="warehouse_id" class="form-control realtime_filter" id="warehouse_id">
+                                                <option value="">All</option>
+                                                @foreach($warehouses as $warehouse)
+                                                   <option value="{{$warehouse->id}}">{{$warehouse->warehouse_name}}</option>
+                                               @endforeach
+                                            </select>
+                                        </div>
                                         <div class="col-md-3">
                                             <label for="category">Status</label>
-                                            <select name="category_id" class="form-control realtime_filter" id="category_id">
-                                                <option>All</option>
+                                            <select name="status" class="form-control realtime_filter" id="status">
+                                                <option value="">All</option>
                                                 <option value="1">Active</option>
-                                                <option value="0">Inactive</option>
+                                                <option value="2">Inactive</option>
                                             </select>
                                         </div>
                                     </div>
@@ -166,13 +167,20 @@
                             'targets': '_all'
                         }],
                         //  it's showing the processing message
-                        processing: true,
+                        "processing": true,
                         //  it's working on serverside
-                        serverSide: true,
+                        "serverSide": true,
+                        "searching": true,
                         //  getting the route using ajax and declare request type
-                        ajax: {
-                            url: "{{ route('product.index') }}",
-                            type: 'GET',
+                        "ajax": {
+                            "url": "{{ route('product.index') }}",
+                            "type": 'GET',
+                            "data": function(param){
+                                    param.category_id = $('#category_id').val();
+                                    param.brand_id = $('#brand_id').val();
+                                    param.warehouse_id = $('#warehouse_id').val();
+                                    param.status = $('#status').val();
+                                }
                         },
                         //  push data to all the table columns
                         columns: [
@@ -354,6 +362,11 @@
                             toastr.success(response);
                         }
                     });
+                });
+
+                //______realtime filtering____
+                $('body').on('change','.realtime_filter', function(){
+                    yTable.ajax.reload();
                 });
 
 
