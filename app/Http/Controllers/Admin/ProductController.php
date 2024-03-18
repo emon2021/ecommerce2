@@ -171,18 +171,7 @@ class ProductController extends Controller
                     }
                     return $image;  //    returning image
                 })
-                ->editColumn('subcategory_name', function ($data) {
-                    return $data->subcategory->subcategory_name;
-                })
-                ->editColumn('category_name', function ($data) {
-                    return $data->category->category_name;
-                })
-                ->editColumn('brand_name', function ($data) {
-                    return $data->brand->brand_name;
-                })
-                ->editColumn('pickup_point_name', function ($data) {
-                    return $data->pickuppoint->pickup_point_name;
-                })
+                
                 ->editColumn('status', function ($data) {
                     if ($data->status == null || $data->status == 0) {
                         return  '<a class="badge badge-danger status" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
@@ -215,7 +204,10 @@ class ProductController extends Controller
                 ->rawColumns(['action', 'thumbnail', 'images', 'subcategory_name', 'category_name', 'brand_name', 'pickup_point_name', 'status','featured','today_deal','cash_on_delivery'])
                 ->make(true);
         }
-        return view("admin.products.index");
+        $items['category'] = Category::all();
+        $items['subcategories'] = SubCategory::all();
+        $items['brands'] = Brand::all();
+        return view("admin.products.index",$items);
     }
     //____________-end of product.index__________________
 

@@ -46,8 +46,51 @@
                     <div class="col-12">
 
                         <div class="card" style="width: 100%; overflow:scroll">
-                            <div class="card-header" <h3 class="card-title"> All Product list here </h3>
+                            <div class="card-header">
+                                 <h3 class="card-title mb-3" style="margin-botton: 5px"> All Product list here </h3>
+                                 
                             </div>
+                            <div class="filtering mt-2 ml-2">
+                                <div class="container m-auto ml-3">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="category">Category</label>
+                                            <select name="category_id" class="form-control realtime_filter" id="category_id">
+                                                <option>All</option>
+                                                @foreach ($category as $cat)
+                                                    <option value="{{$cat->id}}"> {{$cat->category_name}} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="category">Sub Category</label>
+                                            <select name="brand_id" class="form-control realtime_filter" id="category_id">
+                                                <option>All</option>
+                                                @foreach($subcategories as $subcategory)
+                                                   <option value="{{$subcategory->id}}">{{$subcategory->subcategory_name}}</option>
+                                               @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="category">Brand</label>
+                                            <select name="brand_id" class="form-control realtime_filter" id="category_id">
+                                                <option>All</option>
+                                                @foreach($brands as $brand)
+                                                   <option value="{{$brand->id}}">{{$brand->brand_name}}</option>
+                                               @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="category">Status</label>
+                                            <select name="category_id" class="form-control realtime_filter" id="category_id">
+                                                <option>All</option>
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="yTable" class="table table-bordered table-striped " style="widows: 100%;">
