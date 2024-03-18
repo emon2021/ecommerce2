@@ -236,8 +236,13 @@ class ProductController extends Controller
         $product->slug = Str::slug($request->name, '-');
         $product->code = $request->code;
         $product->category_id = $request->category_id;
-        $product->subcategory_id = $request->subcategory_id;
-        $product->childcategory_id = $request->childcategory_id;
+        if(isset($request->subcategory_id)){
+            $product->subcategory_id = $request->subcategory_id;
+        }
+        if(isset($request->subcategory_id)){
+            $product->childcategory_id = $request->childcategory_id;
+        }
+        
         $product->brand_id = $request->brand_id;
         $product->unit = $request->unit;
         $product->tags = $request->tags;

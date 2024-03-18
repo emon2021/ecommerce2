@@ -93,7 +93,7 @@
                                             <label for="exampleInputEmail1">Category <span
                                                     style="color: red">*</span></label>
                                             <select name="category_id" class="form-control" id="category_id">
-                                                <option id="select" value="">Select Category</option>
+                                                <option id="select">Select Category</option>
                                                 @foreach ($category as $cat)
                                                     <option class="category"
                                                         @if ($product->category_id == $cat->id) selected @endif
@@ -108,7 +108,7 @@
                                             <label for="exampleInputEmail1">Sub Category <span
                                                     style="color: red">*</span></label>
                                             <select name="subcategory_id" class="form-control" id="subcategory_id">
-                                                <option id="sub_val">Select Sub Category</option>
+                                                <option id="sub_val" disabled>Select Sub Category</option>
                                                 {{-- @foreach ($subcategory as $value)
                                                     <option @if ($product->subcategory_id == $value->id) selected @endif value="{{ $value->id }}"> {{ $value->subcategory_name }}
                                                     </option>
@@ -121,7 +121,7 @@
                                             <label for="exampleInputEmail1">Child Category <span
                                                     style="color: red">*</span></label>
                                             <select name="childcategory_id" class="form-control" id="childcategory_id">
-                                                <option  id="child_val">Select Child Category</option>
+                                                <option  id="child_val" disabled>Select Child Category</option>
                                                 {{-- @foreach ($child as $item)
                                                     <option @if ($product->childcategory_id == $item->id) selected @endif
                                                         value="{{ $item->id }}"> {{ $item->childcategory_name }}
@@ -249,9 +249,9 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Product Description <span
                                                     style="color: red">*</span></label>
-                                            <textarea name="description" value="{{ $product->description }}" class="textarea form-control" cols="30"
+                                            <textarea name="description" class="textarea form-control" cols="30"
                                                 rows="3">
-                                                What's on your mind?
+                                                {{ $product->description }}
                                             </textarea>
                                         </div>
                                     </div>
