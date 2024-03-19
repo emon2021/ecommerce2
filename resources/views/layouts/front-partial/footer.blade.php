@@ -10,7 +10,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
                         <div class="li-shipping-inner-box">
                             <div class="shipping-icon">
-                                <img src="images/shipping-icon/1.png" alt="Shipping Icon">
+                                <img src="{{asset('public/frontend')}}/images/shipping-icon/1.png" alt="Shipping Icon">
                             </div>
                             <div class="shipping-text">
                                 <h2>Free Delivery</h2>
@@ -23,7 +23,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
                         <div class="li-shipping-inner-box">
                             <div class="shipping-icon">
-                                <img src="images/shipping-icon/2.png" alt="Shipping Icon">
+                                <img src="{{asset('public/frontend')}}/images/shipping-icon/2.png" alt="Shipping Icon">
                             </div>
                             <div class="shipping-text">
                                 <h2>Safe Payment</h2>
@@ -36,7 +36,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
                         <div class="li-shipping-inner-box">
                             <div class="shipping-icon">
-                                <img src="images/shipping-icon/3.png" alt="Shipping Icon">
+                                <img src="{{asset('public/frontend')}}/images/shipping-icon/3.png" alt="Shipping Icon">
                             </div>
                             <div class="shipping-text">
                                 <h2>Shop with Confidence</h2>
@@ -49,7 +49,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
                         <div class="li-shipping-inner-box">
                             <div class="shipping-icon">
-                                <img src="images/shipping-icon/4.png" alt="Shipping Icon">
+                                <img src="{{asset('public/frontend')}}/images/shipping-icon/4.png" alt="Shipping Icon">
                             </div>
                             <div class="shipping-text">
                                 <h2>24/7 Help Center</h2>
@@ -209,13 +209,13 @@
                     <!-- Begin Footer Payment Area -->
                     <div class="copyright text-center">
                         <a href="#">
-                            <img src="images/payment/1.png" alt="">
+                            <img src="{{asset('public/frontend')}}/images/payment/1.png" alt="">
                         </a>
                     </div>
                     <!-- Footer Payment Area End Here -->
                     <!-- Begin Copyright Area -->
                     <div class="copyright text-center pt-25">
-                        <span><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></span>
+                        <span><a target="_blank" href="https://emon2021.github.io/portfolio.me">Coder Software Ltd.</a></span>
                     </div>
                     <!-- Copyright Area End Here -->
                 </div>
