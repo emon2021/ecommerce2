@@ -1,6 +1,11 @@
 @extends('layouts.app')
-
 @section('content')
+@push('title')
+    <title>Home || Digital product selling for make money</title>
+@endpush
+
+@include('layouts.front-partial.sidebar')
+@include('layouts.front-partial.slider')
 <!-- Begin Li's Static Banner Area -->
 <div class="li-static-banner pt-20 pt-sm-30 pt-xs-30">
     <div class="container">
@@ -98,7 +103,7 @@
                             <div class="single-product-wrap">
                                 <div class="product-image">
                                     <a href="single-product.html">
-                                        <img src="images/product/large-size/2.jpg" alt="Li's Product Image">
+                                        <img src="{{asset('public/frontend')}}/images/product/large-size/2.jpg" alt="Li's Product Image">
                                     </a>
                                     <span class="sticker">New</span>
                                 </div>

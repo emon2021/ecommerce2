@@ -4,7 +4,9 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Home Version Two || limupa - Digital Products Store ECommerce Bootstrap 4 Template</title>
+        @stack('title')
+
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Favicon -->
@@ -53,8 +55,8 @@
             <!----------navbar------------>
             @include('layouts.front-partial.navbar')
 
-            <!----------sidebar------------>
-            @include('layouts.front-partial.sidebar')
+            <!----------slider------------>
+            {{---   @include('layouts.front-partial.slider')  --}}
             
             @yield('content')
 
