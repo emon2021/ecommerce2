@@ -291,10 +291,34 @@ class ProductController extends Controller
         $product->warehouse = $request->warehouse;
         $product->description = $request->description;
         $product->video = $request->video;
-        $product->cash_on_delivery = $request->cash_on_delivery;
-        $product->featured = $request->featured;
-        $product->today_deal = $request->today_deal;
-        $product->status = $request->status;
+        //____if: featured on get featured value else: 2 _________
+        if(isset($request->featured))
+        {
+            $product->featured = $request->featured;
+        }else{
+            $product->featured = 2;
+        }
+        //____if: today deal on get today_deal value else: 2 _________
+        if(isset($request->today_deal))
+        {
+            $product->today_deal = $request->today_deal;
+        }else{
+            $product->today_deal = 2;
+        }
+        //____if: cash_on_delivery on get cash_on_delivery value else: 2 _________
+        if(isset($request->cash_on_delivery))
+        {
+            $product->cash_on_delivery = $request->cash_on_delivery;
+        }else{
+            $product->cash_on_delivery = 2;
+        }
+        //____if: status on get status value else: 2 _________
+        if(isset($request->status))
+        {
+            $product->status = $request->status;
+        }else{
+            $product->status = 2;
+        }
         $product->color = $request->color;
         $product->size = $request->size;
         $product->date = $request->date;
