@@ -50,6 +50,8 @@
         <div class="body-wrapper">
             <!----------topbar------------>
             @include('layouts.front-partial.topbar')
+            <!----------navbar------------>
+            @include('layouts.front-partial.navbar')
 
             <!----------sidebar------------>
             @include('layouts.front-partial.sidebar')
