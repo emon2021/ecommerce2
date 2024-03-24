@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->string('images')->nullable();
             $table->string('video')->nullable();
+            $table->integer('slider_product')->nullable();
             $table->integer('featured')->nullable();
             $table->integer('today_deal')->nullable();
             $table->integer('flash_deal_id')->nullable();

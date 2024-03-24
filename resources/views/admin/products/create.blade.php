@@ -280,6 +280,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="dropiFy"> Slider Product </label>
+                                    <div class="">
+                                        <input type='checkbox' value="1" name="slider_product" data-toggle="toggle"
+                                            data-onstyle="success" data-offstyle="danger">
+
+                                    </div>
+                                </div>
+                                <hr style="border-color:#0D7EFF">
+                                <div class="form-group">
                                     <label for="dropiFy">Featured Product </label>
                                     <div class="">
                                         <input type='checkbox' value="1" name="featured" data-toggle="toggle"

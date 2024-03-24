@@ -213,6 +213,8 @@ Route::middleware(['auth', 'is_admin'])->prefix('/products')->group(function () 
         Route::get('/products/status/{id}',[ProductController::class,'status']);
         //_____featured.change____
         Route::get('/products/featured/{id}',[ProductController::class,'featured']);
+        //_____slider_product.change____
+        Route::get('/products/slider/product/{id}',[ProductController::class,'slider_product']);
         //_____today_deal.change____
         Route::get('/products/today-deal/{id}',[ProductController::class,'today_deal']);
         //_____cash_on_delivery.change____

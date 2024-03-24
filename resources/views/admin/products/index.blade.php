@@ -110,6 +110,7 @@
                                             <th>Multiple Image</th>
                                             <th>Status</th>
                                             <th>Today Deal</th>
+                                            <th>Slider Product</th>
                                             <th>Featured</th>
                                             <th>Cash On Delivery</th>
                                             <th>Action</th>
@@ -238,6 +239,10 @@
                                 name: 'today_deal',
                             },
                             {
+                                data: 'slider_product',
+                                name: 'slider_product',
+                            },
+                            {
                                 data: 'featured',
                                 name: 'featured',
                             },
@@ -318,6 +323,19 @@
                     $.ajax({
                         type:'GET',
                         url:'products/status/' + status_id,
+                        success:function(response){
+                            yTable.ajax.reload();
+                            toastr.success(response);
+                        }
+                    });
+                });
+                //________slider_product.change________
+                $('body').on('click','.slider_product',function(e){
+                    e.preventDefault();
+                    let slider_product = $(this).data('id');
+                    $.ajax({
+                        type:'GET',
+                        url:'products/slider/product/' + slider_product,
                         success:function(response){
                             yTable.ajax.reload();
                             toastr.success(response);

@@ -82,6 +82,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->video = $request->video;
         $product->cash_on_delivery = $request->cash_on_delivery;
+        $product->slider_product = $request->slider_product;
         $product->featured = $request->featured;
         $product->today_deal = $request->today_deal;
         $product->status = $request->status;
@@ -197,9 +198,16 @@ class ProductController extends Controller
                         return   '<a class="badge badge-success status" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
                     }
                 })
+                ->editColumn('slider_product', function ($data) {
+                    if ($data->slider_product == null || $data->slider_product == 2) {
+                        return  '<a class="badge badge-danger slider_product" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
+                    } else {
+                        return   '<a class="badge badge-success slider_product" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
+                    }
+                })
                 ->editColumn('featured', function ($data) {
                     if ($data->featured == null || $data->featured == 2) {
-                        return  '<a class="badge badge-danger cash_on_delivery" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
+                        return  '<a class="badge badge-danger featured" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
                     } else {
                         return   '<a class="badge badge-success featured" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
                     }
@@ -219,7 +227,7 @@ class ProductController extends Controller
                     }
                 })
                 //    rawColumn is used when you want to show the data in same format without applying any processing or    
-                ->rawColumns(['action', 'thumbnail', 'images', 'subcategory_name', 'category_name', 'brand_name', 'pickup_point_name', 'status','featured','today_deal','cash_on_delivery'])
+                ->rawColumns(['action', 'thumbnail', 'images', 'slider_product', 'category_name', 'brand_name', 'pickup_point_name', 'status','featured','today_deal','cash_on_delivery'])
                 ->make(true);
         }
         $items['category'] = Category::all();
@@ -291,6 +299,13 @@ class ProductController extends Controller
         $product->warehouse = $request->warehouse;
         $product->description = $request->description;
         $product->video = $request->video;
+        //____if: slider_product on get featured value else: 2 _________
+        if(isset($request->slider_product))
+        {
+            $product->slider_product = $request->slider_product;
+        }else{
+            $product->slider_product = 2;
+        }
         //____if: featured on get featured value else: 2 _________
         if(isset($request->featured))
         {
@@ -405,6 +420,20 @@ class ProductController extends Controller
             $product->cash_on_delivery = 1;
             $product->update();
             return response()->json('Cash on delivery Active Success!');
+        }
+    }
+    //________slider_product.change__________________
+    public function slider_product($id)
+    {
+        $product = Product::findOrfail($id);
+        if ($product->slider_product == 1) {
+            $product->slider_product = 2;
+            $product->update();
+            return response()->json('Slider Product Inactive Success!');
+        } else {
+            $product->slider_product = 1;
+            $product->update();
+            return response()->json('Slider Product Active Success!');
         }
     }
     //________featured.change__________________
