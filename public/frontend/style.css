@@ -2029,9 +2029,6 @@ textarea:focus {
 .slider-content {
 	position: absolute;
 	padding-left: 58px;
-	background: white;
-  	padding: 65px;
-  	height: 100%;
 }
 .slider-content > h5 {
 	font-weight: 400;
