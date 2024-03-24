@@ -17,12 +17,12 @@
                                      @if($product->discount_price<=100)
                                         {{$product->discount_price}}%
                                      @else  
-                                          {{$product->discount_price}}৳
+                                          {{$product->discount_price}}{{$setting->currency}}
                                      @endif
                                      Off
                                 </span> This Week</h5>
                                 <h2>{{$product->name}}</h2>
-                                <h3>Starting at <span>৳ {{$product->selling_price}}</span></h3>
+                                <h3>Starting at <span>{{$setting->currency}} {{$product->selling_price}}</span></h3>
                                 <div class="default-btn slide-btn">
                                     <a class="links" href="#">Shopping Now</a>
                                 </div>

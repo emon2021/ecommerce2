@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('currencies', function (Blueprint $table) {
             $table->id();
-            $table->integer('currency')->nullable();
+            $table->string('currency')->nullable();
             $table->string('phone_one')->nullable();
             $table->string('phone_two')->nullable();
             $table->string('main_email')->nullable();

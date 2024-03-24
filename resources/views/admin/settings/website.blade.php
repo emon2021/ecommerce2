@@ -16,8 +16,8 @@
                                 <div class="input-group mb-3">
                                     <select name="currency" class="form-control">
                                         <option value="">Select Currency</option>
-                                        <option style="font-size: 1.2rem" value="1" @if($website->currency == 1) selected @endif >Taka (৳)</option>
-                                        <option style="font-size: 1.2rem" value="2" @if($website->currency == 2) selected @endif >Doller ($)</option>
+                                        <option style="font-size: 1.2rem" value="৳" @if($website->currency == "৳") selected @endif >Taka (৳)</option>
+                                        <option style="font-size: 1.2rem" value="$" @if($website->currency == "$") selected @endif >Doller ($)</option>
                                     </select>
         
                                     <div class="input-group-append">

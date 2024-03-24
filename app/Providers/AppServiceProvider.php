@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Currency;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        //  settings share
+        $setting = Currency::first();
+        if($setting)
+        {
+            view()->share('setting',$setting);
+        }
     }
 }
