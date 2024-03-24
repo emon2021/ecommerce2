@@ -8,7 +8,7 @@
     <div class="container">
         <div class="breadcrumb-content">
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="{{url('/')}}">Home</a></li>
                 <li class="active">Single Product</li>
             </ul>
         </div>
@@ -25,42 +25,21 @@
                     <div class="product-details-images slider-navigation-1">
                         <div class="lg-image">
                             <a class="popup-img venobox vbox-item" href="images/product/large-size/1.jpg" data-gall="myGallery">
-                                <img src="{{asset('public/frontend')}}/images/product/large-size/1.jpg" alt="product image">
+                                <img src="{{asset($single_product->thumbnail)}}" alt="product image">
                             </a>
                         </div>
+                        @foreach (json_decode($single_product->images) as $item)
                         <div class="lg-image">
                             <a class="popup-img venobox vbox-item" href="images/product/large-size/2.jpg" data-gall="myGallery">
-                                <img src="{{asset('public/frontend')}}/images/product/large-size/2.jpg" alt="product image">
+                                <img src="{{asset($item)}}" alt="product image">
                             </a>
                         </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="images/product/large-size/3.jpg" data-gall="myGallery">
-                                <img src="{{asset('public/frontend')}}/images/product/large-size/3.jpg" alt="product image">
-                            </a>
-                        </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="images/product/large-size/4.jpg" data-gall="myGallery">
-                                <img src="{{asset('public/frontend')}}/images/product/large-size/4.jpg" alt="product image">
-                            </a>
-                        </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="images/product/large-size/5.jpg" data-gall="myGallery">
-                                <img src="{{asset('public/frontend')}}/images/product/large-size/5.jpg" alt="product image">
-                            </a>
-                        </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="images/product/large-size/6.jpg" data-gall="myGallery">
-                                <img src="{{asset('public/frontend')}}/images/product/large-size/6.jpg" alt="product image">
-                            </a>
-                        </div>
+                        @endforeach
                     </div>
-                    <div class="product-details-thumbs slider-thumbs-1">                                        
-                        <div class="sm-image"><img src="{{asset('public/frontend')}}/images/product/small-size/1.jpg" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="{{asset('public/frontend')}}/images/product/small-size/2.jpg" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="{{asset('public/frontend')}}/images/product/small-size/3.jpg" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="{{asset('public/frontend')}}/images/product/small-size/4.jpg" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="{{asset('public/frontend')}}/images/product/small-size/5.jpg" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="{{asset('public/frontend')}}/images/product/small-size/6.jpg" alt="product image thumb"></div>
+                    <div class="product-details-thumbs slider-thumbs-1"> 
+                        @foreach(json_decode($single_product->images) as $data)                                       
+                        <div class="sm-image"><img src="{{asset($data)}}" alt="product image thumb"></div>
+                        @endforeach
                     </div>
                 </div>
                 <!--// Product Details Left -->
@@ -69,8 +48,8 @@
             <div class="col-lg-7 col-md-6">
                 <div class="product-details-view-content pt-60">
                     <div class="product-info">
-                        <h2>Today is a good day Framed poster</h2>
-                        <span class="product-details-ref">Reference: demo_15</span>
+                        <h2>{{$single_product->name}}</h2>
+                        <span class="product-details-ref">Brand: {{$single_product->brand->brand_name}}</span>
                         <div class="rating-box pt-20">
                             <ul class="rating rating-with-review-item">
                                 <li><i class="fa fa-star-o"></i></li>
@@ -83,11 +62,12 @@
                             </ul>
                         </div>
                         <div class="price-box pt-20">
-                            <span class="new-price new-price-2">$57.98</span>
+                            <span class="new-price new-price-2">{{$setting->currency}}{{$single_product->selling_price}}</span>
                         </div>
                         <div class="product-desc">
                             <p>
-                                <span>100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom. Lorem ipsum dolor sit amet, consectetur adipisicing elit. quibusdam corporis, earum facilis et nostrum dolorum accusamus similique eveniet quia pariatur.
+                                <span>
+                                    {{$single_product->description}}
                                 </span>
                             </p>
                         </div>
@@ -178,8 +158,7 @@
         <div class="tab-content">
             <div id="description" class="tab-pane active show" role="tabpanel">
                 <div class="product-description">
-                    <span>The best is yet to come! Give your walls a voice with a framed poster. This aesthethic, optimistic poster will look great in your desk or in an open-space office. Painted wooden frame with passe-partout for more depth.</span>
-                </div>
+                    <span>{{$single_product->description}}</span>
             </div>
             <div id="product-details" class="tab-pane" role="tabpanel">
                 <div class="product-details-manufacturer">

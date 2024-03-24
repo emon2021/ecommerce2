@@ -22,8 +22,9 @@ Auth::routes();
 
 
 //___________frontend.routes__________//
-Route::get('/single-product', [HomeController::class, 'singleProduct'])->name('single.product');
+
 
 Route::group(['namespace'=> 'App\Http\Controllers\front'],function(){
     Route::get('/', 'FrontController@index')->name('home.page');
+    Route::get('/single-product/{slug}', 'FrontController@singleProduct')->name('single.product');
 });

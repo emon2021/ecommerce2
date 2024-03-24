@@ -24,7 +24,7 @@
                                 <h2>{{$product->name}}</h2>
                                 <h3>Starting at <span>{{$setting->currency}} {{$product->selling_price}}</span></h3>
                                 <div class="default-btn slide-btn">
-                                    <a class="links" href="#">Shopping Now</a>
+                                    <a class="links" href="{{route('single.product',$product->slug)}}">Shopping Now</a>
                                 </div>
                             </div>
                         </div>

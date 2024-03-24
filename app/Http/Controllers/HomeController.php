@@ -19,9 +19,5 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     
-    //  single
-    public function singleProduct()
-    {
-        return view('frontend.product_details');
-    }
+   
 }
