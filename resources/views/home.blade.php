@@ -6,6 +6,8 @@
 
 @include('layouts.front-partial.sidebar')
 @include('layouts.front-partial.slider')
+
+
 <!-- Begin Li's Static Banner Area -->
 <div class="li-static-banner pt-20 pt-sm-30 pt-xs-30">
     <div class="container">
