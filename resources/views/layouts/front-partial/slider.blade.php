@@ -12,7 +12,15 @@
                         <div class="single-slide align-center-left animation-style-02 bg-4" style="background-image:url({{asset($product->thumbnail)}})">
                             <div class="slider-progress"></div>
                             <div class="slider-content">
-                                <h5>Sale Offer <span>-20% Off</span> This Week</h5>
+                                <h5>Sale Offer <span>
+                                    - 
+                                     @if($product->discount_price<=100)
+                                        {{$product->discount_price}}%
+                                     @else  
+                                          {{$product->discount_price}}৳
+                                     @endif
+                                     Off
+                                </span> This Week</h5>
                                 <h2>{{$product->name}}</h2>
                                 <h3>Starting at <span>৳ {{$product->selling_price}}</span></h3>
                                 <div class="default-btn slide-btn">
