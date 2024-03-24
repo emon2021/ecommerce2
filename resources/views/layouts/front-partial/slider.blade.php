@@ -8,18 +8,20 @@
                 <div class="slider-area pt-sm-30 pt-xs-30">
                     <div class="slider-active owl-carousel">
                         <!-- Begin Single Slide Area -->
-                        <div class="single-slide align-center-left animation-style-02 bg-4">
+                        @foreach($products as $product)
+                        <div class="single-slide align-center-left animation-style-02 bg-4" style="background-image:url({{asset($product->thumbnail)}})">
                             <div class="slider-progress"></div>
                             <div class="slider-content">
                                 <h5>Sale Offer <span>-20% Off</span> This Week</h5>
-                                <h2>Chamcham Galaxy S9 | S9+</h2>
-                                <h3>Starting at <span>$589.00</span></h3>
+                                <h2>{{$product->name}}</h2>
+                                <h3>Starting at <span>৳ {{$product->selling_price}}</span></h3>
                                 <div class="default-btn slide-btn">
-                                    <a class="links" href="shop-left-sidebar.html">Shopping Now</a>
+                                    <a class="links" href="#">Shopping Now</a>
                                 </div>
                             </div>
                         </div>
-                        <!-- Single Slide Area End Here -->
+                        @endforeach
+                        {{-- <!-- Single Slide Area End Here -->
                         <!-- Begin Single Slide Area -->
                         <div class="single-slide align-center-left animation-style-01 bg-5">
                             <div class="slider-progress"></div>
@@ -45,7 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Single Slide Area End Here -->
+                        <!-- Single Slide Area End Here --> --}}
                     </div>
                 </div>
             </div>

@@ -4,6 +4,13 @@
     <title>Home || Digital product selling for make money</title>
 @endpush
 
+@push('css')
+    <style rel="text/stylesheet">
+        
+    </style>
+@endpush
+
+
 @include('layouts.front-partial.sidebar')
 @include('layouts.front-partial.slider')
 
