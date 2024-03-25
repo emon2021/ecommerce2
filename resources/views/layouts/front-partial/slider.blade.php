@@ -15,9 +15,9 @@
                                 <h5>Sale Offer <span>
                                     - 
                                      @if($product->discount_price<=100)
-                                        {{$product->discount_price}}%
+                                        {{$product->selling_price-$product->discount_price}}%
                                      @else  
-                                          {{$product->discount_price}}{{$setting->currency}}
+                                          {{$product->selling_price-$product->discount_price}}{{$setting->currency}}
                                      @endif
                                      Off
                                 </span> This Week</h5>

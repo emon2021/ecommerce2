@@ -67,4 +67,9 @@ class Product extends Model
     {
         return $this->belongsTo(WareHouse::class,'warehouse');
     }
+    //______relation with user model_______
+    public function user()
+    {
+        return $this->belongsTo(User::class,'admin_id');
+    }
 }

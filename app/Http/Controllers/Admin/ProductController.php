@@ -79,7 +79,7 @@ class ProductController extends Controller
         $product->discount_price = $request->discount_price;
         $product->stock_quantity = $request->stock_quantity;
         $product->warehouse = $request->warehouse;
-        $product->description = $request->description;
+        $product->description = substr($request->description,0,-4);
         $product->video = $request->video;
         $product->cash_on_delivery = $request->cash_on_delivery;
         $product->slider_product = $request->slider_product;

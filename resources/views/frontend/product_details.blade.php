@@ -9,7 +9,7 @@
         <div class="breadcrumb-content">
             <ul>
                 <li><a href="{{url('/')}}">Home</a></li>
-                <li class="active">Single Product</li>
+                <li class="active">{{$single_product->slug}}</li>
             </ul>
         </div>
     </div>
@@ -49,29 +49,29 @@
                 <div class="product-details-view-content pt-60">
                     <div class="product-info">
                         <h2>{{$single_product->name}}</h2>
-                        <span class="product-details-ref">Brand: {{$single_product->brand->brand_name}}</span>
+                        <span class="product-details-ref font-weight-bold">Brand: {{$single_product->brand->brand_name}}</span>
+                        <span class="product-details-ref d-block font-weight-bold">Stock: {{$single_product->stock_quantity}}</span>
                         <div class="rating-box pt-20">
                             <ul class="rating rating-with-review-item">
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                <li class="review-item"><a href="#">Read Review</a></li>
-                                <li class="review-item"><a href="#">Write Review</a></li>
+                                <li class="">
+                                    <select name="" id="">
+                                        <option value="">Color</option>
+                                        <option value="">Black</option>
+                                        <option value="">Neavy Blue</option>
+                                        <option value="">White</option>
+                                    </select>
+                                </li>
+                                <li class="">
+                                    <select name="" id="">
+                                        <option value="">Size</option>
+                                        <option value="">M</option>
+                                        <option value="">L</option>
+                                        <option value="">XL</option>
+                                    </select>
+                                </li>
                             </ul>
                         </div>
-                        <div class="price-box pt-20">
-                            <span class="new-price new-price-2">{{$setting->currency}}{{$single_product->selling_price}}</span>
-                        </div>
-                        <div class="product-desc">
-                            <p>
-                                <span>
-                                    {{$single_product->description}}
-                                </span>
-                            </p>
-                        </div>
-                        <div class="product-variants">
+                        <div class="product-variants d-block">
                             <div class="produt-variants-size">
                                 <label>Dimension</label>
                                 <select class="nice-select">
@@ -81,6 +81,22 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="price-box pt-20" style="margin: 40px 0px 0px 10px">
+                            Price:
+                            
+                                <span class="new-price new-price-2" @if($single_product->discount_price != null) style="text-decoration: line-through; color:#282828" @endif> {{$setting->currency}} {{$single_product->selling_price}}</span>
+                           
+                                <span class="new-price new-price-2"> {{$setting->currency}} {{$single_product->discount_price}}</span>
+                           
+                        </div>
+                        {{-- <div class="product-desc">
+                            <p>
+                                <span>
+                                    {{$single_product->description}}
+                                </span>
+                            </p>
+                        </div> --}}
+                        
                         <div class="single-add-to-cart">
                             <form action="#" class="cart-quantity">
                                 <div class="quantity">
@@ -112,7 +128,7 @@
                                         <div class="reassurance-icon">
                                             <i class="fa fa-check-square-o"></i>
                                         </div>
-                                        <p>Security policy (edit with Customer reassurance module)</p>
+                                        <p>Cash On Delivery: @if($single_product->cash_on_delivery ==1)Available @else Unavailable @endif</p>
                                     </div>
                                 </li>
                                 <li>
@@ -120,7 +136,7 @@
                                         <div class="reassurance-icon">
                                             <i class="fa fa-truck"></i>
                                         </div>
-                                        <p>Delivery policy (edit with Customer reassurance module)</p>
+                                        <p>Pickup Point Name: {{$single_product->pickuppoint->pickup_point_name}}</p>
                                     </div>
                                 </li>
                                 <li>
@@ -128,7 +144,14 @@
                                         <div class="reassurance-icon">
                                             <i class="fa fa-exchange"></i>
                                         </div>
-                                        <p> Return policy (edit with Customer reassurance module)</p>
+                                        <p><b>Product warrenty & return policy:</b></p>
+                                        
+                                        <p>
+                                            <ul>
+                                                <li>-> 7 days return gurantee.</li>
+                                                <li>-> 30 days service warrenty.</li>
+                                            </ul>
+                                        </p>
                                     </div>
                                 </li>
                             </ul>
@@ -162,11 +185,7 @@
             </div>
             <div id="product-details" class="tab-pane" role="tabpanel">
                 <div class="product-details-manufacturer">
-                    <a href="#">
-                        <img src="images/product-details/1.jpg" alt="Product Manufacturer Image">
-                    </a>
-                    <p><span>Reference</span> demo_7</p>
-                    <p><span>Reference</span> demo_7</p>
+                   
                 </div>
             </div>
             <div id="reviews" class="tab-pane" role="tabpanel">
@@ -183,12 +202,12 @@
                             </ul>
                         </div>
                         <div class="comment-author-infos pt-25">
-                            <span>HTML 5</span>
-                            <em>01-12-18</em>
+                            <span>Author: {{$single_product->user->name}}</span>
+                            <em>Date: {{$single_product->date}}</em>
                         </div>
                         <div class="comment-details">
-                            <h4 class="title-block">Demo</h4>
-                            <p>Plaza</p>
+                            <h4 class="title-block">Shop Address</h4>
+                            <p>Mirpur-10, Dhaka</p>
                         </div>
                         <div class="review-btn">
                             <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your Review!</a>
@@ -202,11 +221,11 @@
                                         <div class="modal-inner-area row">
                                             <div class="col-lg-6">
                                                <div class="li-review-product">
-                                                   <img src="{{asset('public/frontend')}}/images/product/large-size/3.jpg" alt="Li's Product">
+                                                   <img style="width: 100%;background-repeat: no-repeat; background-size: cover;" src="{{asset($single_product->thumbnail)}}" alt="Li's Product">
                                                    <div class="li-review-product-desc">
-                                                       <p class="li-product-name">Today is a good day Framed poster</p>
+                                                       <p class="li-product-name">{{$single_product->name}}</p>
                                                        <p>
-                                                           <span>Beach Camera Exclusive Bundle - Includes Two Samsung Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The Entire Room With Exquisite Sound via Ring Radiator Technology. Stream And Control R3 Speakers Wirelessly With Your Smartphone. Sophisticated, Modern Design </span>
+                                                           <span>{{$single_product->description}}</span>
                                                        </p>
                                                    </div>
                                                </div>
@@ -216,7 +235,7 @@
                                                     <!-- Begin Feedback Area -->
                                                     <div class="feedback-area">
                                                         <div class="feedback">
-                                                            <h3 class="feedback-title">Our Feedback</h3>
+                                                            <h3 class="feedback-title">Give Us Feedback</h3>
                                                             <form action="#">
                                                                 <p class="your-opinion">
                                                                     <label>Your Rating</label>
