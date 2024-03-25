@@ -42,7 +42,13 @@
                         @endforeach
                     </div>
                 </div>
-                <!--// Product Details Left -->
+                <!--// Product Details Left -->\
+                @if($single_product->video  != null)
+                <div class="product_video mt-10" >
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{$single_product->video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                   
+                </div>
+                @endif
             </div>
 
             <div class="col-lg-7 col-md-6">
@@ -56,9 +62,12 @@
                                 <li class="">
                                     <select name="" id="">
                                         <option value="">Color</option>
-                                        <option value="">Black</option>
-                                        <option value="">Neavy Blue</option>
-                                        <option value="">White</option>
+                                        @php
+                                            $c = explode(',' , $single_product->color);
+                                        @endphp
+                                        @foreach($c as $color )
+                                        <option value="">{{$color}}</option>
+                                        @endforeach
                                     </select>
                                 </li>
                                 <li class="">

@@ -267,7 +267,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="dropiFy">Video Link: <span style="color: red">*</span></label>
-                                    <input type="text" placeholder="https://example.com" name="video"
+                                    <input type="text" placeholder="Only code after 'embed' word:" name="video"
                                         value="{{ old('video') }}" class="form-control" id="">
                                 </div>
                                 <div class="form-group">

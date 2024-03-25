@@ -46,7 +46,7 @@ class ProductUpdateRequest extends FormRequest
             'status' => 'nullable',
             'thumbnail' => 'image|mimes:jpg,jpeg,png,gif,svg,webp|max:5024',
             'images.*' => 'image|mimes:jpg,jpeg,png,gif,svg,webp|max:5000',
-            'video' => 'nullable|url',
+            'video' => 'nullable',
         ];
     }
 }
