@@ -324,7 +324,7 @@
                             <!-- single-product-wrap start -->
                             <div class="single-product-wrap">
                                 <div class="product-image">
-                                    <a href="#">
+                                    <a href="#" style="height: 127px">
                                         <img src="{{asset($related->thumbnail)}}" alt="Li's Product Image">
                                     </a>
                                     <span class="sticker">New</span>
@@ -345,7 +345,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <h4><a class="product_name" href="#">{{$related->name}}</a></h4>
+                                        <h4><a class="product_name" href="#">{{substr($related->name,0,50)}}</a></h4>
                                         <div class="price-box">
                                             @if($related->discount_price != null)
                                             <span class="new-price" style="text-decoration: line-through;color:darkred">{{$setting->currency}} {{$related->selling_price}}</span>
