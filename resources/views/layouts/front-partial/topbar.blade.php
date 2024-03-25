@@ -47,8 +47,8 @@
                                 <div class="ht-language-trigger"><span>English</span></div>
                                 <div class="language ht-language">
                                     <ul class="ht-setting-list">
-                                        <li class="active"><a href="#"><img src="images/menu/flag-icon/1.jpg" alt="">English</a></li>
-                                        <li><a href="#"><img src="images/menu/flag-icon/2.jpg" alt="">Français</a></li>
+                                        <li class="active"><a href="#"><img src="{{asset('public/frontend')}}/images/menu/flag-icon/1.jpg" alt="">English</a></li>
+                                        <li><a href="#"><img src="{{asset('public/frontend')}}/images/menu/flag-icon/2.jpg" alt="">Français</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -69,7 +69,7 @@
                 <div class="col-lg-3">
                     <div class="logo pb-sm-30 pb-xs-30">
                         <a href="index.html">
-                            <img src="images/menu/logo/1.jpg" alt="">
+                            <img src="{{asset('public/frontend')}}/images/menu/logo/1.jpg" alt="">
                         </a>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
                         <ul class="hm-menu">
                             <!-- Begin Header Middle Wishlist Area -->
                             <li class="hm-wishlist">
-                                <a href="wishlist.html">
+                                <a href="#">
                                     <span class="cart-item-count wishlist-item-count">0</span>
                                     <i class="fa fa-heart-o"></i>
                                 </a>
@@ -178,7 +178,7 @@
                                     <ul class="minicart-product-list">
                                         <li>
                                             <a href="single-product.html" class="minicart-product-image">
-                                                <img src="images/product/small-size/3.jpg" alt="cart products">
+                                                <img src="{{asset('public/frontend')}}/images/product/small-size/3.jpg" alt="cart products">
                                             </a>
                                             <div class="minicart-product-details">
                                                 <h6><a href="single-product.html">Aenean eu tristique</a></h6>
@@ -190,7 +190,7 @@
                                         </li>
                                         <li>
                                             <a href="single-product.html" class="minicart-product-image">
-                                                <img src="images/product/small-size/4.jpg" alt="cart products">
+                                                <img src="{{asset('public/frontend')}}/images/product/small-size/4.jpg" alt="cart products">
                                             </a>
                                             <div class="minicart-product-details">
                                                 <h6><a href="single-product.html">Aenean eu tristique</a></h6>

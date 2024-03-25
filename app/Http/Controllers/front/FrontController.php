@@ -13,14 +13,15 @@ class FrontController extends Controller
     public function index()
     {
         $data['categories'] = Category::all();
-        $data['products']  = Product::where('slider_product',1)->select('products.*')->get();
-        return view('home',$data);
+        $data['products']  = Product::where('slider_product', 1)->select('products.*')->get();
+        return view('home', $data);
     }
 
-     //  single-product page show
-     public function singleProduct($slug)
-     {
-        $data['single_product'] = Product::where('slug',$slug)->first();
-         return view('frontend.product_details',$data);
-     }
+    //  single-product page show
+    public function singleProduct($slug)
+    {
+        $data['single_product'] = Product::where('slug', $slug)->first();
+        $data['related_product'] = Product::where('subcategory_id', $data['single_product']->subcategory_id)->orderBy('id', 'DESC')->limit(10)->get();
+        return view('frontend.product_details', $data);
+    }
 }
