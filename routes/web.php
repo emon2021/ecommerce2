@@ -35,5 +35,5 @@ Route::get('/user/logout',[HomeController::class, 'logout'])->name('user.logout'
 Route::group(['namespace'=> 'App\Http\Controllers\front'],function(){
     Route::get('/', 'FrontController@index')->name('home.page');
     Route::get('/single-product/{slug}', 'FrontController@singleProduct')->name('single.product');
-    Route::post('/review','FrontController@addReview')->name( 'review' )->middleware(['auth_check']);
+    Route::post('/review/{product_id}','ReviewController@addReview')->name( 'product.review' )->middleware(['auth_check']);
 });

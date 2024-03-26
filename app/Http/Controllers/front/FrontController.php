@@ -25,9 +25,5 @@ class FrontController extends Controller
         return view('frontend.product_details', $data);
     }
 
-    //  add review 
-    public function addReview()
-    {
-        return response()->json('200');
-    }
+    
 }

@@ -295,13 +295,13 @@
                                                             <div class="feedback-area">
                                                                 <div class="feedback">
                                                                     <h3 class="feedback-title">Give Us Feedback</h3>
-                                                                    <form action="{{ route('review') }} " method="POST">
+                                                                    <form action="{{ route('product.review',$single_product->id) }} " method="POST">
                                                                         @csrf
 
                                                                         <p class="your-opinion">
                                                                             <label>Your Rating</label>
                                                                             <span>
-                                                                                <select class="star-rating">
+                                                                                <select name="rating" class="star-rating">
                                                                                     <option value="1">1</option>
                                                                                     <option value="2">2</option>
                                                                                     <option value="3">3</option>

@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Review extends Model
+{
+    use HasFactory;
+    protected $fillable = [
+        'user_id', 
+        'product_id',  
+        'rating', 
+        'comment',
+        'author',
+        'email',
+        'review_date',
+        'review_month',
+        'review_year',
+    ];
+
+    //____making relation with user  model__________//
+    public function user() {
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    //____making relation with product  model__________//
+    public function product()
+    {
+        return $this->belongsTo(Product::class,'product_id');
+    }
+}
