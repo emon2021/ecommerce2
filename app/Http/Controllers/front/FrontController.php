@@ -24,4 +24,10 @@ class FrontController extends Controller
         $data['related_product'] = Product::where('subcategory_id', $data['single_product']->subcategory_id)->orderBy('id', 'DESC')->limit(10)->get();
         return view('frontend.product_details', $data);
     }
+
+    //  add review 
+    public function addReview()
+    {
+        return response()->json('200');
+    }
 }

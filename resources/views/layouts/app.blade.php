@@ -43,6 +43,7 @@
         <link rel="stylesheet" href="{{asset('public/frontend')}}/css/responsive.css">
         <!-- Modernizr js -->
         <script src="{{asset('public/frontend')}}/js/vendor/modernizr-2.8.3.min.js"></script>
+        @stack('css')
     </head>
     <body>
     <!--[if lt IE 8]>
