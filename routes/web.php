@@ -19,7 +19,15 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-
+//__________custom.login.registration_________
+Route::middleware(['not_guest'])->group(function(){
+    Route::get('/logn-show-form', [HomeController::class, 'showForm'])->name('login.showForm');  // show login form when user
+    Route::get('/register-show-form', [HomeController::class, 'showRegister'])->name('register.showForm');  // show register form when user
+    Route::post('/user/register',[HomeController::class, 'register'])->name('user.register');  //for registration
+    Route::post('/user/login',[HomeController::class, 'login'])->name('user.login');  //for registration
+    
+});
+Route::get('/user/logout',[HomeController::class, 'logout'])->name('user.logout');  //for registration
 
 //___________frontend.routes__________//
 

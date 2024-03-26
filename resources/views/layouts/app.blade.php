@@ -53,7 +53,10 @@
             <!----------topbar------------>
             @include('layouts.front-partial.topbar')
             <!----------navbar------------>
-            @include('layouts.front-partial.navbar')
+            @guest
+            @else
+                @include('layouts.front-partial.navbar')
+            @endguest
 
             <!----------slider------------>
             {{---   @include('layouts.front-partial.slider')  --}}
@@ -61,7 +64,11 @@
             @yield('content')
 
             <!-----------footer-------------->
-            @include('layouts.front-partial.footer')
+            @guest
+                
+            @else
+                @include('layouts.front-partial.footer')
+            @endguest
 
 
             

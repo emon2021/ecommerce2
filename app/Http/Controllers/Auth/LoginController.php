@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -46,16 +47,19 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
-        {
-            if(auth()->user()->is_admin == 1)
-            {
-                return redirect()->route('admin.home');
-            }else{
-                return redirect()->route('home');
+        $is_admin = User::select('is_admin')->where('email', $request->email)->first();
+        if ($is_admin->is_admin == 1) {
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                if (auth()->user()->is_admin == 1) {
+                    return redirect()->route('admin.home');
+                } else {
+                    return redirect()->route('home.page');
+                }
+            } else {
+                return redirect()->back()->with('error', 'Invalid Credential!');
             }
-        }else{
-            return redirect()->back()->with('error','Invalid Credential!');
+        } else {
+            return redirect()->route('login.showForm');
         }
     }
 }

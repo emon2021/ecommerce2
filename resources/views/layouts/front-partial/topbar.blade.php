@@ -22,9 +22,18 @@
                                 <div class="ht-setting-trigger"><span>Setting</span></div>
                                 <div class="setting ht-setting">
                                     <ul class="ht-setting-list">
-                                        <li><a href="login-register.html">My Account</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="login-register.html">Sign In</a></li>
+                                        @guest
+                                        @else
+                                            <li><a href="login-register.html">My Account</a></li>
+                                            <li><a href="checkout.html">Checkout</a></li>
+                                        @endguest
+
+                                        @guest
+                                            <li><a href="{{route('login.showForm')}}">Sign In</a></li>
+                                            <li><a href="{{route('register.showForm')}}">Register</a></li>
+                                        @else
+                                            <li><a href="{{route('user.logout')}}">Logout</a></li>
+                                        @endguest
                                     </ul>
                                 </div>
                             </li>
