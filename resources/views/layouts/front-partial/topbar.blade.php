@@ -19,7 +19,7 @@
                         <ul class="ht-menu">
                             <!-- Begin Setting Area -->
                             <li>
-                                <div class="ht-setting-trigger"><span>Setting</span></div>
+                                <div class="ht-setting-trigger"><span>@guest Create Account or Login @else Account @endguest</span></div>
                                 <div class="setting ht-setting">
                                     <ul class="ht-setting-list">
                                         @guest
@@ -77,7 +77,7 @@
                 <!-- Begin Header Logo Area -->
                 <div class="col-lg-3">
                     <div class="logo pb-sm-30 pb-xs-30">
-                        <a href="index.html">
+                        <a href="{{url('/')}}">
                             <img src="{{asset('public/frontend')}}/images/menu/logo/1.jpg" alt="">
                         </a>
                     </div>
