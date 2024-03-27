@@ -207,10 +207,9 @@
                                 @php
                                     $get_wishlist = DB::table('wishlists')->where('user_id', Auth::id())->where('product_id',$single_product->id)->first();
                                 @endphp
-                                <a class="wishlist-btn @if($get_wishlist) wishlist_delete @else wishlist_add @endif" href="@if($get_wishlist) {{route('product.wishlist_delete',$single_product->id)}} @else {{route('product.wishlist',$single_product->id)}} @endif" >
+                                <a class="wishlist-btn  wishlist_add" href="{{route('product.wishlist',$single_product->id)}}" >
                                     @if($get_wishlist)
                                      <i class="fa fa-heart"></i>
-                                     <i class="fa fa-heart-o d-none"></i>
                                     @else
                                      <i class="fa fa-heart d-none"></i>
                                      <i class="fa fa-heart-o"></i>
@@ -242,43 +241,15 @@
                                                         // Toggle heart icons and classes
                                                         $(e.currentTarget).find('.fa-heart').removeClass('d-none');
                                                         $(e.currentTarget).find('.fa-heart-o').addClass('d-none');
-                                                        $(e.currentTarget).removeClass('wishlist_add').addClass('wishlist_delete');
-                                                        window.location.reload();
                                                     },
                                                 });
                                               }
                                             });
                                             
-                                            // Wishlist delete using Ajax
-                                            $('body').on('click','.wishlist_delete',function(event){
-                                                event.preventDefault();
-                                                if($(this).hasClass('wishlist_delete')){
-                                                let get_route = $(this).attr('href');
-                                                $.ajax({
-                                                    url: get_route,
-                                                    type: 'GET',
-                                                    success: function(data){
-                                                        if(data == "This Product isn't exists!"){
-                                                            toastr.success(data);
-                                                        }else if(data == 'loginForm'){
-                                                            window.location.href = "{{ route('login.showForm') }}";
-                                                        }else{
-                                                            $('#wishlist_counter').text(data);
-                                                        }
-                                    
-                                                        // Toggle heart icons and classes
-                                                        $(event.currentTarget).find('.fa-heart-o').removeClass('d-none');
-                                                        $(event.currentTarget).find('.fa-heart').addClass('d-none');
-                                                        $(event.currentTarget).removeClass('wishlist_delete').addClass('wishlist_add');
-                                                        window.location.reload();
-                                                    }
-                                                });
-                                              }
-                                            });
                                         });
                                     </script>
-                                    
                                     @endpush
+                                    
                                 <div class="product-social-sharing pt-25">
                                     <ul>
                                         <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a>

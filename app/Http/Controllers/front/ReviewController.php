@@ -66,32 +66,6 @@ class ReviewController extends Controller
             return response()->json('loginForm');
         }
     }
-    //  delete product to wishlist
-    public function wishlist_delete($id)
-    {
-        if(Auth::check())
-        {
-            $user_id = Auth::id();
-            $product_id = $id;
-            $check = DB::table('wishlists')->where('user_id',$user_id)->where('product_id',$product_id)->first();
-            if($check == true)
-            {
-                $delete = DB::table('wishlists')->where('user_id',$user_id)->where('product_id',$product_id)->delete();
-
-                if($delete == true)
-                {
-                    $count_wishlist = DB::table('wishlists')->where('user_id',$user_id)->count();
-                     
-                    return response()->json($count_wishlist);
-                }
-                
-            }else{
-                return response()->json("This Product isn't exists!");
-            }
-        }else{
-            return response()->json('loginForm');
-        }
-    }
 
     
 }
