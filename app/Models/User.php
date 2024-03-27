@@ -44,4 +44,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    //  relation with review
+    public function review()
+    {
+        return $this->hasOne(Review::class);
+    }
 }

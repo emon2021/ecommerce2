@@ -247,24 +247,38 @@
                     <div id="reviews" class="tab-pane" role="tabpanel">
                         <div class="product-reviews">
                             <div class="product-details-comment-block">
-                                <div class="comment-review">
-                                    <span>Grade</span>
-                                    <ul class="rating">
-                                        <li><i class="fa fa-star-o"></i></li>
-                                        <li><i class="fa fa-star-o"></i></li>
-                                        <li><i class="fa fa-star-o"></i></li>
-                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                    </ul>
+                            @php
+                                use App\Models\Review;
+                                $reviews = Review::where('product_id',$single_product->id)->latest()->limit(10)->get();
+                            @endphp
+                            @foreach($reviews as $review)
+                                <div> 
+                                    <div class="comment-author-infos pt-25">
+                                        <span>Author: {{ $review->user->name }}</span>
+                                        <em>Date: {{ $review->review_date }}</em>
+                                    </div>
+                                    <div class="comment-review">
+                                        <span>Rating: </span>
+                                        <ul class="rating">
+                                        @for($i=1; $i<=$review->rating;$i++)
+                                            <li><i class="fa fa-solid fa-star"></i></li>
+                                        @endfor
+                                        @for($x=1; $x<=5-$review->rating;$x++)
+                                            <li ><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                        @endfor
+
+                                        </ul>
+                                    </div>
+                                    <div class="comment-details">
+                                        <h4 class="title title-simple nott mb-30">Comment: </h4>
+                                        <p>
+                                            {{ $review->comment }} 
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="comment-author-infos pt-25">
-                                    <span>Author: {{ $single_product->user->name }}</span>
-                                    <em>Date: {{ $single_product->date }}</em>
-                                </div>
-                                <div class="comment-details">
-                                    <h4 class="title-block">Shop Address</h4>
-                                    <p>Mirpur-10, Dhaka</p>
-                                </div>
+                                @endforeach
+
+
                                 <div class="review-btn">
                                     <a class="review-links" href="#" data-toggle="modal"
                                         data-target="#mymodal">Write Your Review!</a>

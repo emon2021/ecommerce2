@@ -15,6 +15,7 @@
     <!-- Material Design Iconic Font-V2.2.0 -->
     <link rel="stylesheet" href="{{ asset('public/frontend') }}/css/material-design-iconic-font.min.css">
     <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/f206eb07b5.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('public/frontend') }}/css/font-awesome.min.css">
     <!-- Font Awesome Stars-->
     <link rel="stylesheet" href="{{ asset('public/frontend') }}/css/fontawesome-stars.css">

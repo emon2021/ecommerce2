@@ -72,4 +72,9 @@ class Product extends Model
     {
         return $this->belongsTo(User::class,'admin_id');
     }
+    //______relation with review model_______
+    public function review()
+    {
+        return $this->hasOne(Review::class);
+    }
 }
