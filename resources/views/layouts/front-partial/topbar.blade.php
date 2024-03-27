@@ -19,7 +19,7 @@
                         <ul class="ht-menu">
                             <!-- Begin Setting Area -->
                             <li>
-                                <div class="ht-setting-trigger"><span>@guest Create Account or Login @else Account @endguest</span></div>
+                                <div class="ht-setting-trigger"><span>@guest Create Account or Login @else {{Auth::user()->name}} @endguest</span></div>
                                 <div class="setting ht-setting">
                                     <ul class="ht-setting-list">
                                         @guest
@@ -169,7 +169,10 @@
                             <!-- Begin Header Middle Wishlist Area -->
                             <li class="hm-wishlist">
                                 <a href="#">
-                                    <span class="cart-item-count wishlist-item-count">0</span>
+                                    @php
+                                        $wishlist = DB::table('wishlists')->where('user_id', Auth::id())->count();
+                                    @endphp
+                                    <span class="cart-item-count wishlist-item-count" id="wishlist_counter">{{$wishlist}}</span>
                                     <i class="fa fa-heart-o"></i>
                                 </a>
                             </li>

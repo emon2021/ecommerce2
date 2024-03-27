@@ -204,8 +204,29 @@
                                 </form>
                             </div>
                             <div class="product-additional-info pt-25">
-                                <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to
+                                <a class="wishlist-btn" href="{{route('product.wishlist',$single_product->id)}}" id="wishlist" ><i class="fa fa-heart-o"></i>Add to
                                     wishlist</a>
+                                    @push('scripts')
+                                        <script>
+                                            $(document).ready(function(){
+                                                $('#wishlist').on('click', function(e){
+                                                    e.preventDefault();
+                                                    let get_attr = $(this).attr('href');
+                                                    $.ajax({
+                                                        url: get_attr,
+                                                        type: 'GET',
+                                                        success: function(response){
+                                                            if(response == 'This product is already exist to the wishlist!'){
+                                                                toastr.success(response);
+                                                            }else{
+                                                                $('#wishlist_counter').text(response);
+                                                            }
+                                                        },
+                                                    });
+                                                });
+                                            });
+                                        </script>
+                                    @endpush
                                 <div class="product-social-sharing pt-25">
                                     <ul>
                                         <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a>

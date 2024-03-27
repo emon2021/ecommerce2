@@ -47,6 +47,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
         integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-------toastr.css------->
+   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/toastr/toastr.min.css">
     <!-- sweetalert2 cdn css -------->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.css"
         integrity="sha512-OWGg8FcHstyYFwtjfkiCoYHW2hG3PDWwdtczPAPUcETobBJOVCouKig8rqED0NMLcT9GtE4jw6IT1CSrwY87uw=="
@@ -131,6 +133,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-------toaster.js------->
+<script src="{{asset('public/backend')}}/plugins/toastr/toastr.min.js"></script>
     <!-- sweetalert2 cdn js -------->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.js"
         integrity="sha512-csaTzpLFmF+Zl81hRtaZMsMhaeQDHO8E3gBkN3y3sCX9B1QSut68NxqcrxXH60BXPUQ/GB3LZzzIq9ZrxPAMTg=="
@@ -142,32 +146,40 @@
             var type = "{{ Session::get('alert-type', 'info') }}"
             switch (type) {
                 case 'info':
+    
                     toastr.options.timeOut = 10000;
                     toastr.info("{{ Session::get('message') }}");
                     var audio = new Audio('audio.mp3');
                     audio.play();
                     break;
                 case 'success':
+    
                     toastr.options.timeOut = 10000;
                     toastr.success("{{ Session::get('message') }}");
                     var audio = new Audio('audio.mp3');
                     audio.play();
+    
                     break;
                 case 'warning':
+    
                     toastr.options.timeOut = 10000;
                     toastr.warning("{{ Session::get('message') }}");
                     var audio = new Audio('audio.mp3');
                     audio.play();
+    
                     break;
                 case 'error':
+    
                     toastr.options.timeOut = 10000;
                     toastr.error("{{ Session::get('message') }}");
                     var audio = new Audio('audio.mp3');
                     audio.play();
+    
                     break;
             }
         @endif
     </script>
+    @stack('scripts')
 </body>
 
 <!-- index-231:38-->
