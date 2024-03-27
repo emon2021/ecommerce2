@@ -363,27 +363,27 @@
                                                         {{$get_years}} years
                                                     @endif 
 
-                                                    @if($get_months >= 1)
+                                                    @if($get_months < 12 && $get_months >=1)
                                                         {{$get_months}} months
                                                     @endif 
 
-                                                    @if($get_weeks >= 1)
+                                                    @if($get_weeks < 4 && $get_weeks >= 1)
                                                         {{$get_weeks}} weeks
                                                     @endif 
 
-                                                    @if($get_days >= 1)
+                                                    @if($get_days < 7 && $get_days >= 1)
                                                         {{$get_days}} days
                                                     @endif 
 
-                                                    @if($get_hours < 24)
+                                                    @if($get_hours < 24 && $get_hours >= 1)
                                                         {{$get_hours}} hours 
                                                     @endif
 
-                                                    @if($get_minutes  < 60)
+                                                    @if($get_minutes  < 60  && $get_minutes >= 1 )
                                                         {{$get_minutes}} minutes 
                                                     @endif
 
-                                                    @if($get_seconds < 60)
+                                                    @if($get_seconds < 60 && $get_seconds >= 1)
                                                         {{$get_seconds}} seconds 
                                                     @endif 
 
