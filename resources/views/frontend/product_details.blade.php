@@ -272,11 +272,11 @@
                                                 <span style="text-transform: capitalize; display:inherit;padding: 6px 0px 0px 10px;
                                                 font-size: 16px;">
                                                     <li><i style="color: #fed700; margin-right: 5px" class="fa fa-solid fa-star"></i></li>
-                                                    @if(1>=$a && $a<3)
+                                                    @if(1<$a && $a<3)
                                                         Good
-                                                    @elseif(3>=$a && $a<4)
+                                                    @elseif(3<=$a && $a<4)
                                                         Very Good
-                                                    @elseif (4>=$a && $a<=5)
+                                                    @elseif (4<=$a && $a<=5)
                                                         Excellent
                                                     @else
                                                         Poor
