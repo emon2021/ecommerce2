@@ -24,6 +24,37 @@
             }
         </style>
     @endpush
+
+
+
+    @php
+        use App\Models\Review;
+        $reviews = Review::where('product_id', $single_product->id)
+            ->latest()
+            ->limit(10)
+            ->get();
+        $review_5 = Review::where('product_id', $single_product->id)
+            ->where('rating', 5)
+            ->count();
+        $review_4 = Review::where('product_id', $single_product->id)
+            ->where('rating', 4)
+            ->count();
+        $review_3 = Review::where('product_id', $single_product->id)
+            ->where('rating', 3)
+            ->count();
+        $review_2 = Review::where('product_id', $single_product->id)
+            ->where('rating', 2)
+            ->count();
+        $review_1 = Review::where('product_id', $single_product->id)
+            ->where('rating', 1)
+            ->count();
+        $avarage = Review::where('product_id', $single_product->id)->sum('rating');
+        $count_review = Review::where('product_id', $single_product->id)->count();
+    @endphp
+    @php
+        $av = number_format($avarage / $count_review, 1);
+        $a = intval($av);
+    @endphp
     <!-- Begin Li's Breadcrumb Area -->
     <div class="breadcrumb-area">
         <div class="container">
@@ -86,6 +117,16 @@
                                 {{ $single_product->brand->brand_name }}</span>
                             <span class="product-details-ref d-block font-weight-bold">Stock:
                                 {{ $single_product->stock_quantity }}</span>
+                            <span class="product-details-ref d-block font-weight-bold">
+                                <ul class="rating">
+                                    @for ($k = 1; $k <= $a; $k++)
+                                        <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                    @endfor
+                                    @for ($z = 1; $z <= 5 - $a; $z++)
+                                        <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                    @endfor
+                                </ul>
+                            </span>
                             <div class="rating-box pt-20">
                                 <ul class="rating rating-with-review-item">
                                     @isset($single_product->color)
@@ -245,16 +286,7 @@
 
                         </div>
                     </div>
-                    @php
-                        use App\Models\Review;
-                        $reviews = Review::where('product_id', $single_product->id)->latest()->limit(10)->get();
-                        $review_5 = Review::where('product_id', $single_product->id)->where('rating',5)->count();
-                        $review_4 = Review::where('product_id', $single_product->id)->where('rating',4)->count();
-                        $review_3 = Review::where('product_id', $single_product->id)->where('rating',3)->count();
-                        $review_2 = Review::where('product_id', $single_product->id)->where('rating',2)->count();
-                        $review_1 = Review::where('product_id', $single_product->id)->where('rating',1)->count();
-                        $avarage = Review::where('product_id', $single_product->id)->sum( 'rating');
-                    @endphp
+
                     <div id="reviews" class="tab-pane" role="tabpanel">
                         <div class="product-reviews">
                             <div class="card mb-3">
@@ -263,20 +295,19 @@
                                 <div class="card-body">
                                     <div class="col-md-6" style="float: left;">
                                         <span>
-                                            @php
-                                                $av = $avarage/5;
-                                                $a = intval($avarage/5);
-                                            @endphp
+
                                             <div class="avarage_rating d-flex">
-                                                <h4 style="font-size: 35px">{{$av}}</h4>
-                                                <span style="text-transform: capitalize; display:inherit;padding: 6px 0px 0px 10px;
+                                                <h4 style="font-size: 35px">{{ $av }}</h4>
+                                                <span
+                                                    style="text-transform: capitalize; display:inherit;padding: 6px 0px 0px 10px;
                                                 font-size: 16px;">
-                                                    <li><i style="color: #fed700; margin-right: 5px" class="fa fa-solid fa-star"></i></li>
-                                                    @if(1<$a && $a<3)
+                                                    <li><i style="color: #fed700; margin-right: 5px"
+                                                            class="fa fa-solid fa-star"></i></li>
+                                                    @if (1 < $a && $a < 3)
                                                         Good
-                                                    @elseif(3<=$a && $a<4)
+                                                    @elseif(3 <= $a && $a < 4)
                                                         Very Good
-                                                    @elseif (4<=$a && $a<=5)
+                                                    @elseif (4 <= $a && $a <= 5)
                                                         Excellent
                                                     @else
                                                         Poor
@@ -284,34 +315,34 @@
                                                 </span>
                                             </div>
                                             <ul class="rating">
-                                                @for($j=1;$j<=$a;$j++)
-                                                <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                                @for ($j = 1; $j <= $a; $j++)
+                                                    <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
                                                 @endfor
-                                                @for($y=1;$y<=5-$a;$y++)
-                                                <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                                @for ($y = 1; $y <= 5 - $a; $y++)
+                                                    <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
                                                 @endfor
                                             </ul>
                                         </span>
                                     </div>
                                     <div class="col-md-6 float-end" style="float: right;">
                                         <span>Total Reviews: </span>
-                                            <ul class="rating">
-                                                <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
-                                                <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
-                                                <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
-                                                <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
-                                                <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
-                                                 &nbsp; &nbsp;({{$review_5}})
-                                            </ul>
-                                            
-                                        
+                                        <ul class="rating">
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            &nbsp; &nbsp;({{ $review_5 }})
+                                        </ul>
+
+
                                         <ul class="rating">
                                             <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
                                             <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
                                             <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
                                             <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
                                             <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
-                                            &nbsp; &nbsp;({{$review_4}})
+                                            &nbsp; &nbsp;({{ $review_4 }})
                                         </ul>
                                         <ul class="rating">
                                             <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
@@ -319,7 +350,7 @@
                                             <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
                                             <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
                                             <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
-                                            &nbsp; &nbsp;({{$review_3}})
+                                            &nbsp; &nbsp;({{ $review_3 }})
                                         </ul>
                                         <ul class="rating">
                                             <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
@@ -327,7 +358,7 @@
                                             <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
                                             <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
                                             <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
-                                            &nbsp; &nbsp;({{$review_2}})
+                                            &nbsp; &nbsp;({{ $review_2 }})
                                         </ul>
                                         <ul class="rating">
                                             <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
@@ -335,86 +366,111 @@
                                             <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
                                             <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
                                             <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
-                                            &nbsp; &nbsp;({{$review_1}})
+                                            &nbsp; &nbsp;({{ $review_1 }})
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="product-details-comment-block">
-
+                                &nbsp; &nbsp; All reviews count ({{ $count_review }})
+                                <div class="row">
                                 @foreach ($reviews as $review)
-                                    <div class="card mb-3">
-                                        <div class="  card-header">
-                                            <span>{{ $review->user->name }} ({{ substr($review->review_date,0,2) }} {{$review->review_month}} {{$review->review_year}}) </span>
-                                            @php
-                                                $create_time = Illuminate\Support\Carbon::parse($review->created_at);
-                                                $get_years = $create_time->diffInYears(Illuminate\Support\Carbon::now());
-                                                $get_months = $create_time->diffInMonths(Illuminate\Support\Carbon::now());
-                                                $get_weeks = $create_time->diffInWeeks(Illuminate\Support\Carbon::now());
-                                                $get_days = $create_time->diffInDays(Illuminate\Support\Carbon::now());
-                                                $get_hours = $create_time->diffInHours(Illuminate\Support\Carbon::now());
-                                                $get_minutes = $create_time->diffInMinutes(Illuminate\Support\Carbon::now());
-                                                $get_seconds = $create_time->diffInSeconds(Illuminate\Support\Carbon::now());
-                                               
-                                            @endphp
-                                            <span class="float-end" style="float: right">
-                                                @if($get_days > 0 || $get_hours > 0 || $get_minutes > 0 || $get_seconds > 0 || $get_years > 0 || $get_months > 0 || $get_weeks > 0)
-                                                    @if($get_years >= 1)
-                                                        {{$get_years}} years
-                                                    @endif 
-
-                                                    @if($get_months < 12 && $get_months >=1)
-                                                        {{$get_months}} months
-                                                    @endif 
-
-                                                    @if($get_weeks < 4 && $get_weeks >= 1)
-                                                        {{$get_weeks}} weeks
-                                                    @endif 
-
-                                                    @if($get_days < 7 && $get_days >= 1)
-                                                        {{$get_days}} days
-                                                    @endif 
-
-                                                    @if($get_hours < 24 && $get_hours >= 1)
-                                                        {{$get_hours}} hours 
-                                                    @endif
-
-                                                    @if($get_minutes  < 60  && $get_minutes >= 1 )
-                                                        {{$get_minutes}} minutes 
-                                                    @endif
-
-                                                    @if($get_seconds < 60 && $get_seconds >= 1)
-                                                        {{$get_seconds}} seconds 
-                                                    @endif 
-
-                                                    ago.
-                                                
-                                                @endif
-                                            </span>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="comment-review">
-                                                <span>Rating: </span>
-                                                <ul class="rating">
-                                                    @for ($i = 1; $i <= $review->rating; $i++)
-                                                        <li><i class="fa fa-solid fa-star"></i></li>
-                                                    @endfor
-                                                    @for ($x = 1; $x <= 5 - $review->rating; $x++)
-                                                        <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
-                                                    @endfor
-    
-                                                </ul>
+                                    
+                                        <div class="col-md-6 float-start" style="display:inline-block">
+                                            <div class="card mb-3">
+                                                <div class="  card-header">
+                                                    <span>{{ $review->user->name }} ({{ substr($review->review_date, 0, 2) }}
+                                                        {{ $review->review_month }} {{ $review->review_year }}) </span>
+                                                    @php
+                                                        $create_time = Illuminate\Support\Carbon::parse($review->created_at);
+                                                        $get_years = $create_time->diffInYears(
+                                                            Illuminate\Support\Carbon::now(),
+                                                        );
+                                                        $get_months = $create_time->diffInMonths(
+                                                            Illuminate\Support\Carbon::now(),
+                                                        );
+                                                        $get_weeks = $create_time->diffInWeeks(
+                                                            Illuminate\Support\Carbon::now(),
+                                                        );
+                                                        $get_days = $create_time->diffInDays(Illuminate\Support\Carbon::now());
+                                                        $get_hours = $create_time->diffInHours(
+                                                            Illuminate\Support\Carbon::now(),
+                                                        );
+                                                        $get_minutes = $create_time->diffInMinutes(
+                                                            Illuminate\Support\Carbon::now(),
+                                                        );
+                                                        $get_seconds = $create_time->diffInSeconds(
+                                                            Illuminate\Support\Carbon::now(),
+                                                        );
+        
+                                                    @endphp
+                                                    <span class="float-end" style="float: right">
+                                                        @if (
+                                                            $get_days > 0 ||
+                                                                $get_hours > 0 ||
+                                                                $get_minutes > 0 ||
+                                                                $get_seconds > 0 ||
+                                                                $get_years > 0 ||
+                                                                $get_months > 0 ||
+                                                                $get_weeks > 0)
+                                                            @if ($get_years >= 1)
+                                                                {{ $get_years }} years
+                                                            @endif
+        
+                                                            @if ($get_months < 12 && $get_months >= 1)
+                                                                {{ $get_months }} months
+                                                            @endif
+        
+                                                            @if ($get_weeks < 4 && $get_weeks >= 1)
+                                                                {{ $get_weeks }} weeks
+                                                            @endif
+        
+                                                            @if ($get_days < 7 && $get_days >= 1)
+                                                                {{ $get_days }} days
+                                                            @endif
+        
+                                                            @if ($get_hours < 24 && $get_hours >= 1)
+                                                                {{ $get_hours }} hours
+                                                            @endif
+        
+                                                            @if ($get_minutes < 60 && $get_minutes >= 1)
+                                                                {{ $get_minutes }} minutes
+                                                            @endif
+        
+                                                            @if ($get_seconds < 60 && $get_seconds >= 1)
+                                                                {{ $get_seconds }} seconds
+                                                            @endif
+        
+                                                            ago.
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="comment-review">
+                                                        <span>Rating: </span>
+                                                        <ul class="rating">
+                                                            @for ($i = 1; $i <= $review->rating; $i++)
+                                                                <li><i class="fa fa-solid fa-star"></i></li>
+                                                            @endfor
+                                                            @for ($x = 1; $x <= 5 - $review->rating; $x++)
+                                                                <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i>
+                                                                </li>
+                                                            @endfor
+        
+                                                        </ul>
+                                                    </div>
+                                                    <div class="comment-details">
+                                                        <h4 class="title title-simple nott mb-30">Comment: </h4>
+                                                        <p>
+                                                            {{ $review->comment }}
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="comment-details">
-                                                <h4 class="title title-simple nott mb-30">Comment: </h4>
-                                                <p>
-                                                    {{ $review->comment }}
-                                                </p>
-                                            </div>
                                         </div>
-                                    </div>
+                                    
                                 @endforeach
-
+                            </div>
 
                                 <div class="review-btn">
                                     <a class="review-links" href="#" data-toggle="modal"
