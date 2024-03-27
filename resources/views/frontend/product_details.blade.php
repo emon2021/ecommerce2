@@ -207,40 +207,77 @@
                                 @php
                                     $get_wishlist = DB::table('wishlists')->where('user_id', Auth::id())->where('product_id',$single_product->id)->first();
                                 @endphp
-                                <a class="wishlist-btn" href="{{route('product.wishlist',$single_product->id)}}" id="wishlist" >
+                                <a class="wishlist-btn @if($get_wishlist) wishlist_delete @else wishlist_add @endif" href="@if($get_wishlist) {{route('product.wishlist_delete',$single_product->id)}} @else {{route('product.wishlist',$single_product->id)}} @endif" >
                                     @if($get_wishlist)
                                      <i class="fa fa-heart"></i>
+                                     <i class="fa fa-heart-o d-none"></i>
                                     @else
                                      <i class="fa fa-heart d-none"></i>
                                      <i class="fa fa-heart-o"></i>
                                     @endif
                                     Add to
                                     wishlist</a>
+
+
+
                                     @push('scripts')
-                                        <script>
-                                            $(document).ready(function(){
-                                                $('#wishlist').on('click', function(e){
-                                                    e.preventDefault();
-                                                    let get_attr = $(this).attr('href');
-                                                    $.ajax({
-                                                        url: get_attr,
-                                                        type: 'GET',
-                                                        async: false,
-                                                        success: function(response){
-                                                            if(response == 'This product is already exist to the wishlist!'){
-                                                                toastr.success(response);
-                                                            }else if(response == 'loginForm'){
-                                                                window.location.href = "{{ route('login.showForm') }}";
-                                                            }else{
-                                                                $('#wishlist_counter').text(response);
-                                                            }
-                                                            $('.fa-heart').removeClass('d-none');
-                                                            $('.fa-heart-o').addClass('d-none`');
-                                                        },
-                                                    });
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('body').on('click','.wishlist_add', function(e){
+                                                e.preventDefault();
+                                                if($(this).hasClass('wishlist_add')){
+                                                let get_attr = $(this).attr('href');
+                                                $.ajax({
+                                                    url: get_attr,
+                                                    type: 'GET',
+                                                    success: function(response){
+                                                        if(response == 'This product is already exist to the wishlist!'){
+                                                            toastr.success(response);
+                                                        }else if(response == 'loginForm'){
+                                                            window.location.href = "{{ route('login.showForm') }}";
+                                                        }else{
+                                                            $('#wishlist_counter').text(response);
+                                                        }
+                                                        
+                                                        // Toggle heart icons and classes
+                                                        $(e.currentTarget).find('.fa-heart').removeClass('d-none');
+                                                        $(e.currentTarget).find('.fa-heart-o').addClass('d-none');
+                                                        $(e.currentTarget).removeClass('wishlist_add').addClass('wishlist_delete');
+                                                        window.location.reload();
+                                                    },
                                                 });
+                                              }
                                             });
-                                        </script>
+                                            
+                                            // Wishlist delete using Ajax
+                                            $('body').on('click','.wishlist_delete',function(event){
+                                                event.preventDefault();
+                                                if($(this).hasClass('wishlist_delete')){
+                                                let get_route = $(this).attr('href');
+                                                $.ajax({
+                                                    url: get_route,
+                                                    type: 'GET',
+                                                    success: function(data){
+                                                        if(data == "This Product isn't exists!"){
+                                                            toastr.success(data);
+                                                        }else if(data == 'loginForm'){
+                                                            window.location.href = "{{ route('login.showForm') }}";
+                                                        }else{
+                                                            $('#wishlist_counter').text(data);
+                                                        }
+                                    
+                                                        // Toggle heart icons and classes
+                                                        $(event.currentTarget).find('.fa-heart-o').removeClass('d-none');
+                                                        $(event.currentTarget).find('.fa-heart').addClass('d-none');
+                                                        $(event.currentTarget).removeClass('wishlist_delete').addClass('wishlist_add');
+                                                        window.location.reload();
+                                                    }
+                                                });
+                                              }
+                                            });
+                                        });
+                                    </script>
+                                    
                                     @endpush
                                 <div class="product-social-sharing pt-25">
                                     <ul>
