@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-Auth::routes();
+// Auth::routes();
 
 //__________customer.login.registration_________
 Route::middleware(['not_guest'])->group(function(){

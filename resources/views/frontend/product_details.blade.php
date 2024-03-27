@@ -52,8 +52,10 @@
         $count_review = Review::where('product_id', $single_product->id)->count();
     @endphp
     @php
+    if($avarage != null){
         $av = number_format($avarage / $count_review, 1);
         $a = intval($av);
+    }
     @endphp
     <!-- Begin Li's Breadcrumb Area -->
     <div class="breadcrumb-area">
@@ -118,6 +120,7 @@
                             <span class="product-details-ref d-block font-weight-bold">Stock:
                                 {{ $single_product->stock_quantity }}</span>
                             <span class="product-details-ref d-block font-weight-bold">
+                                @if($avarage != null)
                                 <ul class="rating">
                                     @for ($k = 1; $k <= $a; $k++)
                                         <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
@@ -126,6 +129,7 @@
                                         <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
                                     @endfor
                                 </ul>
+                                @endif
                             </span>
                             <div class="rating-box pt-20">
                                 <ul class="rating rating-with-review-item">
@@ -293,6 +297,7 @@
                                 <div class="card-header" style="font-size: 16px; font-weight:400">Ratings & Reviews for
                                     {{ $single_product->name }}</div>
                                 <div class="card-body">
+                                    @if($avarage != null)
                                     <div class="col-md-6" style="float: left;">
                                         <span>
 
@@ -324,6 +329,7 @@
                                             </ul>
                                         </span>
                                     </div>
+                                    @endif
                                     <div class="col-md-6 float-end" style="float: right;">
                                         <span>Total Reviews: </span>
                                         <ul class="rating">

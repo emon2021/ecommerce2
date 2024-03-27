@@ -21,7 +21,7 @@ class FrontController extends Controller
     public function singleProduct($slug)
     {
         $data['single_product'] = Product::where('slug', $slug)->first();
-        $data['related_product'] = Product::where('subcategory_id', $data['single_product']->subcategory_id)->orderBy('id', 'DESC')->limit(10)->get();
+        $data['related_product'] = Product::where('category_id', $data['single_product']->category_id)->orderBy('id', 'DESC')->limit(10)->get();
         return view('frontend.product_details', $data);
     }
 
