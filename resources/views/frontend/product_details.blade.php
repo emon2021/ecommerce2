@@ -346,6 +346,36 @@
                                     <div class="card mb-3">
                                         <div class="  card-header">
                                             <span>{{ $review->user->name }} ({{ substr($review->review_date,0,2) }} {{$review->review_month}} {{$review->review_year}}) </span>
+                                            @php
+                                                $create_time = Illuminate\Support\Carbon::parse($review->created_at);
+                                                $get_days = $create_time->diffInDays(Illuminate\Support\Carbon::now());
+                                                $get_hours = $create_time->diffInHours(Illuminate\Support\Carbon::now());
+                                                $get_minutes = $create_time->diffInMinutes(Illuminate\Support\Carbon::now());
+                                                $get_seconds = $create_time->diffInSeconds(Illuminate\Support\Carbon::now());
+                                               
+                                            @endphp
+                                            <span class="float-end" style="float: right">
+                                                @if($get_days > 0 || $get_hours > 0 || $get_minutes > 0 || $get_seconds > 0)
+                                                    @if($get_days >= 1)
+                                                        {{$get_days}} days
+                                                    @endif 
+
+                                                    @if($get_hours < 24)
+                                                        {{$get_hours}} hours 
+                                                    @endif
+
+                                                    @if($get_minutes  < 60)
+                                                        {{$get_minutes}} minutes 
+                                                    @endif
+
+                                                    @if($get_seconds < 60)
+                                                        {{$get_seconds}} seconds 
+                                                    @endif 
+                                                    
+                                                    ago.
+                                                
+                                                @endif
+                                            </span>
                                         </div>
                                         <div class="card-body">
                                             <div class="comment-review">
