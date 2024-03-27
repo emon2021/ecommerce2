@@ -204,7 +204,17 @@
                                 </form>
                             </div>
                             <div class="product-additional-info pt-25">
-                                <a class="wishlist-btn" href="{{route('product.wishlist',$single_product->id)}}" id="wishlist" ><i class="fa fa-heart-o"></i>Add to
+                                @php
+                                    $get_wishlist = DB::table('wishlists')->where('user_id', Auth::id())->where('product_id',$single_product->id)->first();
+                                @endphp
+                                <a class="wishlist-btn" href="{{route('product.wishlist',$single_product->id)}}" id="wishlist" >
+                                    @if($get_wishlist)
+                                     <i class="fa fa-heart"></i>
+                                    @else
+                                     <i class="fa fa-heart d-none"></i>
+                                     <i class="fa fa-heart-o"></i>
+                                    @endif
+                                    Add to
                                     wishlist</a>
                                     @push('scripts')
                                         <script>
@@ -215,12 +225,17 @@
                                                     $.ajax({
                                                         url: get_attr,
                                                         type: 'GET',
+                                                        async: false,
                                                         success: function(response){
                                                             if(response == 'This product is already exist to the wishlist!'){
                                                                 toastr.success(response);
+                                                            }else if(response == 'loginForm'){
+                                                                window.location.href = "{{ route('login.showForm') }}";
                                                             }else{
                                                                 $('#wishlist_counter').text(response);
                                                             }
+                                                            $('.fa-heart').removeClass('d-none');
+                                                            $('.fa-heart-o').addClass('d-none`');
                                                         },
                                                     });
                                                 });

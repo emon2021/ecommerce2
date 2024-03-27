@@ -51,7 +51,7 @@ class ReviewController extends Controller
                 $data = array();
                 $data['user_id'] =  $user_id;
                 $data['product_id'] = $product_id;
-               $insert = DB::table('wishlists')->insert($data);
+                $insert = DB::table('wishlists')->insert($data);
                 if($insert == true)
                 {
                     $count_wishlist = DB::table('wishlists')->where('user_id',$user_id)->count();
@@ -62,6 +62,8 @@ class ReviewController extends Controller
             }else{
                 return response()->json('This product is already exist to the wishlist!');
             }
+        }else{
+            return response()->json('loginForm');
         }
     }
 
