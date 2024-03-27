@@ -18,7 +18,8 @@
                 font-weight: 500;
                 transition: all 0.3s ease-in-out;
             }
-            #review:hover{
+
+            #review:hover {
                 background: #fed700;
             }
         </style>
@@ -244,38 +245,129 @@
 
                         </div>
                     </div>
+                    @php
+                        use App\Models\Review;
+                        $reviews = Review::where('product_id', $single_product->id)->latest()->limit(10)->get();
+                        $review_5 = Review::where('product_id', $single_product->id)->where('rating',5)->count();
+                        $review_4 = Review::where('product_id', $single_product->id)->where('rating',4)->count();
+                        $review_3 = Review::where('product_id', $single_product->id)->where('rating',3)->count();
+                        $review_2 = Review::where('product_id', $single_product->id)->where('rating',2)->count();
+                        $review_1 = Review::where('product_id', $single_product->id)->where('rating',1)->count();
+                        $avarage = Review::where('product_id', $single_product->id)->sum( 'rating');
+                    @endphp
                     <div id="reviews" class="tab-pane" role="tabpanel">
                         <div class="product-reviews">
-                            <div class="product-details-comment-block">
-                            @php
-                                use App\Models\Review;
-                                $reviews = Review::where('product_id',$single_product->id)->latest()->limit(10)->get();
-                            @endphp
-                            @foreach($reviews as $review)
-                                <div> 
-                                    <div class="comment-author-infos pt-25">
-                                        <span>Author: {{ $review->user->name }}</span>
-                                        <em>Date: {{ $review->review_date }}</em>
+                            <div class="card mb-3">
+                                <div class="card-header" style="font-size: 16px; font-weight:400">Ratings & Reviews for
+                                    {{ $single_product->name }}</div>
+                                <div class="card-body">
+                                    <div class="col-md-6" style="float: left;">
+                                        <span>
+                                            @php
+                                                $av = $avarage/5;
+                                                $a = intval($avarage/5);
+                                            @endphp
+                                            <div class="avarage_rating d-flex">
+                                                <h4 style="font-size: 35px">{{$av}}</h4>
+                                                <span style="text-transform: capitalize; display:inherit;padding: 6px 0px 0px 10px;
+                                                font-size: 16px;">
+                                                    <li><i style="color: #fed700; margin-right: 5px" class="fa fa-solid fa-star"></i></li>
+                                                    @if(1>=$a && $a<3)
+                                                        Good
+                                                    @elseif(3>=$a && $a<4)
+                                                        Very Good
+                                                    @elseif (4>=$a && $a<=5)
+                                                        Excellent
+                                                    @else
+                                                        Poor
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <ul class="rating">
+                                                @for($j=1;$j<=$a;$j++)
+                                                <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                                @endfor
+                                                @for($y=1;$y<=5-$a;$y++)
+                                                <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                                @endfor
+                                            </ul>
+                                        </span>
                                     </div>
-                                    <div class="comment-review">
-                                        <span>Rating: </span>
+                                    <div class="col-md-6 float-end" style="float: right;">
+                                        <span>Total Reviews: </span>
+                                            <ul class="rating">
+                                                <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                                <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                                <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                                <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                                <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                                 &nbsp; &nbsp;({{$review_5}})
+                                            </ul>
+                                            
+                                        
                                         <ul class="rating">
-                                        @for($i=1; $i<=$review->rating;$i++)
-                                            <li><i class="fa fa-solid fa-star"></i></li>
-                                        @endfor
-                                        @for($x=1; $x<=5-$review->rating;$x++)
-                                            <li ><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
-                                        @endfor
-
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                            &nbsp; &nbsp;({{$review_4}})
+                                        </ul>
+                                        <ul class="rating">
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                            &nbsp; &nbsp;({{$review_3}})
+                                        </ul>
+                                        <ul class="rating">
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                            &nbsp; &nbsp;({{$review_2}})
+                                        </ul>
+                                        <ul class="rating">
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                            <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                            &nbsp; &nbsp;({{$review_1}})
                                         </ul>
                                     </div>
-                                    <div class="comment-details">
-                                        <h4 class="title title-simple nott mb-30">Comment: </h4>
-                                        <p>
-                                            {{ $review->comment }} 
-                                        </p>
-                                    </div>
                                 </div>
+                            </div>
+                            <div class="product-details-comment-block">
+
+                                @foreach ($reviews as $review)
+                                    <div class="card mb-3">
+                                        <div class="  card-header">
+                                            <span>{{ $review->user->name }} ({{ substr($review->review_date,0,2) }} {{$review->review_month}} {{$review->review_year}}) </span>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="comment-review">
+                                                <span>Rating: </span>
+                                                <ul class="rating">
+                                                    @for ($i = 1; $i <= $review->rating; $i++)
+                                                        <li><i class="fa fa-solid fa-star"></i></li>
+                                                    @endfor
+                                                    @for ($x = 1; $x <= 5 - $review->rating; $x++)
+                                                        <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                                    @endfor
+    
+                                                </ul>
+                                            </div>
+                                            <div class="comment-details">
+                                                <h4 class="title title-simple nott mb-30">Comment: </h4>
+                                                <p>
+                                                    {{ $review->comment }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
 
 
@@ -309,13 +401,16 @@
                                                             <div class="feedback-area">
                                                                 <div class="feedback">
                                                                     <h3 class="feedback-title">Give Us Feedback</h3>
-                                                                    <form action="{{ route('product.review',$single_product->id) }} " method="POST">
+                                                                    <form
+                                                                        action="{{ route('product.review', $single_product->id) }} "
+                                                                        method="POST">
                                                                         @csrf
 
                                                                         <p class="your-opinion">
                                                                             <label>Your Rating</label>
                                                                             <span>
-                                                                                <select name="rating" class="star-rating">
+                                                                                <select name="rating"
+                                                                                    class="star-rating">
                                                                                     <option value="1">1</option>
                                                                                     <option value="2">2</option>
                                                                                     <option value="3">3</option>
@@ -394,7 +489,8 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="{{route('single.product',$related->slug)}}" style="height: 127px">
+                                                <a href="{{ route('single.product', $related->slug) }}"
+                                                    style="height: 127px">
                                                     <img src="{{ asset($related->thumbnail) }}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>
@@ -403,7 +499,8 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="{{route('single.product',$related->slug)}}">Graphic Corner</a>
+                                                            <a href="{{ route('single.product', $related->slug) }}">Graphic
+                                                                Corner</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -416,7 +513,8 @@
                                                         </div>
                                                     </div>
                                                     <h4><a class="product_name"
-                                                            href="{{route('single.product',$related->slug)}}">{{ substr($related->name, 0, 50) }}</a></h4>
+                                                            href="{{ route('single.product', $related->slug) }}">{{ substr($related->name, 0, 50) }}</a>
+                                                    </h4>
                                                     <div class="price-box">
                                                         @if ($related->discount_price != null)
                                                             <span class="new-price"
@@ -434,8 +532,8 @@
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a href="{{route('single.product',$related->slug)}}" title="quick view" class="quick-view-btn"
-                                                                 ><i
+                                                        <li><a href="{{ route('single.product', $related->slug) }}"
+                                                                title="quick view" class="quick-view-btn"><i
                                                                     class="fa fa-eye"></i></a></li>
                                                         <li><a class="links-details" href="#"><i
                                                                     class="fa fa-heart-o"></i></a></li>
