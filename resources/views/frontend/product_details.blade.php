@@ -348,6 +348,9 @@
                                             <span>{{ $review->user->name }} ({{ substr($review->review_date,0,2) }} {{$review->review_month}} {{$review->review_year}}) </span>
                                             @php
                                                 $create_time = Illuminate\Support\Carbon::parse($review->created_at);
+                                                $get_years = $create_time->diffInYears(Illuminate\Support\Carbon::now());
+                                                $get_months = $create_time->diffInMonths(Illuminate\Support\Carbon::now());
+                                                $get_weeks = $create_time->diffInWeeks(Illuminate\Support\Carbon::now());
                                                 $get_days = $create_time->diffInDays(Illuminate\Support\Carbon::now());
                                                 $get_hours = $create_time->diffInHours(Illuminate\Support\Carbon::now());
                                                 $get_minutes = $create_time->diffInMinutes(Illuminate\Support\Carbon::now());
@@ -355,7 +358,19 @@
                                                
                                             @endphp
                                             <span class="float-end" style="float: right">
-                                                @if($get_days > 0 || $get_hours > 0 || $get_minutes > 0 || $get_seconds > 0)
+                                                @if($get_days > 0 || $get_hours > 0 || $get_minutes > 0 || $get_seconds > 0 || $get_years > 0 || $get_months > 0 || $get_weeks > 0)
+                                                    @if($get_years >= 1)
+                                                        {{$get_years}} years
+                                                    @endif 
+
+                                                    @if($get_months >= 1)
+                                                        {{$get_months}} months
+                                                    @endif 
+
+                                                    @if($get_weeks >= 1)
+                                                        {{$get_weeks}} weeks
+                                                    @endif 
+
                                                     @if($get_days >= 1)
                                                         {{$get_days}} days
                                                     @endif 
@@ -371,7 +386,7 @@
                                                     @if($get_seconds < 60)
                                                         {{$get_seconds}} seconds 
                                                     @endif 
-                                                    
+
                                                     ago.
                                                 
                                                 @endif
