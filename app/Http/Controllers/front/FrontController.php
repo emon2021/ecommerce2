@@ -14,6 +14,7 @@ class FrontController extends Controller
     {
         $data['categories'] = Category::all();
         $data['products']  = Product::where('slider_product', 1)->select('products.*')->get();
+        $data['featured_product'] = Product::where('featured',1)->get();
         return view('home', $data);
     }
 

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('content')
+
+@push('title')
+    <title>Wishlist | Product | Online shopping</title>
+@endpush
 <!-- Begin Li's Breadcrumb Area -->
 <div class="breadcrumb-area">
     <div class="container">
