@@ -219,36 +219,7 @@
 
 
 
-                                    @push('scripts')
-                                    <script>
-                                        $(document).ready(function(){
-                                            $('body').on('click','.wishlist_add', function(e){
-                                                e.preventDefault();
-                                                if($(this).hasClass('wishlist_add')){
-                                                let get_attr = $(this).attr('href');
-                                                $.ajax({
-                                                    url: get_attr,
-                                                    type: 'GET',
-                                                    success: function(response){
-                                                        if(response == 'This product is already exist to the wishlist!'){
-                                                            toastr.success(response);
-                                                        }else if(response == 'loginForm'){
-                                                            window.location.href = "{{ route('login.showForm') }}";
-                                                        }else{
-                                                            $('#wishlist_counter').text(response);
-                                                        }
-                                                        
-                                                        // Toggle heart icons and classes
-                                                        $(e.currentTarget).find('.fa-heart').removeClass('d-none');
-                                                        $(e.currentTarget).find('.fa-heart-o').addClass('d-none');
-                                                    },
-                                                });
-                                              }
-                                            });
-                                            
-                                        });
-                                    </script>
-                                    @endpush
+                                    
                                     
                                 <div class="product-social-sharing pt-25">
                                     <ul>
@@ -686,8 +657,20 @@
                                                         <li><a href="{{ route('single.product', $related->slug) }}"
                                                                 title="quick view" class="quick-view-btn"><i
                                                                     class="fa fa-eye"></i></a></li>
-                                                        <li><a class="links-details" href="#"><i
-                                                                    class="fa fa-heart-o"></i></a></li>
+                                                        <li>
+                                                            @php
+                                                                $wishlist_take = DB::table('wishlists')->where('user_id', Auth::id())->where('product_id',$related->id)->first();
+                                                                // dd($wishlist_take)
+                                                            @endphp
+                                                            <a class="links-details wishlist_add" href="{{route('product.wishlist',$related->id)}}">
+                                                                @if($wishlist_take && $wishlist_take->product_id == $related->id)
+                                                                    <i class="fa fa-heart"></i>
+                                                                @else
+                                                                    <i class="fa fa-heart d-none"></i>
+                                                                    <i class="fa fa-heart-o"></i>
+                                                                @endif
+                                                            </a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -705,4 +688,36 @@
             </div>
         </section>
         <!-- Li's Laptop Product Area End Here -->
+        @push('scripts')
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('body').on('click','.wishlist_add', function(e){
+                                                e.preventDefault();
+                                                if($(this).hasClass('wishlist_add')){
+                                                let get_attr = $(this).attr('href');
+                                                $.ajax({
+                                                    url: get_attr,
+                                                    type: 'GET',
+                                                    success: function(response){
+                                                        if(response == 'This product is already exist to the wishlist!'){
+                                                            toastr.success(response);
+                                                        }else if(response == 'loginForm'){
+                                                            window.location.href = "{{ route('login.showForm') }}";
+                                                        }else{
+                                                            $('#wishlist_counter').text(response);
+                                                        }
+                                                        
+                                                        // Toggle heart icons and classes
+                                                        $(e.currentTarget).find('.fa-heart').removeClass('d-none');
+                                                        $(e.currentTarget).find('.fa-heart-o').addClass('d-none');
+                                                    },
+                                                });
+                                              }
+                                            });
+                                            
+                                        });
+                                    </script>
+                                    @endpush
+
+
     @endsection
