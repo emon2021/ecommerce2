@@ -36,10 +36,14 @@ Route::group(['namespace'=> 'App\Http\Controllers\front'],function(){
     Route::get('/', 'FrontController@index')->name('home.page');
     Route::get('/single-product/{slug}', 'FrontController@singleProduct')->name('single.product');
 
-    //  product.review.route
+    //________product.review.route__________
     Route::post('/review/{product_id}','ReviewController@addReview')->name( 'product.review' )->middleware(['auth_check']);
-    //  product.wishlist.route
-    Route::get('/wishlist/{id}','ReviewController@wishlist')->name('product.wishlist');
-    Route::get('/view/wishlist','ReviewController@index')->name('wishlist.view');
+    //________product.wishlist.route_________
+    Route::get('/wishlist/{id}','ReviewController@wishlist')->name('product.wishlist'); //  add wishlist
+    Route::get('/view/wishlist','ReviewController@index')->name('wishlist.view');      // view wishlist page
+    //  delete wishlist from wishlist page
     Route::delete('/delete/wishlist/{id}','ReviewController@wishlist_destroy')->name('wishlist.destroy');
+    
+    //__________quick.view.route______________
+    Route::get('/quick/view/{id}','FrontController@quick_view')->name( 'quick.view' );  
 });
