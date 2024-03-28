@@ -41,5 +41,5 @@ Route::group(['namespace'=> 'App\Http\Controllers\front'],function(){
     //  product.wishlist.route
     Route::get('/wishlist/{id}','ReviewController@wishlist')->name('product.wishlist');
     Route::get('/view/wishlist','ReviewController@index')->name('wishlist.view');
-    Route::get('/delete/wishlist/{id}','ReviewController@wishlist_destroy')->name('wishlist.delete');
+    Route::delete('/delete/wishlist/{id}','ReviewController@wishlist_destroy')->name('wishlist.destroy');
 });

@@ -31,9 +31,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($wishlists as $product)
-                                    <tr>
-                                        <td class="li-product-remove"><a href="{{route('wishlist.delete',$product->wishlist_id)}}"><i class="fa fa-times"></i></a></td>
+                                @foreach ($wishlists as $key => $product)
+                                    <tr class="wishlist_row" >
+                                        <td class="li-product-remove"><a href="{{route('wishlist.destroy',$product->wishlist_id)}}" class="wishlist_destroy"><i class="fa fa-times"></i></a></td>
+                                       
                                         <td class="li-product-thumbnail"><a href="#"><img width="100px" src="{{asset($product->thumbnail)}}" alt=""></a></td>
                                         <td class="li-product-name"><a href="#">{{$product->name}}</a></td>
                                         <td class="li-product-price"><span class="amount">{{$setting->currency}} 
@@ -64,5 +65,74 @@
         </div>
     </div>
 </div>
+<form action="" id="wishlist_form" method="post">
+    @csrf @method('DELETE')
+</form>
 <!--Wishlist Area End-->
+@push('scripts')
+<script>
+    $(document).ready(function(){
+        $('body').on('click','.wishlist_destroy',function(e){
+            e.preventDefault();
+            let url = $(this).attr('href');
+            let set_route = $('#wishlist_form').attr('action',url);
+            // SweetAlert confirmation
+            Swal.fire({
+                        title: "Are you sure you want to delete?",
+                        text: "",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#23D160",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "OK"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // If confirmed, submit the form
+                            $('#wishlist_form').submit();
+                            $(this).parent().parent().remove();
+                        } else {
+                            // Otherwise, show a message
+                            Swal.fire({
+                                title: "Your Data is Safe!",
+                                text: "",
+                                icon: "info"
+                            });
+                        }
+                     });
+                //  
+            $('#wishlist_form').submit(function(event){
+                event.preventDefault();
+                
+                let get_route = $(this).attr('action');
+                let get_data = new FormData($(this)[0]);
+                // alert(get_route);
+                $.ajax({
+                    url: get_route,
+                    type: 'POST',
+                    async: false,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    data: get_data,
+                    success: function(response){
+                        
+                            if(response >= 0 ){
+                                $('#wishlist_counter').text(response);
+                            }
+                            if(response == 'showLoginForm'){
+                                window.location.href ="{{ route('login.showForm') }}";
+                            }
+                            
+                    },
+                    error: function(xhr,status,error){
+                      
+                    }
+                });
+            });
+            
+        });
+    });
+</script>
+@endpush
+
 @endsection

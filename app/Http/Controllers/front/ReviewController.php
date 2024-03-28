@@ -81,6 +81,22 @@ class ReviewController extends Controller
     // remove from wishlist
     public function wishlist_destroy($id)
     {
-        
+        if(Auth::check())
+        {
+            // dd($id);
+            $destroy = DB::table('wishlists')->where('id',$id)->delete();
+            if($destroy){
+                
+                $count_wishlist = DB::table('wishlists')->where('user_id', Auth::id())->count();
+                if($count_wishlist>=0)
+                {
+                    return response()->json($count_wishlist);
+                }
+
+                return response()->json('Product has been removed from your Wishlist Successfully !');
+            }
+        }else{
+            return response()->json('showLoginForm');
+        }
     }
 }

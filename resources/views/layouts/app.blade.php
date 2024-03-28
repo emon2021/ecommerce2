@@ -53,6 +53,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.css"
         integrity="sha512-OWGg8FcHstyYFwtjfkiCoYHW2hG3PDWwdtczPAPUcETobBJOVCouKig8rqED0NMLcT9GtE4jw6IT1CSrwY87uw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-------sweetalert2.css------->
+   <link rel="stylesheet" href="{{asset('public/backend')}}/plugins/sweetalert2/sweetalert2.min.css">
     <!-- Modernizr js -->
     <script src="{{ asset('public/frontend') }}/js/vendor/modernizr-2.8.3.min.js"></script>
     @stack('css')
@@ -139,6 +141,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.7/sweetalert2.min.js"
         integrity="sha512-csaTzpLFmF+Zl81hRtaZMsMhaeQDHO8E3gBkN3y3sCX9B1QSut68NxqcrxXH60BXPUQ/GB3LZzzIq9ZrxPAMTg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-------sweetalert2.js------->
+<script src="{{asset('public/backend')}}/plugins/sweetalert2/sweetalert2.min.js"></script>
 
     {{-- -----toaster alert message showing----- --}}
     <script>
