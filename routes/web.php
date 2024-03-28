@@ -40,4 +40,6 @@ Route::group(['namespace'=> 'App\Http\Controllers\front'],function(){
     Route::post('/review/{product_id}','ReviewController@addReview')->name( 'product.review' )->middleware(['auth_check']);
     //  product.wishlist.route
     Route::get('/wishlist/{id}','ReviewController@wishlist')->name('product.wishlist');
+    Route::get('/view/wishlist','ReviewController@index')->name('wishlist.view');
+    Route::get('/delete/wishlist/{id}','ReviewController@wishlist_destroy')->name('wishlist.delete');
 });

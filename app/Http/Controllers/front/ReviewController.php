@@ -35,37 +35,52 @@ class ReviewController extends Controller
             'message' => 'Thank you for your review!',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);                
+        return redirect()->back()->with($notification);
     }
 
     //  add product to wishlist
     public function wishlist($id)
     {
-        if(Auth::check())
-        {
+        if (Auth::check()) {
             $user_id = Auth::id();
             $product_id = $id;
-            $check = DB::table('wishlists')->where('user_id',$user_id)->where('product_id',$product_id)->first();
-            if($check == false)
-            {
+            $check = DB::table('wishlists')->where('user_id', $user_id)->where('product_id', $product_id)->first();
+            if ($check == false) {
                 $data = array();
                 $data['user_id'] =  $user_id;
                 $data['product_id'] = $product_id;
                 $insert = DB::table('wishlists')->insert($data);
-                if($insert == true)
-                {
-                    $count_wishlist = DB::table('wishlists')->where('user_id',$user_id)->count();
-                     
+                if ($insert == true) {
+                    $count_wishlist = DB::table('wishlists')->where('user_id', $user_id)->count();
+
                     return response()->json($count_wishlist);
                 }
-                
-            }else{
+            } else {
                 return response()->json('This product is already exist to the wishlist!');
             }
-        }else{
+        } else {
             return response()->json('loginForm');
         }
     }
 
-    
+    //  view wishlist page
+    public function index()
+    {
+        if (Auth::check()) {
+            $user_id = Auth::user()->id;
+            $wishlists = DB::table('products')
+                ->leftJoin('wishlists', 'products.id', 'wishlists.product_id')
+                ->select('products.*', 'wishlists.id as wishlist_id')
+                ->where('wishlists.user_id', $user_id)
+                ->get();
+            return view('frontend.pages.wishlist',compact( 'wishlists'));
+        }else{
+            return redirect()->route('login.showForm');
+        }
+    }
+    // remove from wishlist
+    public function wishlist_destroy($id)
+    {
+        
+    }
 }

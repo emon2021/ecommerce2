@@ -168,7 +168,7 @@
                         <ul class="hm-menu">
                             <!-- Begin Header Middle Wishlist Area -->
                             <li class="hm-wishlist">
-                                <a href="#">
+                                <a href="{{route('wishlist.view')}}">
                                     @php
                                         $wishlist = DB::table('wishlists')->where('user_id', Auth::id())->count();
                                     @endphp
