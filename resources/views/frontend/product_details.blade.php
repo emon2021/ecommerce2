@@ -52,10 +52,10 @@
         $count_review = Review::where('product_id', $single_product->id)->count();
     @endphp
     @php
-    if($avarage != null){
-        $av = number_format($avarage / $count_review, 1);
-        $a = intval($av);
-    }
+        if ($avarage != null) {
+            $av = number_format($avarage / $count_review, 1);
+            $a = intval($av);
+        }
     @endphp
     <!-- Begin Li's Breadcrumb Area -->
     <div class="breadcrumb-area">
@@ -115,20 +115,22 @@
                     <div class="product-details-view-content pt-60">
                         <div class="product-info">
                             <h2>{{ $single_product->name }}</h2>
-                            <span class="product-details-ref font-weight-bold">Brand:
-                                {{ $single_product->brand->brand_name }}</span>
+                            @if ($single_product->brand_id)
+                                <span class="product-details-ref font-weight-bold">Brand:
+                                    {{ $single_product->brand->brand_name }}</span>
+                            @endif
                             <span class="product-details-ref d-block font-weight-bold">Stock:
                                 {{ $single_product->stock_quantity }}</span>
                             <span class="product-details-ref d-block font-weight-bold">
-                                @if($avarage != null)
-                                <ul class="rating">
-                                    @for ($k = 1; $k <= $a; $k++)
-                                        <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
-                                    @endfor
-                                    @for ($z = 1; $z <= 5 - $a; $z++)
-                                        <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
-                                    @endfor
-                                </ul>
+                                @if ($avarage != null)
+                                    <ul class="rating">
+                                        @for ($k = 1; $k <= $a; $k++)
+                                            <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
+                                        @endfor
+                                        @for ($z = 1; $z <= 5 - $a; $z++)
+                                            <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
+                                        @endfor
+                                    </ul>
                                 @endif
                             </span>
                             <div class="rating-box pt-20">
@@ -205,22 +207,27 @@
                             </div>
                             <div class="product-additional-info pt-25">
                                 @php
-                                    $get_wishlist = DB::table('wishlists')->where('user_id', Auth::id())->where('product_id',$single_product->id)->first();
+                                    $get_wishlist = DB::table('wishlists')
+                                        ->where('user_id', Auth::id())
+                                        ->where('product_id', $single_product->id)
+                                        ->first();
                                 @endphp
-                                <a class="wishlist-btn  wishlist_add" href="{{route('product.wishlist',$single_product->id)}}" >
-                                    @if($get_wishlist)
-                                     <i class="fa fa-heart"></i>
+                                <a class="wishlist-btn  wishlist_add"
+                                    href="{{ route('product.wishlist', $single_product->id) }}">
+                                    @if ($get_wishlist)
+                                        <i class="fa fa-heart"></i>
                                     @else
-                                     <i class="fa fa-heart d-none"></i>
-                                     <i class="fa fa-heart-o"></i>
+                                        <i class="fa fa-heart d-none"></i>
+                                        <i class="fa fa-heart-o"></i>
                                     @endif
                                     Add to
-                                    wishlist</a>
+                                    wishlist
+                                </a>
 
 
 
-                                    
-                                    
+
+
                                 <div class="product-social-sharing pt-25">
                                     <ul>
                                         <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a>
@@ -312,38 +319,40 @@
                                 <div class="card-header" style="font-size: 16px; font-weight:400">Ratings & Reviews for
                                     {{ $single_product->name }}</div>
                                 <div class="card-body">
-                                    @if($avarage != null)
-                                    <div class="col-md-6" style="float: left;">
-                                        <span>
+                                    @if ($avarage != null)
+                                        <div class="col-md-6" style="float: left;">
+                                            <span>
 
-                                            <div class="avarage_rating d-flex">
-                                                <h4 style="font-size: 35px">{{ $av }}</h4>
-                                                <span
-                                                    style="text-transform: capitalize; display:inherit;padding: 6px 0px 0px 10px;
+                                                <div class="avarage_rating d-flex">
+                                                    <h4 style="font-size: 35px">{{ $av }}</h4>
+                                                    <span
+                                                        style="text-transform: capitalize; display:inherit;padding: 6px 0px 0px 10px;
                                                 font-size: 16px;">
-                                                    <li><i style="color: #fed700; margin-right: 5px"
-                                                            class="fa fa-solid fa-star"></i></li>
-                                                    @if (1 < $a && $a < 3)
-                                                        Good
-                                                    @elseif(3 <= $a && $a < 4)
-                                                        Very Good
-                                                    @elseif (4 <= $a && $a <= 5)
-                                                        Excellent
-                                                    @else
-                                                        Poor
-                                                    @endif
-                                                </span>
-                                            </div>
-                                            <ul class="rating">
-                                                @for ($j = 1; $j <= $a; $j++)
-                                                    <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i></li>
-                                                @endfor
-                                                @for ($y = 1; $y <= 5 - $a; $y++)
-                                                    <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i></li>
-                                                @endfor
-                                            </ul>
-                                        </span>
-                                    </div>
+                                                        <li><i style="color: #fed700; margin-right: 5px"
+                                                                class="fa fa-solid fa-star"></i></li>
+                                                        @if (1 < $a && $a < 3)
+                                                            Good
+                                                        @elseif(3 <= $a && $a < 4)
+                                                            Very Good
+                                                        @elseif (4 <= $a && $a <= 5)
+                                                            Excellent
+                                                        @else
+                                                            Poor
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                                <ul class="rating">
+                                                    @for ($j = 1; $j <= $a; $j++)
+                                                        <li><i style="color: #fed700;" class="fa fa-solid fa-star"></i>
+                                                        </li>
+                                                    @endfor
+                                                    @for ($y = 1; $y <= 5 - $a; $y++)
+                                                        <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i>
+                                                        </li>
+                                                    @endfor
+                                                </ul>
+                                            </span>
+                                        </div>
                                     @endif
                                     <div class="col-md-6 float-end" style="float: right;">
                                         <span>Total Reviews: </span>
@@ -395,15 +404,17 @@
                             <div class="product-details-comment-block">
                                 &nbsp; &nbsp; All reviews count ({{ $count_review }})
                                 <div class="row">
-                                @foreach ($reviews as $review)
-                                    
+                                    @foreach ($reviews as $review)
                                         <div class="col-md-6 float-start" style="display:inline-block">
                                             <div class="card mb-3">
                                                 <div class="  card-header">
-                                                    <span>{{ $review->user->name }} ({{ substr($review->review_date, 0, 2) }}
+                                                    <span>{{ $review->user->name }}
+                                                        ({{ substr($review->review_date, 0, 2) }}
                                                         {{ $review->review_month }} {{ $review->review_year }}) </span>
                                                     @php
-                                                        $create_time = Illuminate\Support\Carbon::parse($review->created_at);
+                                                        $create_time = Illuminate\Support\Carbon::parse(
+                                                            $review->created_at,
+                                                        );
                                                         $get_years = $create_time->diffInYears(
                                                             Illuminate\Support\Carbon::now(),
                                                         );
@@ -413,7 +424,9 @@
                                                         $get_weeks = $create_time->diffInWeeks(
                                                             Illuminate\Support\Carbon::now(),
                                                         );
-                                                        $get_days = $create_time->diffInDays(Illuminate\Support\Carbon::now());
+                                                        $get_days = $create_time->diffInDays(
+                                                            Illuminate\Support\Carbon::now(),
+                                                        );
                                                         $get_hours = $create_time->diffInHours(
                                                             Illuminate\Support\Carbon::now(),
                                                         );
@@ -423,7 +436,7 @@
                                                         $get_seconds = $create_time->diffInSeconds(
                                                             Illuminate\Support\Carbon::now(),
                                                         );
-        
+
                                                     @endphp
                                                     <span class="float-end" style="float: right">
                                                         @if (
@@ -437,31 +450,31 @@
                                                             @if ($get_years >= 1)
                                                                 {{ $get_years }} years
                                                             @endif
-        
+
                                                             @if ($get_months < 12 && $get_months >= 1)
                                                                 {{ $get_months }} months
                                                             @endif
-        
+
                                                             @if ($get_weeks < 4 && $get_weeks >= 1)
                                                                 {{ $get_weeks }} weeks
                                                             @endif
-        
+
                                                             @if ($get_days < 7 && $get_days >= 1)
                                                                 {{ $get_days }} days
                                                             @endif
-        
+
                                                             @if ($get_hours < 24 && $get_hours >= 1)
                                                                 {{ $get_hours }} hours
                                                             @endif
-        
+
                                                             @if ($get_minutes < 60 && $get_minutes >= 1)
                                                                 {{ $get_minutes }} minutes
                                                             @endif
-        
+
                                                             @if ($get_seconds < 60 && $get_seconds >= 1)
                                                                 {{ $get_seconds }} seconds
                                                             @endif
-        
+
                                                             ago.
                                                         @endif
                                                     </span>
@@ -474,10 +487,11 @@
                                                                 <li><i class="fa fa-solid fa-star"></i></li>
                                                             @endfor
                                                             @for ($x = 1; $x <= 5 - $review->rating; $x++)
-                                                                <li><i style="color: #d7d7d7;" class="fa fa-solid fa-star"></i>
+                                                                <li><i style="color: #d7d7d7;"
+                                                                        class="fa fa-solid fa-star"></i>
                                                                 </li>
                                                             @endfor
-        
+
                                                         </ul>
                                                     </div>
                                                     <div class="comment-details">
@@ -489,9 +503,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    
-                                @endforeach
-                            </div>
+                                    @endforeach
+                                </div>
 
                                 <div class="review-btn">
                                     <a class="review-links" href="#" data-toggle="modal"
@@ -659,11 +672,15 @@
                                                                     class="fa fa-eye"></i></a></li>
                                                         <li>
                                                             @php
-                                                                $wishlist_take = DB::table('wishlists')->where('user_id', Auth::id())->where('product_id',$related->id)->first();
+                                                                $wishlist_take = DB::table('wishlists')
+                                                                    ->where('user_id', Auth::id())
+                                                                    ->where('product_id', $related->id)
+                                                                    ->first();
                                                                 // dd($wishlist_take)
                                                             @endphp
-                                                            <a class="links-details wishlist_add" href="{{route('product.wishlist',$related->id)}}">
-                                                                @if($wishlist_take && $wishlist_take->product_id == $related->id)
+                                                            <a class="links-details wishlist_add"
+                                                                href="{{ route('product.wishlist', $related->id) }}">
+                                                                @if ($wishlist_take && $wishlist_take->product_id == $related->id)
                                                                     <i class="fa fa-heart"></i>
                                                                 @else
                                                                     <i class="fa fa-heart d-none"></i>
@@ -689,37 +706,8 @@
         </section>
         <!-- Li's Laptop Product Area End Here -->
         @push('scripts')
-                                    <script>
-                                        $(document).ready(function(){
-                                            $('body').on('click','.wishlist_add', function(e){
-                                                e.preventDefault();
-                                                if($(this).hasClass('wishlist_add')){
-                                                let get_attr = $(this).attr('href');
-                                                $.ajax({
-                                                    url: get_attr,
-                                                    type: 'GET',
-                                                    success: function(response){
-                                                        if(response == 'This product is already exist to the wishlist!'){
-                                                            toastr.success(response);
-                                                        }else if(response == 'loginForm'){
-                                                            window.location.href = "{{ route('login.showForm') }}";
-                                                        }else{
-                                                            $('#wishlist_counter').text(response);
-                                                        }
-                                                        
-                                                        // Toggle heart icons and classes
-                                                        $(e.currentTarget).find('.fa-heart').removeClass('d-none');
-                                                        $(e.currentTarget).find('.fa-heart-o').addClass('d-none');
-                                                    },
-                                                });
-                                              }
-                                            });
-
-                                            
-                                            
-                                        });
-                                    </script>
-                                    @endpush
+            
+        @endpush
 
 
     @endsection

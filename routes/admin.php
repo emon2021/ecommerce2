@@ -190,6 +190,8 @@ Route::middleware(['auth', 'is_admin'])->prefix('/offers')->group(function () {
 Route::get('/childcategory',[ProductController::class,'childView'])->name('show.child');
 //____global routes for showing child category________
 Route::get('/subcategory/view',[ProductController::class,'subView'])->name('show.sub');
+
+
 //____products.route___/
 Route::middleware(['auth', 'is_admin'])->prefix('/products')->group(function () {
     //____product.route___/

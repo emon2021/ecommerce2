@@ -627,7 +627,17 @@
                                                 <div class="add-actions">
                                                     <ul class="add-actions-link">
                                                         <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a class="links-details" href="single-product.html"><i class="fa fa-heart-o"></i></a></li>
+                                                        @php
+                                                            $get_wishlist = DB::table('wishlists')->where('user_id', Auth::id())->where('product_id',$featured->id)->first();
+                                                        @endphp
+                                                        <li><a class="links-details wishlist-btn  wishlist_add" href="{{route('product.wishlist',$featured->id)}}" >
+                                                            @if($get_wishlist)
+                                                            <i class="fa fa-heart"></i>
+                                                           @else
+                                                            <i class="fa fa-heart feature d-none"></i>
+                                                            <i class="fa fa-heart-o feature-o"></i>
+                                                           @endif
+                                                        </a></li>
                                                         <li><a class="quick-view quickView"  data-toggle="modal" data-target="#exampleModalCenter" href="{{route('quick.view',$featured->id)}}"><i class="fa fa-eye"></i></a></li>
                                                         
                                                     </ul>

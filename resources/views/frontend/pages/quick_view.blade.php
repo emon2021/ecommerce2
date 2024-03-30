@@ -107,8 +107,22 @@
                                             <button class="add-to-cart" type="submit">Add to cart</button>
                                         </form>
                                     </div>
+                                    @php
+                                                                $wishlist_fetch = DB::table('wishlists')
+                                                                    ->where('user_id', Auth::id())
+                                                                    ->where('product_id', $quickView->id)
+                                                                    ->first();
+                                                                // dd($wishlist_take)
+                                                            @endphp
                                     <div class="product-additional-info pt-25">
-                                        <a class="wishlist-btn" href="wishlist.html"><i class="fa fa-heart-o"></i>Add to wishlist</a>
+                                        <a class="wishlist-btn wishlist_add" href="{{route('product.wishlist',$quickView->id)}}">
+                                        @if ($wishlist_fetch && $wishlist_fetch->product_id == $quickView->id)
+                                            <i class="fa fa-heart"></i>
+                                        @else
+                                            <i class="fa fa-heart d-none"></i>
+                                            <i class="fa fa-heart-o"></i>
+                                        @endif 
+                                        Add to wishlist</a>
                                         <div class="product-social-sharing pt-25">
                                             <ul>
                                                 <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
@@ -127,3 +141,39 @@
         </div>
     </div>   
 
+
+    <!----------jquery code for product wishlist--------->
+    <script  type="text/javascript">
+        $(document).ready(function() {
+            $('.wishlist_add').click(function(e) {
+                e.preventDefault();
+                if ($(this).hasClass('wishlist_add')) {
+                    let get_attr = $(this).attr('href');
+                    $.ajax({
+                        url: get_attr,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            $('#wishlist_counter').text(response);
+                            if (response == 'This product is already exist to the wishlist!') {
+                                toastr.success(response);
+                            } else if (response == 'loginForm') {
+                                window.location.href = "{{ route('login.showForm') }}";
+                            } else {
+                                $('#wishlist_counter').text(response);
+                            }
+
+                            // Toggle heart icons and classes
+                            $(e.currentTarget).find('.fa-heart').removeClass('d-none');
+                            $(e.currentTarget).find('.fa-heart-o').addClass('d-none');
+
+                        
+                        },
+                    });
+                }
+            });
+
+
+
+        });
+    </script>
