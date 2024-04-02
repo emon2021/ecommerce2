@@ -705,9 +705,7 @@
             </div>
         </section>
         <!-- Li's Laptop Product Area End Here -->
-        @push('scripts')
-            
-        @endpush
+       
 
 
     @endsection

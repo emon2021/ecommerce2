@@ -154,12 +154,12 @@
                         type: 'GET',
                         dataType: 'json',
                         success: function(response) {
-                            $('#wishlist_counter').text(response);
+                            // $('#wishlist_counter').text(response);
                             if (response == 'This product is already exist to the wishlist!') {
                                 toastr.success(response);
                             } else if (response == 'loginForm') {
                                 window.location.href = "{{ route('login.showForm') }}";
-                            } else {
+                            } else if(response != 'This product is already exist to the wishlist!' || response != 'loginForm'){
                                 $('#wishlist_counter').text(response);
                             }
 
