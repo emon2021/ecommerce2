@@ -78,7 +78,7 @@
                 <div class="col-lg-3">
                     <div class="logo pb-sm-30 pb-xs-30">
                         <a href="{{url('/')}}">
-                            <img src="{{asset('public/frontend')}}/images/menu/logo/1.jpg" alt="">
+                            <img src="{{asset($setting->logo)}}" alt="">
                         </a>
                     </div>
                 </div>

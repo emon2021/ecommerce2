@@ -219,6 +219,10 @@ Route::middleware(['auth', 'is_admin'])->prefix('/products')->group(function () 
         Route::get('/products/slider/product/{id}',[ProductController::class,'slider_product']);
         //_____today_deal.change____
         Route::get('/products/today-deal/{id}',[ProductController::class,'today_deal']);
+        //_____hot_deal.change____
+        Route::get('/products/hot-deal/{id}',[ProductController::class,'hot_deal']);
+        //_____today_deal.change____
+        Route::get('/products/trendy/{id}',[ProductController::class,'trendy']);
         //_____cash_on_delivery.change____
         Route::get('/products/cash-on-delivery/{id}',[ProductController::class,'cash_on_delivery']);
     });

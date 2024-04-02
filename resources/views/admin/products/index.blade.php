@@ -100,16 +100,13 @@
                                             <th>SL</th>
                                             <th>Product Name</th>
                                             <th>Product Code</th>
-                                            <th>Subcategory</th>
                                             <th>Category</th>
                                             <th>Brand</th>
-                                            <th>Pickup Point</th>
                                             <th>Stock Quantity</th>
-                                            <th>Color</th>
-                                            <th>Thumbnail</th>
-                                            <th>Multiple Image</th>
                                             <th>Status</th>
                                             <th>Today Deal</th>
+                                            <th>Hot Deal</th>
+                                            <th>Trendy Products</th>
                                             <th>Slider Product</th>
                                             <th>Featured</th>
                                             <th>Cash On Delivery</th>
@@ -199,10 +196,6 @@
                                 name: 'code',
                             },
                             {
-                                data: 'subcategory_name',
-                                name: 'subcategory_name',
-                            },
-                            {
                                 data: 'category_name',
                                 name: 'category_name',
                             },
@@ -211,24 +204,8 @@
                                 name: 'brand_name',
                             },
                             {
-                                data: 'pickup_point_name',
-                                name: 'pickup_point_name',
-                            },
-                            {
                                 data: 'stock_quantity',
                                 name: 'stock_quantity',
-                            },
-                            {
-                                data: 'color',
-                                name: 'color',
-                            },
-                            {
-                                data: 'thumbnail',
-                                name: 'thumbnail',
-                            },
-                            {
-                                data: 'images',
-                                name: 'images',
                             },
                             {
                                 data: 'status',
@@ -237,6 +214,14 @@
                             {
                                 data: 'today_deal',
                                 name: 'today_deal',
+                            },
+                            {
+                                data: 'hot_deal',
+                                name: 'hot_deal',
+                            },
+                            {
+                                data: 'trendy',
+                                name: 'trendy',
                             },
                             {
                                 data: 'slider_product',
@@ -362,6 +347,32 @@
                     $.ajax({
                         type:'GET',
                         url:'products/today-deal/' + today_deal,
+                        success:function(response){
+                            yTable.ajax.reload();
+                            toastr.success(response);
+                        }
+                    });
+                });
+                //________hot_deal.change________
+                $('body').on('click','.hot_deal',function(e){
+                    e.preventDefault();
+                    let hot_deal = $(this).data('id');
+                    $.ajax({
+                        type:'GET',
+                        url:'products/hot-deal/' + hot_deal,
+                        success:function(response){
+                            yTable.ajax.reload();
+                            toastr.success(response);
+                        }
+                    });
+                });
+                //________trendy.change________
+                $('body').on('click','.trendy',function(e){
+                    e.preventDefault();
+                    let trendy = $(this).data('id');
+                    $.ajax({
+                        type:'GET',
+                        url:'products/trendy/' + trendy,
                         success:function(response){
                             yTable.ajax.reload();
                             toastr.success(response);

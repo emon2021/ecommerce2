@@ -177,19 +177,19 @@ class ProductController extends Controller
                 })
                 ->addIndexColumn() //   add  an index column
                 //  editColumn for editing  any column of a specific row
-                ->editColumn('thumbnail', function ($data) {
-                    return '<img src="' . asset($data->thumbnail) . '"  width="100px"/>';
-                })
-                ->editColumn('images', function ($data) {
-                    $image = '';    //    initializing image variable
-                    $img_json = json_decode($data->images); //  converting string into array
-                    //  get  image from images array
-                    foreach ($img_json as $img) {
-                        //   adding each image tag in $image variable with image url
-                        $image .= '<img src="' . asset($img) . '"  width="50px"/></br>';
-                    }
-                    return $image;  //    returning image
-                })
+                // ->editColumn('thumbnail', function ($data) {
+                //     return '<img src="' . asset($data->thumbnail) . '"  width="100px"/>';
+                // })
+                // ->editColumn('images', function ($data) {
+                //     $image = '';    //    initializing image variable
+                //     $img_json = json_decode($data->images); //  converting string into array
+                //     //  get  image from images array
+                //     foreach ($img_json as $img) {
+                //         //   adding each image tag in $image variable with image url
+                //         $image .= '<img src="' . asset($img) . '"  width="50px"/></br>';
+                //     }
+                //     return $image;  //    returning image
+                // })
                 
                 ->editColumn('status', function ($data) {
                     if ($data->status == null || $data->status == 2) {
@@ -219,6 +219,20 @@ class ProductController extends Controller
                         return   '<a class="badge badge-success today_deal" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
                     }
                 })
+                ->editColumn('hot_deal', function ($data) {
+                    if ($data->hot_deal == null || $data->hot_deal == 2) {
+                        return  '<a class="badge badge-danger hot_deal" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
+                    } else {
+                        return   '<a class="badge badge-success hot_deal" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
+                    }
+                })
+                ->editColumn('trendy', function ($data) {
+                    if ($data->trendy == null || $data->trendy == 2) {
+                        return  '<a class="badge badge-danger trendy" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
+                    } else {
+                        return   '<a class="badge badge-success trendy" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Active</a>';
+                    }
+                })
                 ->editColumn('cash_on_delivery', function ($data) {
                     if ($data->cash_on_delivery == null || $data->cash_on_delivery == 2) {
                         return  '<a class="badge badge-danger cash_on_delivery" href="javascript:void(0)" data-id="' .$data->id. '"  style="cursor:pointer" >Inactive</a>';
@@ -227,7 +241,7 @@ class ProductController extends Controller
                     }
                 })
                 //    rawColumn is used when you want to show the data in same format without applying any processing or    
-                ->rawColumns(['action', 'thumbnail', 'images', 'slider_product', 'category_name', 'brand_name', 'pickup_point_name', 'status','featured','today_deal','cash_on_delivery'])
+                ->rawColumns(['action', 'hot_deal', 'trendy', 'slider_product', 'category_name', 'brand_name', 'pickup_point_name', 'status','featured','today_deal','cash_on_delivery'])
                 ->make(true);
         }
         $items['category'] = Category::all();
@@ -462,6 +476,34 @@ class ProductController extends Controller
             $product->today_deal = 1;
             $product->update();
             return response()->json('Today Deal Active Success!');
+        }
+    }
+    //________hot_deal.change__________________
+    public function hot_deal($id)
+    {
+        $product = Product::findOrfail($id);
+        if ($product->hot_deal == 1) {
+            $product->hot_deal = 2;
+            $product->update();
+            return response()->json('Hot Deal Inactive Success!');
+        } else {
+            $product->hot_deal = 1;
+            $product->update();
+            return response()->json('Hot Deal Active Success!');
+        }
+    }
+    //________trendy.change__________________
+    public function trendy($id)
+    {
+        $product = Product::findOrfail($id);
+        if ($product->trendy == 1) {
+            $product->trendy = 2;
+            $product->update();
+            return response()->json('Trendy Inactive Success!');
+        } else {
+            $product->trendy = 1;
+            $product->update();
+            return response()->json('Trendy Active Success!');
         }
     }
 }
