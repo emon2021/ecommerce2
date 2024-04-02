@@ -306,6 +306,14 @@
                                 </div>
                                 <hr style="border-color:#0D7EFF">
                                 <div class="form-group">
+                                    <label for="dropiFy">Hot Deal </label>
+                                    <div class="">
+                                        <input type='checkbox' value="1" name="hot_deal" data-toggle="toggle"
+                                            data-onstyle="success" data-offstyle="danger">
+                                    </div>
+                                </div>
+                                <hr style="border-color:#0D7EFF">
+                                <div class="form-group">
                                     <label for="dropiFy">Status</label>
                                     <div class="">
                                         <input type='checkbox' value="1" name="status" data-toggle="toggle"

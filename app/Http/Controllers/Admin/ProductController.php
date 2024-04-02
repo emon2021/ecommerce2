@@ -85,6 +85,7 @@ class ProductController extends Controller
         $product->slider_product = $request->slider_product;
         $product->featured = $request->featured;
         $product->today_deal = $request->today_deal;
+        $product->hot_deal = $request->hot_deal;
         $product->status = $request->status;
         $product->color = $request->color;
         $product->size = $request->size;
@@ -320,7 +321,7 @@ class ProductController extends Controller
         }else{
             $product->slider_product = 2;
         }
-        //____if: featured on get featured value else: 2 _________
+        //____if: featured on; get featured value else: 2 _________
         if(isset($request->featured))
         {
             $product->featured = $request->featured;
@@ -333,6 +334,13 @@ class ProductController extends Controller
             $product->today_deal = $request->today_deal;
         }else{
             $product->today_deal = 2;
+        }
+        //____if: hot deal on get hot_deal value else: 2 _________
+        if(isset($request->hot_deal))
+        {
+            $product->hot_deal = $request->hot_deal;
+        }else{
+            $product->hot_deal = 2;
         }
         //____if: cash_on_delivery on get cash_on_delivery value else: 2 _________
         if(isset($request->cash_on_delivery))
