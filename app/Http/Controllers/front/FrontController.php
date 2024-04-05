@@ -18,6 +18,8 @@ class FrontController extends Controller
         $data['featured_product'] = Product::where('featured',1)->get();
         $data['hot_deal'] = Product::where('hot_deal',1)->get();
         $data['trendy_products'] = Product::where('trendy',1)->get();
+        $data['category'] = Category::where('home_page',1)->get();
+        
         return view('home', $data);
     }
 

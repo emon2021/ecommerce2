@@ -51,6 +51,8 @@ Route::middleware(['auth', 'is_admin'])->prefix('/category')->group(function () 
     Route::get('/edit/{id}', [CategoryController::class, 'edit']);
     //___category.update.route___/
     Route::post('/update', [CategoryController::class, 'update'])->name('category.update');
+    //___category.home.page.show.route___/
+    Route::get('/home-page/show/{id}', [CategoryController::class, 'home_page'])->name('category.home_page');
 });
 //___subcategory route___/
 Route::middleware(['auth', 'is_admin'])->prefix('/sub-category')->group(function () {

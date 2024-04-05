@@ -99,6 +99,7 @@
                                             <th>SL</th>
                                             <th>Category Name</th>
                                             <th>Category Slug</th>
+                                            <th>Home Page</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -108,6 +109,13 @@
                                                 <td>{{ ++$key }}</td>
                                                 <td>{{ $category->category_name }}</td>
                                                 <td>{{ $category->category_slug }}</td>
+                                                <td><a href="{{route('category.home_page',$category->id)}}" >
+                                                  @if($category->home_page == 1)
+                                                      <span class="badge badge-success">Yes</span>
+                                                   @else
+                                                    <span class="badge badge-danger">No</span>
+                                                  @endif
+                                                  </a></td>
                                                 <td>
                                                     <a href="javascript:void(0)"  data-id="{{$category->id}}" class="btn btn-primary edit" data-bs-target="#editModal" data-bs-toggle="modal" >
                                                       <i class="fas fa-edit"></i>

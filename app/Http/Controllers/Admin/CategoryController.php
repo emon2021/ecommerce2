@@ -76,4 +76,18 @@ class CategoryController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
+    //_________category.home.page.showing____________
+    public function home_page($id)
+    {
+        $home_page = Category::findOrfail($id);
+        if ($home_page->home_page == 1) {
+            $home_page->home_page = 2;
+            $home_page->update();
+        } else {
+            $home_page->home_page = 1;
+            $home_page->update();
+        }
+        return back();
+    }
 }
