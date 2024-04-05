@@ -330,7 +330,6 @@
 {{----------------form submission without reload using ajax----------------}}
 <script>
   $(document).ready(function(){
-    $(document).on('click','#submit_btn',function(){
       // Handle form submission
       $('#form_submit').submit(function(e){
             e.preventDefault();
@@ -364,7 +363,6 @@
             });
         });
     });
-  });
 </script>
 {{----------------retrieve data for edit using ajax----------------}}
 <script>

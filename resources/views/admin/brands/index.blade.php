@@ -260,7 +260,7 @@
         <script>
             //  form submission with ajax
             $(document).ready(function() {
-                $(document).on('click', '#submit_btn', function() {
+                
                     //  handle form
                     $(document).on('submit', '#form_submit', function(e) {
                         e.preventDefault();
@@ -282,6 +282,7 @@
                                 toastr.success(response);
                                 //  data added form reset here
                                 $('#form_submit')[0].reset();
+                                $('.dropify').dropify();
                                 // reload table using yajra datatable
                                 yTable.ajax.reload();
                                 $('.btn-close').trigger('click');
@@ -296,7 +297,6 @@
                         });
 
                     });
-                });
                 //  end of form submission with ajax
 
 
@@ -329,8 +329,10 @@
                             });
                         }
                     });
-                    // handle delete data form submission
-                    $('#delete_form').submit(function(e) {
+                    
+                });
+                // handle delete data form submission
+                $('#delete_form').submit(function(e) {
                         e.preventDefault();
                         //  getting action route
                         let get_action = $(this).attr('action');
@@ -353,7 +355,6 @@
                             },
                         });
                     });
-                });
 
                 //  fatching data for editing
                 $('body').on('click', '.edit', function(e) {

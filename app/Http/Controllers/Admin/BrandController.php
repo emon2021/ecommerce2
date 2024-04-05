@@ -40,7 +40,7 @@ class BrandController extends Controller
         
         $request->validate([
             'brand_name'=>'required|unique:brands',
-            'brand_logo'=>'required|image|max:800|mimes:jpg,jpeg,png,gif,svg',
+            'brand_logo'=>'required|image|max:800|mimes:jpg,jpeg,png,gif,svg,webp',
         ]);
         
         $brand = new Brand();
@@ -66,11 +66,14 @@ class BrandController extends Controller
     //brand.destroy___/
     public function destroy($id)
     {
-        $brand = Brand::find($id);
-        $brand->delete();
-        //  delete image from folder
-        if(File::exists($brand->brand_logo)){
-            File::delete($brand->brand_logo);
+        if(isset($id))
+        {
+            $brand = Brand::find($id);
+            $brand->delete();
+            //  delete image from folder
+            if(File::exists($brand->brand_logo)){
+                File::delete($brand->brand_logo);
+            }
         }
         return response()->json('Brand Deleted!');
     }
