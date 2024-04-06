@@ -248,19 +248,9 @@
                                         <div class="col-lg-6 col-md-6 pt-xs-15">
                                             <p>Showing 1-12 of 13 item(s)</p>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <ul class="pagination-box pt-xs-20 pb-xs-15">
-                                                <li><a href="#" class="Previous"><i class="fa fa-chevron-left"></i>
-                                                        Previous</a>
-                                                </li>
-                                                <li class="active"><a href="#">1</a></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li>
-                                                    <a href="#" class="Next"> Next <i
-                                                            class="fa fa-chevron-right"></i></a>
-                                                </li>
-                                            </ul>
+                                        <div class="col-lg-6 col-md-6 d-flex justify-content-end">
+                                            
+                                               &nbsp; &nbsp; {{ $catProducts->links() }}
                                         </div>
                                     </div>
                                 </div>

@@ -42,7 +42,7 @@ class FrontController extends Controller
     //  category wise product page view
     public function category_product($id)
     {
-        $data['catProducts'] = Product::where( 'category_id', $id )->paginate(12);
+        $data['catProducts'] = Product::where( 'category_id', $id )->paginate(20);
         return view('frontend.pages.category_product', $data);
     }
 
