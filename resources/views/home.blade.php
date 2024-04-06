@@ -841,7 +841,7 @@
                             </h2>
                             <ul class="li-sub-category-list">
 
-                                <li><a href="#">View More...</a></li>
+                                <li><a href="{{route('category.product',$homePage->id)}}">View More...</a></li>
                             </ul>
                         </div>
                         <div class="li-banner-2 pt-15">

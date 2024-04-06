@@ -39,5 +39,12 @@ class FrontController extends Controller
         return view('frontend.pages.quick_view',$data);
     }
 
+    //  category wise product page view
+    public function category_product($id)
+    {
+        $data['catProducts'] = Product::where( 'category_id', $id )->paginate(12);
+        return view('frontend.pages.category_product', $data);
+    }
+
     
 }
