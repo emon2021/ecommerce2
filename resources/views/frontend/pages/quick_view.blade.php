@@ -156,6 +156,30 @@
 </div>
 
 
+
+<script>
+    $(document).ready(function() {
+    $('.inc').click(function() {
+        let get_val = $('.cart-plus-minus-box').val();
+        if (get_val != 10){
+           $('.cart-plus-minus-box').val((parseInt(get_val) + 1));
+        } else{
+            toastr.warning("You Reached Your Order Limit!");
+        }
+    });
+
+    $('.dec').click(function() {
+        let get_val = $('.cart-plus-minus-box').val();
+        if (get_val > 1){
+           $('.cart-plus-minus-box').val((parseInt(get_val) - 1));
+        } else{
+             toastr.warning("Please! Order at least 1 product");
+        }
+    });
+});
+
+</script>
+
 <!----------jquery code for product wishlist--------->
 <script type="text/javascript">
     $(document).ready(function() {
