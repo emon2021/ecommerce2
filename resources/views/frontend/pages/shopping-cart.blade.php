@@ -5,7 +5,7 @@
         <div class="container">
             <div class="breadcrumb-content">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{url('/')}}">Home</a></li>
                     <li class="active">Shopping Cart</li>
                 </ul>
             </div>
@@ -26,6 +26,8 @@
                                         <th class="li-product-thumbnail">images</th>
                                         <th class="cart-product-name">Product</th>
                                         <th class="li-product-price">Unit Price</th>
+                                        <th class="li-product-price">Color</th>
+                                        <th class="li-product-price">Size</th>
                                         <th class="li-product-quantity">Quantity</th>
                                         <th class="li-product-subtotal">Total</th>
                                     </tr>
@@ -41,9 +43,16 @@
                                             @php
                                                 $product = App\Models\Product::findOrfail($content->id);
                                                 $colors = $product->color;
+                                                $sizes = $product->size;
                                             @endphp
                                             @foreach(explode(',',$colors) as $color)
                                                 <option value="{{$color}}" @if($color == $content->options->color) selected @endif >{{$color}}</option>
+                                            @endforeach
+                                        </select></td>
+                                        <td class="li-product-price"><select name="color" id="">
+                                           
+                                            @foreach(explode(',',$sizes) as $size)
+                                                <option value="{{$size}}" @if($size == $content->options->size) selected @endif >{{$size}}</option>
                                             @endforeach
                                         </select></td>
                                         <td class="quantity">
