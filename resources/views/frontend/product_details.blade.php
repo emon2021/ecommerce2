@@ -75,7 +75,7 @@
             <div class="row single-product-area">
                 <div class="col-lg-5 col-md-6">
                     <!-- Product Details Left -->
-                    <div class="product-details-left">
+                    <div class="product-details-left" style="height: 400px">
                         <div class="product-details-images slider-navigation-1">
                             <div class="lg-image">
                                 <a class="popup-img venobox vbox-item" href="images/product/large-size/1.jpg"
@@ -92,7 +92,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="product-details-thumbs slider-thumbs-1">
+                        <div class="product-details-thumbs slider-thumbs-1" style="height: 100px">
                             @foreach (json_decode($single_product->images) as $data)
                                 <div class="sm-image"><img src="{{ asset($data) }}" alt="product image thumb"></div>
                             @endforeach
@@ -133,36 +133,7 @@
                                     </ul>
                                 @endif
                             </span>
-                            <div class="rating-box pt-20">
-                                <ul class="rating rating-with-review-item">
-                                    @isset($single_product->color)
-                                        <li class="forColor">
-                                            <select name="" id="">
-                                                <option value="">Color</option>
-                                                @php
-                                                    $c = explode(',', $single_product->color);
-                                                @endphp
-                                                @foreach ($c as $color)
-                                                    <option value="">{{ $color }}</option>
-                                                @endforeach
-                                            </select>
-                                        </li>
-                                    @endisset
-                                    @isset($single_product->size)
-                                        <li class="forSize">
-                                            <select name="" id="">
-                                                <option value="">Size</option>
-                                                @php
-                                                    $s = explode(',', $single_product->size);
-                                                @endphp
-                                                @foreach ($s as $size)
-                                                    <option value="">{{ $size }}</option>
-                                                @endforeach
-                                            </select>
-                                        </li>
-                                    @endisset
-                                </ul>
-                            </div>
+                            
                             {{-- <div class="product-variants d-block">
                             <div class="produt-variants-size">
                                 <label>Dimension</label>
@@ -180,9 +151,9 @@
                                     @if ($single_product->discount_price != null) style="text-decoration: line-through; font-size:18px" @endif>
                                     {{ $setting->currency }} {{ $single_product->selling_price }}</span>
 
-                                <span class="new-price new-price-2" style="color: black"> {{ $setting->currency }}
-                                    {{ $single_product->discount_price }}</span>
-
+                            @if($single_product->discount_price != null)
+                                <span class="new-price new-price-2" style="color: black"> {{ $setting->currency }}{{ $single_product->discount_price }}</span>
+                            @endif
                             </div>
                             {{-- <div class="product-desc">
                             <p>
@@ -191,20 +162,53 @@
                                 </span>
                             </p>
                         </div> --}}
-
+                        <form action="{{route('add.to.cart.quickview')}}" id="add_to_cart" method="post" class="cart-quantity">
+                            @csrf
+                            <input type="hidden" name="cart_id" value="{{$single_product->id}}">
+                            <div class="rating-box pt-20">
+                                <ul class="rating rating-with-review-item">
+                                    @isset($single_product->color)
+                                        <li class="forColor">
+                                            <select name="cart_color" id="">
+                                                <option value="">Color</option>
+                                                @php
+                                                    $c = explode(',', $single_product->color);
+                                                @endphp
+                                                @foreach ($c as $color)
+                                                    <option value="">{{ $color }}</option>
+                                                @endforeach
+                                            </select>
+                                        </li>
+                                    @endisset
+                                    @isset($single_product->size)
+                                        <li class="forSize">
+                                            <select name="cart_size" id="">
+                                                <option value="">Size</option>
+                                                @php
+                                                    $s = explode(',', $single_product->size);
+                                                @endphp
+                                                @foreach ($s as $size)
+                                                    <option value="">{{ $size }}</option>
+                                                @endforeach
+                                            </select>
+                                        </li>
+                                    @endisset
+                                </ul>
+                            </div>
                             <div class="single-add-to-cart">
-                                <form action="#" class="cart-quantity">
+                                
                                     <div class="quantity">
                                         <label>Quantity</label>
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" value="1" type="text">
+                                            <input class="cart-plus-minus-box" name="cart_qty" value="1" type="text">
                                             <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                             <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                         </div>
                                     </div>
                                     <button class="add-to-cart" type="submit">Add to cart</button>
-                                </form>
+                                
                             </div>
+                        </form>
                             <div class="product-additional-info pt-25">
                                 @php
                                     $get_wishlist = DB::table('wishlists')
@@ -709,3 +713,33 @@
 
 
     @endsection
+    <!---------- ajax code for product add to cart ------------->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#add_to_cart').on('submit',function(event_req){
+            event_req.preventDefault()
+            let get_action = $(this).attr('action');
+            let data = new FormData($(this)[0]);
+            $.ajax({
+                url:get_action,
+                type:'POST',
+                data:data,
+                processData: false,
+                contentType: false,
+                success: function(response){
+                    if(response.cart_count){
+                        $('#cart_counter').text(response.cart_count);
+                    }
+                    if(response.cart_total){
+                        $('#cart_total').text(response.cart_total);
+                    }
+                    toastr.success(response.message);
+                    $('#add_to_cart')[0].reset();
+                },
+                error: function(xhr,status,error){
+                    toastr.error(error);
+                }
+            });
+        });
+    });
+</script>

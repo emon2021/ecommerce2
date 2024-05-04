@@ -41,13 +41,12 @@
                             <!-- Begin Currency Area -->
                             <li>
                                 <span class="currency-selector-wrapper">Currency :</span>
-                                <div class="ht-currency-trigger"><span>USD $</span></div>
-                                <div class="currency ht-currency">
+                                <div class="ht-currency-trigger"><span>{{$setting->currency}}</span></div>
+                                {{-- <div class="currency ht-currency">
                                     <ul class="ht-setting-list">
-                                        <li><a href="#">EUR €</a></li>
-                                        <li class="active"><a href="#">USD $</a></li>
+                                        <li><a href="#">$setting->currency</a></li>
                                     </ul>
-                                </div>
+                                </div> --}}
                             </li>
                             <!-- Currency Area End Here -->
                             <!-- Begin Language Area -->
