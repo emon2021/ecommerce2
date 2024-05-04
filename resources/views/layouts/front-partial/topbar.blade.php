@@ -191,7 +191,7 @@
                                         @foreach(Cart::content()->take(2) as $cart)
                                         <li>
                                             <a href="single-product.html" class="minicart-product-image">
-                                                <img src="{{$cart->options->thumbnail}}" alt="cart products">
+                                                <img src="{{asset($cart->options->thumbnail)}}" alt="cart products">
                                             </a>
                                             <div class="minicart-product-details">
                                                 <h6><a href="single-product.html">{{$cart->name}}</a></h6>
@@ -203,7 +203,7 @@
                                         </li>
                                         @endforeach
                                     </ul>
-                                    <p class="minicart-total">SUBTOTAL: <span>{{$setting->currency}}{{Cart::subtotal()}}</span></p>
+                                    <p class="minicart-total">SUBTOTAL: <span>{{$setting->currency}} <span id="cart_subtotal">{{Cart::subtotal()}}</span> </span></p>
                                     <div class="minicart-button">
                                         <a href="{{route('shopping.cart.view')}}" class="li-button li-button-dark li-button-fullwidth li-button-sm">
                                             <span>View Full Cart</span>

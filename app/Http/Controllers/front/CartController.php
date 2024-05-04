@@ -39,4 +39,20 @@ class CartController extends Controller
     {
         return view('frontend.pages.shopping-cart');
     }
+
+    //  cart.product.remove
+    public function remove(Request $request,$id)
+    {
+        Cart::remove($id);
+        $cart_count = Cart::count();
+        $cart_total = Cart::total();
+        $cart_subtotal = Cart::subtotal();
+        return response()->json([
+            'message'=>'Product removed from cart!',
+            'status'=>'success',
+            'cart_count'=>$cart_count,
+            'cart_total'=>$cart_total,
+            'cart_subtotal'=>$cart_subtotal,
+        ]);
+    }
 }

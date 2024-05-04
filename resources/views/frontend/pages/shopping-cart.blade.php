@@ -33,19 +33,28 @@
                                 <tbody>
                                 @foreach(Cart::content() as $content)
                                     <tr>
-                                        <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                        <td class="li-product-thumbnail"><a href="#"><img src="{{$content->options->thumbnail}}" alt="Li's Product Image"></a></td>
+                                        <td class="li-product-remove"><a href="{{route('cart.product.remove',$content->rowId)}}" id="cart_item"><i class="fa fa-times"></i></a></td>
+                                        <td class="li-product-thumbnail" style="width: 100px"><a href="#" style="width: 100px"><img width="100%" src="{{asset($content->options->thumbnail)}}" alt="Li's Product Image"></a></td>
                                         <td class="li-product-name"><a href="#">{{$content->name}}</a></td>
                                         <td class="li-product-price"><span class="amount">{{$setting->currency}}{{$content->price}}</span></td>
+                                        <td class="li-product-price"><select name="color" id="">
+                                            @php
+                                                $product = App\Models\Product::findOrfail($content->id);
+                                                $colors = $product->color;
+                                            @endphp
+                                            @foreach(explode(',',$colors) as $color)
+                                                <option value="{{$color}}" @if($color == $content->options->color) selected @endif >{{$color}}</option>
+                                            @endforeach
+                                        </select></td>
                                         <td class="quantity">
                                             <label>Quantity</label>
                                             <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" value="{{Cart::content()->count()}}" type="text">
+                                                <input class="cart-plus-minus-box" value="{{$content->qty}}" type="text">
                                                 <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                                 <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                             </div>
                                         </td>
-                                        <td class="product-subtotal"><span class="amount">{{$setting->currency}}{{$content->price * Cart::content()->count()}}</span></td>
+                                        <td class="product-subtotal"><span class="amount">{{$setting->currency}}{{$content->price * $content->qty}}</span></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -82,4 +91,51 @@
         </div>
     </div>
     <!--Shopping Cart Area End-->
+    <form action="" id="remove" method="post">
+        @csrf
+        @method('DELETE')
+    </form>
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('body').on('click','#cart_item',function(e){
+            e.preventDefault();
+            const get_attr = $(this).attr('href');
+            
+            const set_route = $('#remove').attr('action',get_attr);
+
+            $('#remove').submit();
+        })
+        //  handle form submission
+        $('#remove').on('submit',function(event){
+            event.preventDefault();
+            const get_route = $(this).attr('action');
+            const formData = new FormData($(this)[0]);
+            $.ajax({
+                url:get_route,
+                type:'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    if(response.status == 'success'){
+                        toastr.success(response.message);
+                        $('#cart_item').parent().parent().remove();
+                    }
+                    if(response.cart_count){
+                        $('#cart_counter').html(response.cart_count);
+                    }
+                    if(response.cart_total){
+                        $('#cart_total').html(response.cart_total);
+                    }
+                    if(response.cart_subtotal){
+                        $('#cart_subtotal').html(response.cart_subtotal);
+                    }
+                }
+            });
+        });
+    });
+</script>
+@endpush
