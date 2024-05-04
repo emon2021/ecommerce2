@@ -72,12 +72,14 @@
                                         </span>
                                     </p>
                                 </div>
-                            <form action="#" class="cart-quantity">
+                            <form action="{{route('add.to.cart.quickview')}}" id="addToCart" class="cart-quantity">
+                                @csrf
+                                <input type="hidden" name="cart_id" value="{{$quickView->id}}">
                                 <div class="product-variants float-start" style="float:left">
                                     @if($quickView->color != null)
                                         <div class="produt-variants-size">
                                             <label>Color</label>
-                                            <select class="nice-select">
+                                            <select class="nice-select" name="cart_color">
                                                 @php
                                                     $colors = explode(',' ,$quickView->color);
                                                 @endphp
@@ -92,7 +94,7 @@
                                     @if($quickView->size != null)
                                         <div class="produt-variants-size">
                                             <label>Size</label>
-                                            <select class="nice-select">
+                                            <select class="nice-select" name="cart_size">
                                                 @php
                                                     $sizes = explode(',' ,$quickView->size);
                                                 @endphp
@@ -108,7 +110,7 @@
                                         <div class="quantity">
                                             <label>Quantity</label>
                                             <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" value="1" type="text">
+                                                <input class="cart-plus-minus-box" name="cart_qty" value="1" type="text">
                                                 <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                                 <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                             </div>
@@ -217,5 +219,33 @@
 
 
 
+    });
+</script>
+
+<!---------- ajax code for product add to cart ------------->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('body').on('submit','#addToCart',function(e){
+            e.preventDefault()
+            let get_action = $(this).attr('action');
+            let data = new FormData($(this)[0]);
+            $.ajax({
+                url:get_action,
+                type:'POST',
+                data:data,
+                processData: false,
+                contentType: false,
+                success: function(response){
+                    if(response.cart_count){
+                        $('#cart_counter').text(response.cart_count);
+                    }
+                    if(response.cart_total){
+                        $('#cart_total').text(response.cart_total);
+                    }
+                    toastr.success(response.message);
+                    $('#addToCart')[0].reset();
+                }
+            });
+        });
     });
 </script>

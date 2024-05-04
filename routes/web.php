@@ -47,5 +47,7 @@ Route::group(['namespace'=> 'App\Http\Controllers\front'],function(){
     //__________quick.view.route______________
     Route::get('/quick/view/{id}','FrontController@quick_view')->name( 'quick.view' );  
     //__________category.product.view.route______________
-    Route::get('/category/product/{id}','FrontController@category_product')->name( 'category.product' );  
+    Route::get('/category/product/{id}','FrontController@category_product')->name( 'category.product' );
+    //________add.to.cart.from.quick.view______________
+    Route::post('/product/addToCart','CartController@addToCart')->name('add.to.cart.quickview');  
 });
