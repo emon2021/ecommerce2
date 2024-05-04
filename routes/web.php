@@ -50,4 +50,6 @@ Route::group(['namespace'=> 'App\Http\Controllers\front'],function(){
     Route::get('/category/product/{id}','FrontController@category_product')->name( 'category.product' );
     //________add.to.cart.from.quick.view______________
     Route::post('/product/addToCart','CartController@addToCart')->name('add.to.cart.quickview');  
+    //________shopping.cart.view______________
+    Route::get('/shopping-cart/views','CartController@cartView')->name('shopping.cart.view');  
 });

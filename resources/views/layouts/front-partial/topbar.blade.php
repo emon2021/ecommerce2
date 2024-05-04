@@ -205,7 +205,7 @@
                                     </ul>
                                     <p class="minicart-total">SUBTOTAL: <span>{{$setting->currency}}{{Cart::subtotal()}}</span></p>
                                     <div class="minicart-button">
-                                        <a href="checkout.html" class="li-button li-button-dark li-button-fullwidth li-button-sm">
+                                        <a href="{{route('shopping.cart.view')}}" class="li-button li-button-dark li-button-fullwidth li-button-sm">
                                             <span>View Full Cart</span>
                                         </a>
                                         <a href="checkout.html" class="li-button li-button-fullwidth li-button-sm">
