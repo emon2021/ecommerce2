@@ -165,6 +165,8 @@ return [
         Yajra\DataTables\ButtonsServiceProvider::class,
         //  laravel debugbar
         Barryvdh\Debugbar\ServiceProvider::class,
+        //  laravel add shopping cart
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
 
 
         
@@ -194,6 +196,8 @@ return [
         'Datatables' => yajra\Datatables\Datatables::class,
         //  laravel debugbar aliasses
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+        //  laravel add shopping cart
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
     ])->toArray(),
 
 ];

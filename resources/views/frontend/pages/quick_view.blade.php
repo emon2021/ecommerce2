@@ -72,6 +72,7 @@
                                         </span>
                                     </p>
                                 </div>
+                            <form action="#" class="cart-quantity">
                                 <div class="product-variants float-start" style="float:left">
                                     @if($quickView->color != null)
                                         <div class="produt-variants-size">
@@ -103,7 +104,7 @@
                                     @endif
                                 </div>
                                 <div class="single-add-to-cart">
-                                    <form action="#" class="cart-quantity">
+                                    
                                         <div class="quantity">
                                             <label>Quantity</label>
                                             <div class="cart-plus-minus">
@@ -113,8 +114,9 @@
                                             </div>
                                         </div>
                                         <button class="add-to-cart" type="submit">Add to cart</button>
-                                    </form>
+                                   
                                 </div>
+                            </form>
                                 @php
                                     $wishlist_fetch = DB::table('wishlists')
                                         ->where('user_id', Auth::id())
