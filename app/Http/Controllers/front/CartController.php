@@ -31,7 +31,11 @@ class CartController extends Controller
         ]);
         $cart_count = Cart::count();
         $cart_total = Cart::total();
-        return response()->json(['message' => 'Product added to cart successfully','cart_count'=>$cart_count,'cart_total'=>$cart_total]);
+        return response()->json([
+            'message' => 'Product added to cart successfully',
+            'cart_count'=>$cart_count,
+            'cart_total'=>$cart_total,
+        ]);
     }
 
     //  shopping.cart.view

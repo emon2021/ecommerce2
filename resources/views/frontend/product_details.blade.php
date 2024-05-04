@@ -714,6 +714,7 @@
 
     @endsection
     <!---------- ajax code for product add to cart ------------->
+@push('scripts')
 <script type="text/javascript">
     $(document).ready(function(){
         $('#add_to_cart').on('submit',function(event_req){
@@ -743,3 +744,4 @@
         });
     });
 </script>
+@endpush

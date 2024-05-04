@@ -189,7 +189,7 @@
                                     <ul class="minicart-product-list">
                                         @foreach(Cart::content()->take(2) as $cart)
                                         <li>
-                                            <a href="single-product.html" class="minicart-product-image">
+                                            <a href="single-product.html" class="minicart-product-image cart_thumb">
                                                 <img src="{{asset($cart->options->thumbnail)}}" alt="cart products">
                                             </a>
                                             <div class="minicart-product-details">
