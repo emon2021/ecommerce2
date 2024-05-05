@@ -725,6 +725,7 @@
                 url:get_action,
                 type:'POST',
                 data:data,
+                dataType:'json',
                 processData: false,
                 contentType: false,
                 success: function(response){

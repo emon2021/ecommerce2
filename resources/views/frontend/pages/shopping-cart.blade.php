@@ -109,21 +109,22 @@
 @push('scripts')
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#cart_item').on('click',function(e){
+        $('body').on('click','#cart_item',function(e){
             e.preventDefault();
             const get_attr = $(this).attr('href');
-            
             const set_route = $('#remove').attr('action',get_attr);
 
             $('#remove').submit();
-        })
+
+            $(this).parent().parent().remove();
+        });
         //  handle form submission
         $('#remove').on('submit',function(event){
             event.preventDefault();
             const get_route = $(this).attr('action');
             const formData = new FormData($(this)[0]);
             $.ajax({
-                url:get_route,
+                url: get_route,
                 type:'post',
                 data: formData,
                 async: false,
@@ -132,20 +133,22 @@
                 success: function(response){
                     if(response.status == 'success'){
                         toastr.success(response.message);
-                        $('#cart_item').parent().parent().remove();
                     }
                     if(response.cart_count){
                         $('#cart_counter').html(response.cart_count);
                     }
                     if(response.cart_total){
                         $('#cart_total').html(response.cart_total);
+                        $('#cartTotal').html(response.cart_total);
                     }
                     if(response.cart_subtotal){
                         $('#cart_subtotal').html(response.cart_subtotal);
+                        $('#cartSubTotal').html(response.cart_subtotal);
         
                     }
                 }
             });
+            
         });
     });
 </script>
