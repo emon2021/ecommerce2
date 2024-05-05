@@ -225,7 +225,7 @@
 <!---------- ajax code for product add to cart ------------->
 <script type="text/javascript">
     $(document).ready(function(){
-        $('body').on('submit','#addToCart',function(e){
+        $('#addToCart').on('submit',function(e){
             e.preventDefault()
             let get_action = $(this).attr('action');
             let data = new FormData($(this)[0]);

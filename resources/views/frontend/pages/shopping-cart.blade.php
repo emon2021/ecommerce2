@@ -87,8 +87,8 @@
                                 <div class="cart-page-total">
                                     <h2>Cart totals</h2>
                                     <ul>
-                                        <li>Subtotal <span>{{$setting->currency}}{{Cart::subtotal()}}</span></li>
-                                        <li>Total <span>{{$setting->currency}}{{Cart::total()}}</span></li>
+                                        <li>Subtotal <span>{{$setting->currency}}</span><span id="cartSubTotal">{{Cart::subtotal()}}</span></li>
+                                        <li>Total <span>{{$setting->currency}}</span><span id="cartTotal">{{Cart::total()}}</span></li>
                                     </ul>
                                     <a href="#">Proceed to checkout</a>
                                 </div>
@@ -141,6 +141,7 @@
                     }
                     if(response.cart_subtotal){
                         $('#cart_subtotal').html(response.cart_subtotal);
+                        
                     }
                 }
             });
