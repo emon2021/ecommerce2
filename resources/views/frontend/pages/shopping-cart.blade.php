@@ -109,7 +109,7 @@
 @push('scripts')
 <script type="text/javascript">
     $(document).ready(function(){
-        $('body').on('click','#cart_item',function(e){
+        $('#cart_item').on('click',function(e){
             e.preventDefault();
             const get_attr = $(this).attr('href');
             
@@ -126,6 +126,7 @@
                 url:get_route,
                 type:'post',
                 data: formData,
+                async: false,
                 contentType: false,
                 processData: false,
                 success: function(response){
@@ -141,7 +142,7 @@
                     }
                     if(response.cart_subtotal){
                         $('#cart_subtotal').html(response.cart_subtotal);
-                        
+        
                     }
                 }
             });

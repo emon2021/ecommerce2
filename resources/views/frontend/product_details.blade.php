@@ -162,7 +162,7 @@
                                 </span>
                             </p>
                         </div> --}}
-                        <form action="{{route('add.to.cart.quickview')}}" id="add_to_cart" method="post" class="cart-quantity">
+                        <form action="{{route('add.to.cart.quickview')}}" class="add_to_cart" method="post" class="cart-quantity">
                             @csrf
                             <input type="hidden" name="cart_id" value="{{$single_product->id}}">
                             <div class="rating-box pt-20">
@@ -717,7 +717,7 @@
 @push('scripts')
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#add_to_cart').on('submit',function(event_req){
+        $('.add_to_cart').on('submit',function(event_req){
             event_req.preventDefault()
             let get_action = $(this).attr('action');
             let data = new FormData($(this)[0]);
