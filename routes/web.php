@@ -49,7 +49,7 @@ Route::group(['namespace'=> 'App\Http\Controllers\front'],function(){
     //__________category.product.view.route______________
     Route::get('/category/product/{id}','FrontController@category_product')->name( 'category.product' );
     //________add.to.cart.from.quick.view______________
-    Route::post('/product/addToCart','CartController@addToCart')->name('add.to.cart.quickview');  
+    Route::post('/product/addToCart','CartController@addToCart')->name('add.to.cart.quickview')->middleware(['auth']);  
     //________shopping.cart.view______________
     Route::get('/shopping-cart/views','CartController@cartView')->name('shopping.cart.view')->middleware(['auth_check']);  
     //________cart.product.remove______________

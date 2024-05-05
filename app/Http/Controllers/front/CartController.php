@@ -18,17 +18,19 @@ class CartController extends Controller
         } else {
             $price = $product->discount_price;
         }
+        
         Cart::add([
-            'id' => $product->id,
-            'name' => $product->name,
-            'qty' => $request->cart_qty,
-            'price' => $price,
-            'options' => [
-                'size' => $request->cart_size, 
-                'color' => $request->cart_color, 
-                'thumbnail' => $product->thumbnail
-            ],
-        ]);
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'qty' => $request->cart_qty,
+                    'price' => $price,
+                    'options' => [
+                        'size' => $request->cart_size, 
+                        'color' => $request->cart_color, 
+                        'thumbnail' => $product->thumbnail
+                    ],
+                ]);
+
         $cart_count = Cart::count();
         $cart_total = Cart::total();
         return response()->json([
