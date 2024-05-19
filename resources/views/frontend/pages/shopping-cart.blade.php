@@ -39,18 +39,20 @@
                                         <td class="li-product-thumbnail" style="width: 100px"><a href="#" style="width: 100px"><img width="100%" src="{{asset($content->options->thumbnail)}}" alt="Li's Product Image"></a></td>
                                         <td class="li-product-name"><a href="#">{{$content->name}}</a></td>
                                         <td class="li-product-price"><span class="amount">{{$setting->currency}}{{$content->price}}</span></td>
+                                        
                                         <td class="li-product-price"><select name="color" id="">
                                             @php
                                                 $product = App\Models\Product::findOrfail($content->id);
                                                 $colors = $product->color;
                                                 $sizes = $product->size;
                                             @endphp
+                                            <option value="">Color</option>
                                             @foreach(explode(',',$colors) as $color)
                                                 <option value="{{$color}}" @if($color == $content->options->color) selected @endif >{{$color}}</option>
                                             @endforeach
                                         </select></td>
                                         <td class="li-product-price"><select name="color" id="">
-                                           
+                                            <option value="">Size</option>
                                             @foreach(explode(',',$sizes) as $size)
                                                 <option value="{{$size}}" @if($size == $content->options->size) selected @endif >{{$size}}</option>
                                             @endforeach
@@ -90,7 +92,7 @@
                                         <li>Subtotal <span>{{$setting->currency}}</span><span id="cartSubTotal">{{Cart::subtotal()}}</span></li>
                                         <li>Total <span>{{$setting->currency}}</span><span id="cartTotal">{{Cart::total()}}</span></li>
                                     </ul>
-                                    <a href="#">Proceed to checkout</a>
+                                    <a href="{{route('checkout.shopping.cart')}}">Proceed to checkout</a>
                                 </div>
                             </div>
                         </div>
