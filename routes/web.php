@@ -29,6 +29,8 @@ Route::middleware(['not_guest'])->group(function(){
     //______ SOCIAL.LOGIN.REGISTER.______ 
     Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
     Route::get('/auth/callback', [SocialAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+    Route::get('/auth/facebook', [SocialAuthController::class, 'redirectTofacebook'])->name('auth.facebook');
+    Route::get('/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback'])->name('auth.facebook.callback');
     
 });
 Route::get('/user/logout',[HomeController::class, 'logout'])->name('user.logout');  //for registration

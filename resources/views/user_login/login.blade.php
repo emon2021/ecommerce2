@@ -46,7 +46,7 @@
                             <div class="col-md-12">
                                 <div class="row ">
                                     <div class="col-md-6 mt-5 text-light d-flext align-items-center justify-content-center">
-                                        <a class="facebook btn" href="#" style="background: #363f4d; color:white;"><i class="fa fa-facebook"></i>&nbsp;&nbsp; Login With Facebook</a>
+                                        <a class="facebook btn" href="{{ route('auth.facebook') }}" style="background: #363f4d; color:white;"><i class="fa fa-facebook"></i>&nbsp;&nbsp; Login With Facebook</a>
                                     </div>
                                     <div class="col-md-6 mt-5 text-light d-flext align-items-center justify-content-center">
                                         <a class="facebook btn" href="{{ route('auth.google') }}" style="background: #363f4d; color:white;"><i class="fa fa-google"></i>&nbsp;&nbsp; Login With Google</a>
