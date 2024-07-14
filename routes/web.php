@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SocialAuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +26,9 @@ Route::middleware(['not_guest'])->group(function(){
     Route::get('/register-show-form', [HomeController::class, 'showRegister'])->name('register.showForm');  // show register form when user
     Route::post('/user/register',[HomeController::class, 'register'])->name('user.register');  //for registration
     Route::post('/user/login',[HomeController::class, 'login'])->name('user.login');  //for registration
+    //______ SOCIAL.LOGIN.REGISTER.______ 
+    Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
+    Route::get('/auth/callback', [SocialAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
     
 });
 Route::get('/user/logout',[HomeController::class, 'logout'])->name('user.logout');  //for registration
