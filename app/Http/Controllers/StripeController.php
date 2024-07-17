@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -32,6 +34,12 @@ class StripeController extends Controller
         
         if(isset($response->id) && $response->id != '' )
         {
+            session()->put('payment_id', $response->id);
+            session()->put('user_id', auth()->user()->id);
+            session()->put('payment_method', 'Stripe');
+            session()->put('payment_status', 'paid');
+            session()->put('amount', Cart::total());
+
             return redirect($response->url);
         }else{
             return redirect()->route('payment.cancel');
@@ -43,10 +51,30 @@ class StripeController extends Controller
     {
         if(isset($request->session_id))
         {
-            return response()->json([
-                'message' => 'Payment success',
+            $pay = new Payment();
+            $pay->create([
+                'payment_id' => session()->get('payment_id'),
+                'user_id' => session()->get('user_id'),
+                'amount' => session()->get('amount'),
+                'payment_method' => session()->get('payment_method'),
+                'payment_status' => session()->get('payment_status'),
             ]);
+            $order = Order::where('user_id', session()->get('user_id'))->first();
+            $order->update([
+                'payment_status' => 'paid',
+            ]);
+
+            //  clear cart
+            Cart::destroy();
+            
+            $notification = array(
+                'message' => 'Payment successful!',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('home.page')->with($notification);
         }else{
+            
             return redirect()->route('payment.cancel');
         }
     }
@@ -54,8 +82,11 @@ class StripeController extends Controller
     //  payment.cancel
     public function cancel()
     {
-        return response()->json([
-            'message' => 'Payment canceled',
-        ]);
+        $notification = array(
+            'message' => 'Payment unsuccessful!',
+            'alert-type' => 'error'
+        );
+
+        return redirect()->back()->with($notification);
     }
 }
