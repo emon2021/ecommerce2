@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SocialAuthController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -65,4 +69,14 @@ Route::group(['namespace'=> 'App\Http\Controllers\front'],function(){
     
     //________checkout.shopping.cart__________
     Route::get('/checkout/shopping-cart','CheckoutController@create')->name('checkout.shopping.cart')->middleware(['auth_check']);
+    //________ order.route __________
+    
 });
+
+Route::controller(\App\Http\Controllers\OrderController::class)->middleware(['auth_check'])->group(function(){
+    Route::post('/order/store','store')->name('order.store');
+});
+
+    Route::get('/stripe',[StripeController::class, 'stripe'])->name('payment.stripe');
+    Route::get('/payment/success',[StripeController::class, 'success'])->name('payment.success');
+    Route::get('/payment/cancel',[StripeController::class, 'cancel'])->name('payment.cancel');
