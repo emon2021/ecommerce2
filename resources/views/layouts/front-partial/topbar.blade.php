@@ -180,7 +180,7 @@
                             <li class="hm-minicart">
                                 <div class="hm-minicart-trigger">
                                     <span class="item-icon"></span>
-                                    <span class="item-text">{{$setting->currency}} <span id="cart_total">{{Cart::total()}}</span>
+                                    <span class="item-text">{{$setting->currency}} <span id="cart_total">{{Cart::subtotal()}}</span>
                                         <span class="cart-item-count" id="cart_counter">{{Cart::count()}}</span>
                                     </span>
                                 </div>

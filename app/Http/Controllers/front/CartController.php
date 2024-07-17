@@ -32,7 +32,7 @@ class CartController extends Controller
                 ]);
 
         $cart_count = Cart::count();
-        $cart_total = Cart::total();
+        $cart_total = Cart::subtotal();
         return response()->json([
             'message' => 'Product added to cart successfully',
             'cart_count'=>$cart_count,
@@ -45,7 +45,29 @@ class CartController extends Controller
     {
         return view('frontend.pages.shopping-cart');
     }
+    //  cart.product.update
+    public function update(Request $request)
+    {
+        Cart::update($request->cart_id, [
+            'qty' => $request->cart_qty,
+            'options' => [
+                'color' => $request->cart_color,
+                'size' => $request->cart_size
+            ]
+        ]);
 
+        $cart_count = Cart::count();
+        $cart_total = Cart::total();
+        $cart_subtotal = Cart::subtotal();
+        
+        return response()->json([
+            'message'=>'Cart updated successfully!',
+            'status'=>'success',
+            'cart_count'=>$cart_count,
+            'cart_total'=>$cart_total,
+            'cart_subtotal'=>$cart_subtotal,
+        ]);
+    }
     //  cart.product.remove
     public function remove(Request $request,$id)
     {

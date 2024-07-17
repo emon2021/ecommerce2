@@ -59,7 +59,8 @@ Route::group(['namespace'=> 'App\Http\Controllers\front'],function(){
     //________shopping.cart.view______________
     Route::get('/shopping-cart/views','CartController@cartView')->name('shopping.cart.view')->middleware(['auth_check']);  
     //________cart.product.remove______________
-    Route::delete('/shopping-cart/product/remove/{id}','CartController@remove')->name('cart.product.remove')->middleware(['auth_check']); 
+    Route::get('/shopping-cart/product/remove/{id}','CartController@remove')->name('cart.product.remove')->middleware(['auth_check']); 
+
     
     
     //________checkout.shopping.cart__________

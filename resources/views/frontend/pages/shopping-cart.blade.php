@@ -17,7 +17,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form action="#">
+                    <form action="#" id="update_form" method="post">
+                        @csrf
                         <div class="table-content table-responsive">
                             <table class="table">
                                 <thead>
@@ -33,14 +34,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach(Cart::content() as $content)
+                                @foreach(Cart::content() as $key => $content)
                                     <tr>
                                         <td class="li-product-remove"><a href="{{route('cart.product.remove',$content->rowId)}}" id="cart_item"><i class="fa fa-times"></i></a></td>
                                         <td class="li-product-thumbnail" style="width: 100px"><a href="#" style="width: 100px"><img width="100%" src="{{asset($content->options->thumbnail)}}" alt="Li's Product Image"></a></td>
                                         <td class="li-product-name"><a href="#">{{$content->name}}</a></td>
                                         <td class="li-product-price"><span class="amount">{{$setting->currency}}{{$content->price}}</span></td>
                                         
-                                        <td class="li-product-price"><select name="color" id="">
+                                        <td class="li-product-price"><select disabled name="color" id="">
                                             @php
                                                 $product = App\Models\Product::findOrfail($content->id);
                                                 $colors = $product->color;
@@ -50,8 +51,10 @@
                                             @foreach(explode(',',$colors) as $color)
                                                 <option value="{{$color}}" @if($color == $content->options->color) selected @endif >{{$color}}</option>
                                             @endforeach
+                                            <option value="">{{ $content->options->color }}</option>
                                         </select></td>
-                                        <td class="li-product-price"><select name="color" id="">
+                                       
+                                        <td class="li-product-price"><select disabled name="size" id="">
                                             <option value="">Size</option>
                                             @foreach(explode(',',$sizes) as $size)
                                                 <option value="{{$size}}" @if($size == $content->options->size) selected @endif >{{$size}}</option>
@@ -59,8 +62,8 @@
                                         </select></td>
                                         <td class="quantity">
                                             <label>Quantity</label>
-                                            <div class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" value="{{$content->qty}}" type="text">
+                                            <div class="cart-plus-minus" disabled>
+                                                <input class="cart-plus-minus-box" readonly name="cart_qty" value="{{$content->qty}}" type="text">
                                                 <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                                 <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                             </div>
@@ -90,7 +93,7 @@
                                     <h2>Cart totals</h2>
                                     <ul>
                                         <li>Subtotal <span>{{$setting->currency}}</span><span id="cartSubTotal">{{Cart::subtotal()}}</span></li>
-                                        <li>Total <span>{{$setting->currency}}</span><span id="cartTotal">{{Cart::total()}}</span></li>
+                                        <li>Total <span>{{$setting->currency}}</span><span id="cartTotal">{{Cart::subtotal()}}</span></li>
                                     </ul>
                                     <a href="{{route('checkout.shopping.cart')}}">Proceed to checkout</a>
                                 </div>
@@ -102,10 +105,12 @@
         </div>
     </div>
     <!--Shopping Cart Area End-->
-    <form action="" id="remove" method="post">
+    <form action="" id="remove" method="get">
         @csrf
-        @method('DELETE')
+        @method('get')
     </form>
+
+    
 @endsection
 
 @push('scripts')
@@ -124,14 +129,10 @@
         $('#remove').on('submit',function(event){
             event.preventDefault();
             const get_route = $(this).attr('action');
-            const formData = new FormData($(this)[0]);
+
             $.ajax({
                 url: get_route,
-                type:'post',
-                data: formData,
-                async: false,
-                contentType: false,
-                processData: false,
+                type:'get',
                 success: function(response){
                     if(response.status == 'success'){
                         toastr.success(response.message);
@@ -152,6 +153,7 @@
             });
             
         });
+        
     });
 </script>
 @endpush

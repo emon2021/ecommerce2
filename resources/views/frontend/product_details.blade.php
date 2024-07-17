@@ -175,7 +175,7 @@
                                                     $c = explode(',', $single_product->color);
                                                 @endphp
                                                 @foreach ($c as $color)
-                                                    <option value="">{{ $color }}</option>
+                                                    <option value="{{ $color }}">{{ $color }}</option>
                                                 @endforeach
                                             </select>
                                         </li>
@@ -188,7 +188,7 @@
                                                     $s = explode(',', $single_product->size);
                                                 @endphp
                                                 @foreach ($s as $size)
-                                                    <option value="">{{ $size }}</option>
+                                                    <option value="{{ $size }}">{{ $size }}</option>
                                                 @endforeach
                                             </select>
                                         </li>
